@@ -6,6 +6,13 @@
   <router-view />
 </template>
 
+<script>
+import '@/styles/main.css' // CSS 파일을 올바르게 import
+export default {
+  // 컴포넌트 로직
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
