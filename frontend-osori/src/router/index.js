@@ -11,6 +11,7 @@ import PortfolioByTag from '@/views/portfolio/PortfolioByTag.vue'
 import PortfolioTest from '@/views/portfolio/PortfolioTest.vue'
 import PortfolioLayout from '@/components/layout/PortfolioLayout.vue' // 중첩 라우팅의 부모 레이아웃
 import TaliwindResopon from '@/views/TaliwindResopon.vue'
+import NotFound from '@/views/NotFound.vue'
 //import NotFoundPage from '@/views/NotFoundPage.vue' // 404 페이지
 
 const routes = [
@@ -52,9 +53,11 @@ const routes = [
     component: Profile,
     meta: { requiresAuth: true } // 인증이 필요한 페이지
   },
+  // 잘못된 경로 처리 (404 페이지)
   {
-    path: '/:catchAll(.*)',
-    redirect: '/auth/signin' // 잘못된 경로는 로그인 페이지로 리다이렉트
+    path: '/:catchAll(.*)', // 모든 경로를 잡아내는 방식
+    name: 'NotFound',
+    component: NotFound
   },
   {
     path: '/portfolios', // 부모 라우트
