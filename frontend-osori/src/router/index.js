@@ -6,6 +6,11 @@ import AuthLayout from '@/components/layout/AuthLayout.vue' // 중첩 라우팅�
 import VerifyEmail from '@/views/login/VerifyEmail.vue'
 import SignIn from '@/views/login/SignIn.vue'
 import SignUpForm from '@/views/login/SignUpForm.vue'
+import PortfolioCreate from '@/views/portfolio/PortfolioCreate.vue'
+import PortfolioByTag from '@/views/portfolio/PortfolioByTag.vue'
+import PortfolioTest from '@/views/portfolio/PortfolioTest.vue'
+import PortfolioLayout from '@/components/layout/PortfolioLayout.vue' // 중첩 라우팅의 부모 레이아웃
+import TaliwindResopon from '@/views/TaliwindResopon.vue'
 //import NotFoundPage from '@/views/NotFoundPage.vue' // 404 페이지
 
 const routes = [
@@ -50,6 +55,32 @@ const routes = [
   {
     path: '/:catchAll(.*)',
     redirect: '/auth/signin' // 잘못된 경로는 로그인 페이지로 리다이렉트
+  },
+  {
+    path: '/portfolios', // 부모 라우트
+    component: PortfolioLayout, // 공통 레이아웃 컴포넌트
+    children: [
+      {
+        path: 'new', // /portfolios/new
+        name: 'CreatePortfolio',
+        component: PortfolioCreate
+      },
+      {
+        path: 'tag', // /portfolios/tag
+        name: 'SearchByTag',
+        component: PortfolioByTag
+      },
+      {
+        path: 'test', // /portfolios/tag
+        name: 'Test',
+        component: PortfolioTest
+      }
+    ]
+  },
+  {
+    path: '/responsivetest',
+    name: 'TaliwindResopon',
+    component: TaliwindResopon
   }
   //{ path: '*', component: NotFoundPage } // 404 페이지 처리 (활성화 필요시)
 ]
