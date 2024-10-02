@@ -55,7 +55,7 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(), // Hash 모드를 사용
+  history: createWebHashHistory('/akoming/'), // Hash 모드를 사용
   routes
 })
 

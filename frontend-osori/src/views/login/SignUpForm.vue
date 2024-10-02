@@ -9,7 +9,7 @@
         <h2
           class="mt-6 text-center text-4xl font-extrabold text-gray-900 tracking-tight"
         >
-          회원가입 완료
+          회원가입
         </h2>
         <div class="mt-4 bg-gray-50 rounded-lg p-4 border border-gray-200">
           <p class="text-center text-sm text-gray-600">
@@ -22,6 +22,21 @@
       </div>
 
       <form class="mt-8 space-y-6" @submit.prevent="completeSignup">
+        <!-- 실명 입력 -->
+        <div class="space-y-1">
+          <label for="realName" class="block text-sm font-medium text-gray-700">
+            실명
+          </label>
+          <input
+            v-model="realName"
+            id="realName"
+            name="realName"
+            type="text"
+            required
+            class="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-2 focus:ring-black focus:border-black focus:z-10 sm:text-sm transition-all duration-200"
+            placeholder="실명을 입력하세요"
+          />
+        </div>
         <!-- 닉네임 입력 -->
         <div class="space-y-1">
           <label for="nickname" class="block text-sm font-medium text-gray-700">
