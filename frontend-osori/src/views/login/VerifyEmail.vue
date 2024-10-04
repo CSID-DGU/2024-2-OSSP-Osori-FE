@@ -14,7 +14,7 @@
         <p class="mt-2 text-center text-sm text-gray-600">
           이미 계정이 있으신가요?
           <router-link
-            to="auth/signin"
+            to="/auth/signin"
             class="font-medium text-black hover:text-gray-800 transition-colors duration-200"
             >로그인</router-link
           >
