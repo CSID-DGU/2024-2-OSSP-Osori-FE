@@ -5,5 +5,11 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import './assets/styles/global.css'
+import 'tailwindcss/tailwind.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import VCalendar from 'v-calendar' // v-calendar를 불러오기
 
-createApp(App).use(store).use(router).mount('#app')
+// v-calendar 기본 스타일 추가
+import 'v-calendar/dist/style.css'
+
+createApp(App).use(store).use(VCalendar, {}).use(router).mount('#app')
