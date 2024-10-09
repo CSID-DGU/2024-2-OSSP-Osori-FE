@@ -13,6 +13,7 @@ import PortfolioLayout from '@/components/layout/PortfolioLayout.vue' // 중첩 
 import TaliwindResopon from '@/views/TaliwindResopon.vue'
 import SignUpForm2 from '@/views/login/SignUpForm2.vue'
 import NotFound from '@/views/NotFound.vue'
+import WeeklyCalenderTest from '@/views/WeeklyCalenderTest.vue'
 //import NotFoundPage from '@/views/NotFoundPage.vue' // 404 페이지
 
 const routes = [
@@ -90,6 +91,11 @@ const routes = [
     path: '/responsivetest',
     name: 'TaliwindResopon',
     component: TaliwindResopon
+  },
+  {
+    path: '/weeklycalendertest',
+    name: 'WeeklyCalenderTest',
+    component: WeeklyCalenderTest
   }
   //{ path: '*', component: NotFoundPage } // 404 페이지 처리 (활성화 필요시)
 ]
