@@ -182,7 +182,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import Navigation from '@/components/layout/Navigation.vue'
+import Navigation from '@/components/layout/BottomNavigationBar.vue'
 
 const router = useRouter()
 const realName = ref('')

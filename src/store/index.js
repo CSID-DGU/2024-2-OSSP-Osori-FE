@@ -4,7 +4,7 @@ import login from './modules/login.js'
 
 const store = createStore({
   modules: {
-    login
+    //login
   }
 })
 

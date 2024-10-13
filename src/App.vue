@@ -1,20 +1,21 @@
 <template>
   <nav>
-    <!--router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>-->
+    <!-- <router-link to="/">Home</router-link> | -->
+    <!-- <router-link to="/about">About</router-link> -->
   </nav>
   <router-view />
 </template>
 
 <script>
-import '@/assets/styles/main.css' // CSS 파일을 올바르게 import
+import '@/assets/styles/main.css'
 export default {
-  // 컴포넌트 로직
+  name: 'App' // 컴포넌트 명 추가
 }
 </script>
 
-<style>
-/* #app {
+<style scoped>
+/*
+#app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,5 +34,6 @@ nav a {
 
 nav a.router-link-exact-active {
   color: #42b983;
-} */
+}
+*/
 </style>

@@ -37,7 +37,7 @@ export default {
       try {
         // 로그인 API 호출
         const response = await axios.post(
-          'http://localhost:8082/api/users/login',
+          `${process.env.VUE_APP_BE_API_URL}/api/users/login`,
           {
             email: this.email,
             password: this.password

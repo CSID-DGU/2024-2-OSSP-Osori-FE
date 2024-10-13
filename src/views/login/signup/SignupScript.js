@@ -33,7 +33,7 @@ export default {
       this.validateEmail() // 이메일 유효성 확인
       if (this.isEmailValid) {
         // 이메일 인증 요청
-        fetch('http://localhost:8082/api/users/signup/send-email', {
+        fetch(`${process.env.VUE_APP_BE_API_URL}/api/users/signup/send-email`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ export default {
 
     verifyCode() {
       // 서버로 이메일과 인증 코드를 전송하여 인증 확인
-      fetch('http://localhost:8082/api/users/signup/verify-code', {
+      fetch(`${process.env.VUE_APP_BE_API_URL}/api/users/signup/verify-code`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ export default {
       this.validatePassword() // 비밀번호 유효성 확인
       if (this.isPasswordValid && this.canSubmit && this.isCodeValid) {
         // 회원가입 요청
-        fetch('http://localhost:8082/api/users/signup', {
+        fetch(`${process.env.VUE_APP_BE_API_URL}/api/users/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

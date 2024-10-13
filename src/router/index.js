@@ -2,6 +2,7 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import AuthLayout from '@/components/layout/AuthLayout.vue' // 중첩 라우팅의 부모 레이아웃
 import PortfolioLayout from '@/components/layout/PortfolioLayout.vue' // 중첩 라우팅의 부모 레이아웃
+import store from '@/store'
 
 // 자동 임포트 함수 (src/views 내의 모든 .vue 파일을 임포트)
 function importAllViews() {
@@ -62,6 +63,20 @@ const routes = [
     path: '/:catchAll(.*)',
     name: 'NotFound',
     component: importedViews['NotFound'] // 자동 임포트 적용
+  },
+  {
+    path: '/mypage',
+    name: 'MypageView',
+    component: importedViews['MypageView'] // 자동 임포트 적용
+    // beforeEnter: (to, from, next) => {
+    //   // 로그인 여부 확인
+    //   if (!store.state.isAuthenticated) {
+    //     alert('로그인이 필요합니다.')
+    //     next('/auth/login') // 로그인 페이지로 리다이렉트
+    //   } else {
+    //     next()
+    //   }
+    //}
   }
 ]
 
