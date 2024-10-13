@@ -6,7 +6,7 @@
       <!-- Mobile frame -->
       <div class="absolute inset-0 bg-[#FAE8DA] overflow-hidden">
         <!-- Top white area with logo -->
-        <div class="h-16 bg-white flex items-center justify-center">
+        <div class="h-16 bg-white flex items-center px-4">
           <img
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ako%20ming-5vJmEg5PbbIv4TIaUPDPQX1osOxkc0.svg"
             alt="Ako ming"
@@ -171,8 +171,8 @@
           </div>
         </div>
 
-        <!-- Bottom white bar -->
-        <div class="h-16 bg-white absolute bottom-0 w-full"></div>
+        <!-- Bottom navigation bar -->
+        <Navigation />
       </div>
     </div>
   </div>
@@ -182,6 +182,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import Navigation from '@/components/BottomNavigationBar/Navigation.vue'
 
 const router = useRouter()
 const realName = ref('')

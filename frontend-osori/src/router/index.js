@@ -14,6 +14,8 @@ import TaliwindResopon from '@/views/TaliwindResopon.vue'
 import SignUpForm2 from '@/views/login/SignUpForm2.vue'
 import NotFound from '@/views/NotFound.vue'
 import WeeklyCalenderTest from '@/views/WeeklyCalenderTest.vue'
+import realsignUp from '@/views/login/realsignup.vue'
+import realLogin from '@/views/login/realLogin.vue'
 //import NotFoundPage from '@/views/NotFoundPage.vue' // 404 페이지
 
 const routes = [
@@ -51,6 +53,16 @@ const routes = [
         path: 'signupform2', // /portfolios/tag
         name: 'SignUpForm2',
         component: SignUpForm2
+      },
+      {
+        path: 'realsignup', // /portfolios/tag
+        name: 'realsignUp',
+        component: realsignUp
+      },
+      {
+        path: 'reallogin', // /portfolios/tag
+        name: 'realLogin',
+        component: realLogin
       }
     ]
   },
