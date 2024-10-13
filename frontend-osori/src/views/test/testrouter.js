@@ -29,8 +29,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: importedViews['HomeView'], // 자동 임포트 적용
-    redirect: '/auth/login' // 기본 경로에서 /auth/login으로 리다이렉트
+    component: importedViews['HomeView'] // 자동 임포트 적용
   },
   {
     path: '/about',
@@ -41,6 +40,26 @@ const routes = [
     path: '/auth',
     component: AuthLayout, // 부모 레이아웃
     children: [
+      {
+        path: 'signin',
+        name: 'signin',
+        component: importedViews['SignIn'] // 자동 임포트 적용
+      },
+      {
+        path: 'signupform',
+        name: 'signupform',
+        component: importedViews['SignUpForm'] // 자동 임포트 적용
+      },
+      {
+        path: 'verifyemail',
+        name: 'verifyemail',
+        component: importedViews['VerifyEmail'] // 자동 임포트 적용
+      },
+      {
+        path: 'signupform2',
+        name: 'SignUpForm2',
+        component: importedViews['SignUpForm2'] // 자동 임포트 적용
+      },
       {
         path: 'signup',
         name: 'SignupView',
@@ -54,9 +73,41 @@ const routes = [
     ]
   },
   {
+    path: '/profile',
+    name: 'profile',
+    component: importedViews['Profile'], // 자동 임포트 적용
+    meta: { requiresAuth: true } // 인증이 필요한 페이지
+  },
+  {
     path: '/portfolios',
     component: PortfolioLayout, // 공통 레이아웃 컴포넌트
-    children: []
+    children: [
+      {
+        path: 'new',
+        name: 'CreatePortfolio',
+        component: importedViews['PortfolioCreate'] // 자동 임포트 적용
+      },
+      {
+        path: 'tag',
+        name: 'SearchByTag',
+        component: importedViews['PortfolioByTag'] // 자동 임포트 적용
+      },
+      {
+        path: 'test',
+        name: 'Test',
+        component: importedViews['PortfolioTest'] // 자동 임포트 적용
+      }
+    ]
+  },
+  {
+    path: '/responsivetest',
+    name: 'TaliwindResopon',
+    component: importedViews['TaliwindResopon'] // 자동 임포트 적용
+  },
+  {
+    path: '/weeklycalendertest',
+    name: 'WeeklyCalenderTest',
+    component: importedViews['WeeklyCalenderTest'] // 자동 임포트 적용
   },
   {
     path: '/:catchAll(.*)',
@@ -71,5 +122,5 @@ const router = createRouter({
 })
 
 //라우터 가드 설정(세션 기반 쿠기, 나중에 수정 필요)
-// meta: { requiresAuth: true } // 인증이 필요한 페이지
+
 export default router
