@@ -6,7 +6,7 @@
       <!-- Mobile frame -->
       <div class="absolute inset-0 bg-[#FAE8DA] overflow-hidden">
         <!-- Top white area with logo -->
-        <div class="h-16 bg-white flex items-center px-4">
+        <div class="flex items-center h-16 px-4 bg-white">
           <img
             src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Ako%20ming-5vJmEg5PbbIv4TIaUPDPQX1osOxkc0.svg"
             alt="Ako ming"
@@ -16,13 +16,13 @@
 
         <!-- Main content area -->
         <div class="h-[calc(100%-8rem)] overflow-y-auto px-6 py-8">
-          <div class="text-center mb-8">
+          <div class="mb-8 text-center">
             <h1 class="text-3xl font-bold text-black">회원가입</h1>
           </div>
 
           <form
             @submit.prevent="completeSignup"
-            class="space-y-6 max-w-xs mx-auto"
+            class="max-w-xs mx-auto space-y-6"
           >
             <div class="space-y-2">
               <label
@@ -164,7 +164,7 @@
 
           <div
             v-if="message"
-            class="mt-4 p-3 rounded-lg text-sm text-center max-w-xs mx-auto"
+            class="max-w-xs p-3 mx-auto mt-4 text-sm text-center rounded-lg"
             :class="messageClass"
           >
             {{ message }}
@@ -182,7 +182,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import Navigation from '@/components/BottomNavigationBar/Navigation.vue'
+import Navigation from '@/components/layout/Navigation.vue'
 
 const router = useRouter()
 const realName = ref('')
