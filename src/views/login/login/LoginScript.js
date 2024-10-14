@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { mapActions } from 'vuex'
 
 export default {
   data() {
@@ -17,8 +16,6 @@ export default {
     }, 2000) // 2000ms = 2초
   },
   methods: {
-    ...mapActions(['login']), // Vuex의 login action 매핑
-
     validateEmail() {
       // 이메일이 반드시 @dgu.ac.kr 로 끝나도록 체크
       const emailDomain = '@dgu.ac.kr'
@@ -48,11 +45,10 @@ export default {
         if (response.status === 200) {
           const userData = response.data // 서버에서 받은 사용자 데이터
 
-          // Vuex에 로그인된 사용자 정보 저장
-          this.login(userData)
-
           alert('로그인 성공!')
           // 로그인 성공 후 페이지 이동 등의 추가 로직
+          // 로그인 성공 후 MypageView로 리다이렉트
+          this.$router.push('/mypage')
         }
       } catch (error) {
         // 로그인 실패 처리
@@ -65,7 +61,7 @@ export default {
     },
     goToSignup() {
       // 회원가입 페이지로 이동
-      this.$router.push('/signup')
+      this.$router.push('/auth/signup')
     }
   }
 }

@@ -5,41 +5,83 @@
 
     <section class="intro-section">
       <h2>자기소개</h2>
-      <p class="introduce-text">{{ user.introduce }}</p>
+      <p class="introduce-text">
+        {{ user.introduce || '자기소개를 입력하세요.' }}
+      </p>
       <button class="edit-button" @click="editIntroduce">수정하기</button>
     </section>
 
     <section class="profile-section">
-      <h2>개인정보 수정</h2>
+      <h2>개인정보</h2>
+
+      <!-- 실명과 이메일은 읽기 전용으로 표시 -->
       <div class="form-group">
-        <label> 실명: </label>
-        <input type="text" v-model="user.name" />
+        <label>실명: </label>
+        <input type="text" v-model="user.name" readonly />
+      </div>
+
+      <div class="form-group">
+        <label>이메일: </label>
+        <input type="email" v-model="user.email" readonly />
+      </div>
+      <!-- 닉네임 수정 -->
+      <div class="form-group">
+        <label>닉네임: </label>
+        <input
+          type="text"
+          v-model="user.nickname"
+          placeholder="닉네임을 입력하세요"
+        />
+      </div>
+
+      <!-- 현재 비밀번호 확인 -->
+      <div class="form-group">
+        <label>현재 비밀번호 확인: </label>
+        <input
+          type="password"
+          v-model="currentPassword"
+          placeholder="현재 비밀번호를 입력하세요"
+        />
+      </div>
+      <button class="save-button" @click="verifyCurrentPassword">
+        비밀번호 확인하기
+      </button>
+
+      <!-- 새 비밀번호 입력 -->
+      <div class="form-group">
+        <label>새 비밀번호: </label>
+        <input
+          type="password"
+          v-model="password"
+          placeholder="새 비밀번호를 입력하세요"
+        />
       </div>
       <div class="form-group">
-        <label> 이메일: </label>
-        <input type="email" v-model="user.email" />
-      </div>
-      <div class="form-group">
-        <label> 비밀번호: </label>
-        <input type="password" v-model="password" />
-      </div>
-      <div class="form-group">
-        <label> 비밀번호 확인: </label>
-        <input type="password" v-model="confirmPassword" />
+        <label>새 비밀번호 확인: </label>
+        <input
+          type="password"
+          v-model="confirmPassword"
+          placeholder="새 비밀번호를 다시 입력하세요"
+        />
       </div>
       <button class="save-button" @click="updatePassword">비밀번호 수정</button>
 
+      <!-- 학번 및 학과 수정 -->
       <div class="form-group">
-        <label> 닉네임: </label>
-        <input type="text" v-model="user.nickname" />
+        <label>학번: </label>
+        <input
+          type="text"
+          v-model="user.studentNumber"
+          placeholder="학번을 입력하세요"
+        />
       </div>
       <div class="form-group">
-        <label> 학번: </label>
-        <input type="text" v-model="user.studentNumber" />
-      </div>
-      <div class="form-group">
-        <label> 학과: </label>
-        <input type="text" v-model="user.major" />
+        <label>학과: </label>
+        <input
+          type="text"
+          v-model="user.major"
+          placeholder="학과를 입력하세요"
+        />
       </div>
       <button class="save-button" @click="updateProfile">수정하기</button>
     </section>

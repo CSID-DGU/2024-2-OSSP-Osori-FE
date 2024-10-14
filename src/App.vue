@@ -8,6 +8,7 @@
 
 <script>
 import '@/assets/styles/main.css'
+import '@/assets/styles/global.css'
 export default {
   name: 'App' // 컴포넌트 명 추가
 }

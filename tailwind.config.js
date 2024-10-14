@@ -3,7 +3,14 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
-    extend: {}
+    extend: {
+      fontFamily: {
+        pretendard: ['Pretendard', 'sans-serif'] // Pretendard 폰트 추가
+      },
+      colors: {
+        customBg: '#FFF9F2'
+      }
+    }
   },
   plugins: []
 }

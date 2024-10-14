@@ -1,128 +1,89 @@
 <template>
-  <div class="app">
-    <!-- 로고 페이지 -->
-    <div v-if="showLogo" class="logo-page">
-      <img src="@/assets/logo.png" alt="로고" />
-    </div>
-
-    <!-- 로그인 페이지 -->
-    <div v-else>
+  <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
+    <div class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative">
       <!-- 상단바 -->
-      <header class="header">
-        <h1>로그인 페이지</h1>
+      <header
+        class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
+      >
+        <div class="flex items-center justify-between">
+          <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
+          <button
+            @click="$router.push('/auth/signup')"
+            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
+          >
+            회원가입
+          </button>
+        </div>
       </header>
 
       <!-- 본문 내용 -->
-      <main class="main-content">
-        <form @submit.prevent="onSubmit">
-          <div>
-            <label for="email">이메일</label>
+      <main class="flex flex-col justify-center min-h-screen px-12 pt-16 pb-8">
+        <h1 class="mb-2 text-2xl font-bold text-center">로그인</h1>
+        <form @submit.prevent="onSubmit" class="my-8 space-y-4">
+          <!-- 이메일 입력란 -->
+          <div class="space-y-1">
+            <label for="email" class="block text-sm font-medium text-gray-700"
+              >이메일</label
+            >
             <input
               type="email"
               id="email"
               v-model="email"
               placeholder="이메일 입력"
               @input="validateEmail"
-              :class="{ invalid: !isEmailValid && email !== '' }"
+              :class="{ 'border-red-500': !isEmailValid && email !== '' }"
               required
+              class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
             />
-            <p v-if="!isEmailValid && email !== ''" class="error">
+            <p
+              v-if="!isEmailValid && email !== ''"
+              class="mt-1 text-xs text-red-500"
+            >
               반드시 @dgu.ac.kr 이메일을 사용해야 합니다.
             </p>
           </div>
-          <div>
-            <label for="password">비밀번호</label>
+
+          <!-- 비밀번호 입력란 -->
+          <div class="space-y-1">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700"
+              >비밀번호</label
+            >
             <input
               type="password"
               id="password"
               v-model="password"
               placeholder="비밀번호 입력"
               required
+              class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
             />
           </div>
-          <div class="button-group">
-            <button type="submit">로그인</button>
-            <button @click="goToSignup" type="button">회원가입</button>
+
+          <!-- 로그인 버튼 -->
+          <div class="flex justify-center pt-4">
+            <button
+              type="submit"
+              :disabled="!canSubmit"
+              class="w-full max-w-xs px-4 h-10 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
+            >
+              로그인
+            </button>
           </div>
         </form>
       </main>
-
-      <!-- 하단바 -->
-      <footer class="footer">
-        <p>© 2024 My App</p>
-      </footer>
     </div>
   </div>
 </template>
 
 <script src="./LoginScript.js"></script>
 
-<style scoped>
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-}
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
-.logo-page {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.logo-page img {
-  width: 150px; /* 로고 크기 조정 */
-}
-
-.header {
-  background-color: #4caf50;
-  color: white;
-  padding: 1rem;
-  text-align: center;
-}
-
-.main-content {
-  padding: 1rem;
-}
-
-input {
-  display: block;
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.button-group {
-  display: flex;
-  justify-content: space-between;
-}
-
-button {
-  padding: 0.75rem 1.5rem;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-.invalid {
-  border: 2px solid red;
-}
-
-.error {
-  color: red;
-}
-
-.footer {
-  background-color: #f1f1f1;
-  text-align: center;
-  padding: 1rem;
+@media (min-width: 396px) {
+  body {
+    background-color: #fff9f2;
+  }
 }
 </style>

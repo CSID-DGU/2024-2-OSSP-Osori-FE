@@ -68,15 +68,6 @@ const routes = [
     path: '/mypage',
     name: 'MypageView',
     component: importedViews['MypageView'] // 자동 임포트 적용
-    // beforeEnter: (to, from, next) => {
-    //   // 로그인 여부 확인
-    //   if (!store.state.isAuthenticated) {
-    //     alert('로그인이 필요합니다.')
-    //     next('/auth/login') // 로그인 페이지로 리다이렉트
-    //   } else {
-    //     next()
-    //   }
-    //}
   }
 ]
 
