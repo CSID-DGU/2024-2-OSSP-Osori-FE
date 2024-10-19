@@ -60,11 +60,10 @@
             />
           </div>
 
-          <!-- 로그인 버튼 -->
+          <!-- 로그인 버튼 :disabled="!canSubmit" -->
           <div class="flex justify-center pt-4">
             <button
               type="submit"
-              :disabled="!canSubmit"
               class="w-full max-w-xs px-4 h-10 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
             >
               로그인

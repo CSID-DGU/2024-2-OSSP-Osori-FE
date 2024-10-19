@@ -68,6 +68,16 @@ const routes = [
     path: '/mypage',
     name: 'MypageView',
     component: importedViews['MypageView'] // 자동 임포트 적용
+  },
+  {
+    path: '/main',
+    name: 'MainpageView',
+    component: importedViews['MainpageView'] // 자동 임포트 적용
+  },
+  {
+    path: '/ako-stamp-write',
+    name: 'AkoStampWriteView',
+    component: importedViews['AkoStampWriteView'] // 자동 임포트 적용
   }
 ]
 

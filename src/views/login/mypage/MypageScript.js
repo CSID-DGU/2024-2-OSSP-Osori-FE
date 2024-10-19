@@ -30,9 +30,11 @@ export default {
           alert('로그아웃되었습니다.')
           this.$router.push('/auth/login') // 로그아웃 후 로그인 페이지로 리다이렉트
         } else {
+          alert('로그아웃 실패.')
           console.error('로그아웃 실패:', response.status, response.statusText)
         }
       } catch (error) {
+        alert('로그아웃 오류.')
         console.error('로그아웃 오류:', error)
       }
     },
