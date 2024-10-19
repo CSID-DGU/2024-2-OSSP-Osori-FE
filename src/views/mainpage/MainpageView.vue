@@ -3,7 +3,6 @@
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
     >
-    <MainHeader />
       <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24">
         <!-- 제목 -->
@@ -82,13 +81,10 @@
       </main>
     </div>
   </div>
-  <MainFooter />
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import MainHeader from '@/views/mainpage/Header.vue'
-import MainFooter from '@/views/mainpage/Footer.vue'
 
 const stamps = ref([
   { label: 'A', completed: true, position: { top: '25px', left: '25px' } },
