@@ -3,20 +3,7 @@
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
     >
-      <!-- 상단바 -->
-      <header
-        class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
-        <div class="flex items-center justify-between">
-          <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
-          <button
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
-          >
-            마이페이지
-          </button>
-        </div>
-      </header>
-
+    <MainHeader />
       <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24">
         <!-- 제목 -->
@@ -93,35 +80,15 @@
           <p class="text-sm text-gray-600">토실토실 아코가 자라는 중</p>
         </div>
       </main>
-
-      <!-- 하단바 -->
-      <footer
-        class="bg-white shadow-sm py-3 px-4 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
-        <div class="flex items-center justify-around h-full">
-          <button
-            class="px-2 py-1 text-sm text-gray-500 transition-colors duration-300 rounded-full hover:bg-gray-100"
-          >
-            홈
-          </button>
-          <button
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
-          >
-            스탬프
-          </button>
-          <button
-            class="px-2 py-1 text-sm text-gray-500 transition-colors duration-300 rounded-full hover:bg-gray-100"
-          >
-            통계
-          </button>
-        </div>
-      </footer>
     </div>
   </div>
+  <MainFooter />
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import MainHeader from '@/views/mainpage/Header.vue'
+import MainFooter from '@/views/mainpage/Footer.vue'
 
 const stamps = ref([
   { label: 'A', completed: true, position: { top: '25px', left: '25px' } },
