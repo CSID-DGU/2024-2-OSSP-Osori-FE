@@ -3,6 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import AuthLayout from '@/components/layout/AuthLayout.vue' // 중첩 라우팅의 부모 레이아웃
 import PortfolioLayout from '@/components/layout/PortfolioLayout.vue' // 중첩 라우팅의 부모 레이아웃
 import store from '@/store'
+import FeedLayout from '@/components/layout/FeedLayout.vue'
 
 // 자동 임포트 함수 (src/views 내의 모든 .vue 파일을 임포트)
 function importAllViews() {
@@ -75,9 +76,15 @@ const routes = [
     component: importedViews['MainpageView'] // 자동 임포트 적용
   },
   {
-    path: '/ako-stamp-write',
-    name: 'AkoStampWriteView',
-    component: importedViews['AkoStampWriteView'] // 자동 임포트 적용
+    path: '/feed',
+    component: FeedLayout, // 부모 레이아웃
+    children: [
+      {
+        path: 'ako-stamp-write',
+        name: 'AkoStampWriteView',
+        component: importedViews['AkoStampWriteView'] // 자동 임포트 적용
+      }
+    ]
   }
 ]
 
