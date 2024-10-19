@@ -99,10 +99,13 @@ const userId = 1
 const registerGoal = async () => {
   if (userText.value.trim() !== '') {
     try {
-      const response = await axios.post('/api/goals', {
-        userId: userId, // 사용자 ID
-        content: userText.value // 목표 내용
-      })
+      const response = await axios.post(
+        `${process.env.VUE_APP_BE_API_URL}/api/goals`,
+        {
+          userId: userId, // 사용자 ID
+          content: userText.value // 목표 내용
+        }
+      )
       alert(`목표가 등록되었습니다: ${response.data.content}`)
       userText.value = '' // 입력창 초기화
     } catch (error) {
