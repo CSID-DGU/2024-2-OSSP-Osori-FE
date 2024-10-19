@@ -45,7 +45,7 @@
         <!-- 등록하기 버튼 -->
         <div class="flex justify-center">
           <button
-            @click="registerText"
+            @click="registerGoal"
             class="w-full max-w-xs px-4 py-3 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
           >
             등록하기
@@ -81,6 +81,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios'
 
 const currentDate = ref(
   new Date().toLocaleDateString('ko-KR', {
@@ -92,10 +93,22 @@ const currentDate = ref(
 const nickname = ref('닉네임')
 const userText = ref('')
 
-const registerText = () => {
+// 사용자 ID는 예시로 '1'을 사용하지만, 실제로는 로그인된 사용자 정보를 통해 가져와야 함
+const userId = 1
+
+const registerGoal = async () => {
   if (userText.value.trim() !== '') {
-    alert(`등록되었습니다: ${userText.value}`)
-    userText.value = ''
+    try {
+      const response = await axios.post('/api/goals', {
+        userId: userId, // 사용자 ID
+        content: userText.value // 목표 내용
+      })
+      alert(`목표가 등록되었습니다: ${response.data.content}`)
+      userText.value = '' // 입력창 초기화
+    } catch (error) {
+      console.error('목표 등록 오류:', error)
+      alert('목표 등록에 실패했습니다. 다시 시도해주세요.')
+    }
   } else {
     alert('문구를 입력해주세요.')
   }
