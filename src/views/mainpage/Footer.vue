@@ -17,7 +17,7 @@
       <button
         class="px-2 py-1 text-sm text-gray-500 transition-colors duration-300 rounded-full hover:bg-gray-100"
       >
-        통계
+        임시
       </button>
     </div>
   </footer>
