@@ -5,11 +5,11 @@
   >
     <div class="flex items-center justify-between">
       <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
-      <button
+      <!-- <button
         class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
       >
         마이페이지
-      </button>
+      </button> -->
     </div>
   </header>
 </template>
