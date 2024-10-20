@@ -56,7 +56,7 @@
       </main>
 
       <!-- 하단바 -->
-      <footer></footer>
+      <MainFooter />
     </div>
   </div>
 </template>
@@ -65,6 +65,8 @@
 import { ref } from 'vue'
 import { format } from 'date-fns'
 import 'v-calendar/dist/style.css'
+import MainHeader from '@/views/mainpage/Header.vue'
+import MainFooter from '@/views/mainpage/Footer.vue'
 
 // 현재 날짜를 기준으로 연도와 월을 가져옴
 const currentDate = new Date()
