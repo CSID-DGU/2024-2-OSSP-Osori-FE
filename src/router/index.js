@@ -76,6 +76,11 @@ const routes = [
     component: importedViews['MainpageView'] // 자동 임포트 적용
   },
   {
+    path: '/calendar',
+    name: 'CalendarMainView',
+    component: importedViews['CalendarMainView'] // 자동 임포트 적용
+  },
+  {
     path: '/feed',
     component: FeedLayout, // 부모 레이아웃
     children: [
