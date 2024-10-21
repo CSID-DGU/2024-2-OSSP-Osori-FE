@@ -54,27 +54,7 @@
       </main>
 
       <!-- 하단바 -->
-      <footer
-        class="bg-white shadow-sm py-3 px-4 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
-        <div class="flex justify-around">
-          <button
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300"
-          >
-            홈
-          </button>
-          <button
-            class="px-2 py-1 text-gray-500 transition-colors duration-300 rounded-full hover:bg-gray-100"
-          >
-            캘린더
-          </button>
-          <button
-            class="px-2 py-1 text-gray-500 transition-colors duration-300 rounded-full hover:bg-gray-100"
-          >
-            통계
-          </button>
-        </div>
-      </footer>
+      <MainFooter />
     </div>
   </div>
 </template>
@@ -82,6 +62,7 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
+import MainFooter from '@/views/mainpage/Footer.vue'
 
 const currentDate = ref(
   new Date().toLocaleDateString('ko-KR', {
