@@ -63,7 +63,12 @@
 
         <!-- 아코 이미지 -->
         <div class="text-center">
-          <svg
+          <img
+            src="@/assets/Icons/akoming/mainpage/minielephanticon.svg"
+            alt="아코 이미지"
+            class="w-32 h-32 mx-auto mb-2"
+          />
+          <!-- <svg
             class="w-32 h-32 mx-auto mb-2"
             viewBox="0 0 24 24"
             fill="none"
@@ -76,8 +81,13 @@
               d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
             />
             <path d="M14 9l-5 5-2-2" />
-          </svg>
+          </svg> -->
           <p class="text-sm text-gray-600">토실토실 아코가 자라는 중</p>
+          <img
+            src="@/assets/Icons/akoming/mainpage/ako-01.svg"
+            alt="아코 이미지"
+            class="w-32 h-32 mx-auto mb-2"
+          />
         </div>
       </main>
       <MainFooter />
@@ -89,6 +99,7 @@
 import { ref } from 'vue'
 import MainHeader from '@/views/mainpage/Header.vue'
 import MainFooter from '@/views/mainpage/Footer.vue'
+import minielephanticon from '@/assets/Icons/akoming/mainpage/minielephanticon.svg'
 
 const stamps = ref([
   { label: 'A', completed: true, position: { top: '25px', left: '25px' } },
