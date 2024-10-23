@@ -7,7 +7,9 @@
       <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24">
         <!-- 제목 -->
-        <h1 class="mb-6 text-2xl font-bold text-center text-gray-800">
+        <h1
+          class="mb-6 text-xl font-medium text-center text-gray-800 font-uhbeesehyun"
+        >
           오늘도 우리 아코는 한 걸음씩!
         </h1>
 
