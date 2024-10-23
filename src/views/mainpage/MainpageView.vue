@@ -97,8 +97,8 @@
 
 <script setup>
 import { ref } from 'vue'
-import MainHeader from '@/views/mainpage/Header.vue'
-import MainFooter from '@/views/mainpage/Footer.vue'
+import MainHeader from '@/components/layout/Header.vue'
+import MainFooter from '@/components/layout/Footer.vue'
 import minielephanticon from '@/assets/Icons/akoming/mainpage/minielephanticon.svg'
 
 const stamps = ref([
@@ -118,3 +118,13 @@ const tasks = ref([
   { name: '아코폴리오', completed: false }
 ])
 </script>
+
+<style scoped>
+@font-face {
+  font-family: 'UhBeeSe_hyun';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
