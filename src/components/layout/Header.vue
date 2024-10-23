@@ -16,6 +16,6 @@
 
 <script>
 export default {
-  name: 'MainHeader' // Header 컴포넌트를 다른 파일에서 사용하기 위해 export
+  name: 'HeaderComponent' // Header 컴포넌트를 다른 파일에서 사용하기 위해 export
 }
 </script>

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import MainHeader from '@/views/mainpage/Header.vue'
-import MainFooter from '@/views/mainpage/Footer.vue'
+import MainHeader from '@/components/layout/Header.vue'
+import MainFooter from '@/components/layout/Footer.vue'
 
 export default {
   name: 'FeedLayout'

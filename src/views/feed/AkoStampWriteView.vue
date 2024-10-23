@@ -62,7 +62,7 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import MainFooter from '@/views/mainpage/Footer.vue'
+import MainFooter from '@/components/layout/Footer.vue'
 
 const currentDate = ref(
   new Date().toLocaleDateString('ko-KR', {

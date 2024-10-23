@@ -158,121 +158,20 @@
         </section>
       </main>
       <!-- 하단바 -->
-      <footer
-        class="bg-white shadow-sm py-3 px-4 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
-        <div class="flex items-center justify-between">
-          <h1 class="text-xl font-bold">{{ user.nickname }}님의 마이페이지</h1>
-          <button
-            @click="handleLogout"
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
-          >
-            로그아웃
-          </button>
-        </div>
-      </footer>
+      <MainFooter />
     </div>
   </div>
 </template>
 
-<script src="./MypageScript.js"></script>
+<script src="./MypageScript.js">
+import MainFooter from '@/components/layout/Footer.vue'
+import './MypageScript.js';
 
-<style scoped>
-/* .mypage-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+export default {
+  components: {
+    MainFooter
+  }
 }
+</script>
 
-h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 24px;
-}
-
-.logout-button {
-  background-color: #ff4d4f;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: block;
-  margin: 10px auto;
-  width: 150px;
-  text-align: center;
-}
-
-.logout-button:hover {
-  background-color: #ff7875;
-}
-
-.intro-section,
-.profile-section {
-  background-color: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-h2 {
-  color: #666;
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-
-.introduce-text {
-  font-style: italic;
-  color: #555;
-  margin-bottom: 10px;
-}
-
-.edit-button {
-  background-color: #40a9ff;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.edit-button:hover {
-  background-color: #69c0ff;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.save-button {
-  background-color: #52c41a;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.save-button:hover {
-  background-color: #73d13d;
-} */
-</style>
+<style scoped></style>
