@@ -1,5 +1,4 @@
 /* global.css */
-
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 @tailwind base;
@@ -25,4 +24,4 @@ button {
 
 .error-message {
   @apply mt-1 text-xs text-red-500;
-}
+} 
