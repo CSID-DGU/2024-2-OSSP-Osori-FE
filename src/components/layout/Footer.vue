@@ -29,29 +29,29 @@ const navItems = ref([
   {
     label: '캘린더',
     icon: require('@/assets/Icons/akoming/bottom/calendaricon.svg'),
-    route: 'calendar'
+    route: '/calendar'
   },
   {
     label: '아코폴리오',
     icon: require('@/assets/Icons/akoming/bottom/akofolioicon.svg'),
-    route: 'akofolio'
+    route: '/akofolio'
   },
 
   {
     label: '홈',
     icon: require('@/assets/Icons/akoming/bottom/homeicon.svg'),
-    route: 'main'
+    route: '/main'
   },
   {
     label: '피드',
     icon: require('@/assets/Icons/akoming/bottom/feedicon.svg'),
-    route: 'feed'
+    route: '/feed/ako-stamp-board'
   },
 
   {
     label: '마이페이지',
     icon: require('@/assets/Icons/akoming/bottom/mypageicon.svg'),
-    route: 'mypage'
+    route: '/mypage'
   }
 ])
 </script>
