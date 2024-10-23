@@ -142,7 +142,7 @@ const selectedEvents = computed(() => {
   )
 })
 
-// 캘린더에 이벤트 데이터를 표시하기 위한 속성
+// 캘린더에 이벤트 데이터를 표시하기 위한 속성 (일정 있는 날에 배경색 표시)
 const calendarAttributes = computed(() => {
   return academicEvents.value.map((event) => ({
     key: event.AcademicEventId,
@@ -150,6 +150,11 @@ const calendarAttributes = computed(() => {
     customData: { title: event.title },
     popover: {
       label: event.title
+    },
+    // 일정이 있는 날에 대한 진한 주황색 배경 설정
+    highlight: {
+      backgroundColor: '#FF7F00', // 진한 주황색 배경
+      contentColor: '#ffffff' // 텍스트 색상
     }
   }))
 })
@@ -180,8 +185,8 @@ const links = [
 
 <style scoped>
 .custom-calendar {
-  --vc-bg-light-900: #f6b87a; /* 커스텀 색상 */
-  --vc-bg-light-800: #e5a769;
+  --vc-bg-light-900: #ff7f00; /* 커스텀 색상 */
+  --vc-bg-light-800: #e65c00;
   --vc-border-radius: 0.5rem; /* 둥근 테두리 */
   --vc-border-width: 0; /* 캘린더 전체 테두리 제거 */
 }
