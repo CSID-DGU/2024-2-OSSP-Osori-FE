@@ -1,80 +1,84 @@
+<!-- 로그인하고 id값 불러오는 것과 등록 테스트 해야함 -->
 <template>
   <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
-    <div
-      class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
-    >
-      <!-- 상단바 -->
-      <header
-        class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
+    <div class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto">
+      <header class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10">
         <div class="flex items-center justify-between">
           <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
-          <button
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
-          >
-            마이페이지
-          </button>
         </div>
       </header>
 
-      <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24">
-        <!-- 오늘 날짜와 문구 -->
-        <div class="mb-6 text-center">
-          <p class="mb-2 text-lg text-gray-600">{{ currentDate }}</p>
-          <p class="text-2xl font-bold text-gray-800">
-            <span class="text-[#F6B87A]">{{ nickname }}</span
-            >님, 오늘도 성장해요!
+
+        <img src="@/assets/images/back.svg" alt="이전"
+        style="width: 24px; height: 24px; margin-top:10px; margin-bottom:20px; cursor: pointer; "
+        />
+
+        <div class="bg-white rounded-2xl "
+        style="height:600px">
+        <div class="mb-6 text-center p-4 flex items-center justify-between">
+          <p class="mb-2 text-[#FF7F00] text-left mt-4 text-lg text-gray-600 padding font-NaR" 
+            style="font-size: 30px; color:#FF7F00; font-style: normal; font-weight: 400; line-height: normal;">
+            <span class="text-[25px]"> {{ currentDate[0] }} </span><br /> 
+            {{ currentDate[1] }}<br />
+            {{ currentDate[2] }}
+          </p>
+
+          <p class="text-2xl text-right text-gray-800 font-NaL">
+            <span class="text-[#00000] font-bold font-NaL">{{ nickname }}</span> 님,<br> 오늘도 성장해요!
           </p>
         </div>
 
-        <!-- 문구 입력란 -->
         <div class="mb-6">
-          <textarea
-            v-model="userText"
-            placeholder="오늘의 문구를 적어주세요"
-            maxlength="50"
-            rows="3"
-            class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200 resize-none"
-          ></textarea>
-          <p class="mt-1 text-sm text-right text-gray-500">
+          <div class="mb-6 flex justify-center">
+            <textarea
+              v-model="userText"
+              placeholder="오늘의 문구를 적어주세요"
+              maxlength="50"
+              rows="4"
+              class="px-4 text-center mt-14 bg-white font-NaL border-none text-sm focus:outline-none transition duration-200 resize-none"
+              style="width: 260px; padding: 0 10px; background: linear-gradient(to bottom, transparent 19px, rgba(169, 169, 169, 0.5) 19px, rgba(169, 169, 169, 0.5) 20px, transparent 20px); background-size: 100% 20px;"
+            ></textarea>
+          </div>
+
+          <p class="text-[#B3B3B3] mt-1 font-NaL text-sm text-right px-5 pb-12 ">
             {{ userText.length }}/50
           </p>
         </div>
 
-        <!-- 등록하기 버튼 -->
         <div class="flex justify-center">
           <button
             @click="registerGoal"
-            class="w-full max-w-xs px-4 py-3 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+            class="font-NaR mt-12 px-2 py-3 mb-4 bg-[#F6B87A] text-white text-sm rounded-full hover:bg-[#FF7F00] transition-colors duration-300"
+            style="width: 200px; font-size:17px "
           >
             등록하기
           </button>
+
+        </div>
         </div>
       </main>
-
-      <!-- 하단바 -->
-      <MainFooter />
+      <Footer />
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import axios from 'axios'
-import MainFooter from '@/components/layout/Footer.vue'
+import Footer from '@/components/layout/Footer.vue'
 
-const currentDate = ref(
-  new Date().toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-)
+const currentDate = computed(() => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return [year, month, day];
+});
+
 const nickname = ref('닉네임')
 const userText = ref('')
 
-// 사용자 ID는 예시로 '1'을 사용하지만, 실제로는 로그인된 사용자 정보를 통해 가져와야 함
 const userId = 1
 
 const registerGoal = async () => {
@@ -83,12 +87,12 @@ const registerGoal = async () => {
       const response = await axios.post(
         `${process.env.VUE_APP_BE_API_URL}/api/goals`,
         {
-          userId: userId, // 사용자 ID
-          content: userText.value // 목표 내용
+          userId: userId,
+          content: userText.value
         }
       )
       alert(`목표가 등록되었습니다: ${response.data.content}`)
-      userText.value = '' // 입력창 초기화
+      userText.value = ''
     } catch (error) {
       console.error('목표 등록 오류:', error)
       alert('목표 등록에 실패했습니다. 다시 시도해주세요.')
