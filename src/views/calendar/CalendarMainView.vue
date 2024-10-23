@@ -35,10 +35,33 @@
             borderless
             v-model="selectedDate"
             is-expanded
-            :attributes="[]"
+            :attributes="calendarAttributes"
             :color="selectedColor"
             class="custom-calendar"
+            @dayclick="onDateSelect"
           ></v-calendar>
+        </div>
+
+        <!-- 학사 일정 목록 -->
+        <div
+          v-if="selectedEvents.length > 0"
+          class="bg-white rounded-lg shadow-sm p-4"
+        >
+          <h2 class="text-lg font-bold mb-4">선택한 날짜의 학사 일정</h2>
+          <ul>
+            <li
+              v-for="(event, index) in selectedEvents"
+              :key="index"
+              class="mb-2"
+            >
+              <p class="text-gray-700">
+                <strong>{{ event.title }}</strong>
+              </p>
+              <p class="text-sm text-gray-500">
+                {{ formatDateRange(event.startDate, event.endDate) }}
+              </p>
+            </li>
+          </ul>
         </div>
 
         <!-- 링크 섹션 -->
@@ -62,8 +85,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { format } from 'date-fns'
+import { ref, computed } from 'vue'
+import { format, isWithinInterval, parseISO } from 'date-fns'
 import 'v-calendar/dist/style.css'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
@@ -73,9 +96,72 @@ const currentDate = new Date()
 const currentYear = format(currentDate, 'yyyy')
 const currentMonth = format(currentDate, 'MM')
 
+// 학사 일정 데이터 (예시 데이터)
+const academicEvents = ref([
+  {
+    AcademicEventId: 1,
+    title: '개강일',
+    startDate: '2024-03-01',
+    endDate: '2024-03-01'
+  },
+  {
+    AcademicEventId: 2,
+    title: '종강일',
+    startDate: '2024-06-30',
+    endDate: '2024-06-30'
+  },
+  {
+    AcademicEventId: 3,
+    title: '중간고사',
+    startDate: '2024-04-15',
+    endDate: '2024-04-19'
+  },
+  {
+    AcademicEventId: 4,
+    title: '기말고사',
+    startDate: '2024-06-15',
+    endDate: '2024-06-19'
+  }
+])
+
 const selectedDate = ref(new Date()) // 달력에서 선택된 날짜
 const selectedColor = ref('#F6B87A') // 선택된 날짜의 색상
 
+// 날짜 선택 시 호출되는 함수
+const onDateSelect = (day) => {
+  selectedDate.value = day.date
+}
+
+// 선택된 날짜에 해당하는 이벤트 필터링
+const selectedEvents = computed(() => {
+  return academicEvents.value.filter((event) =>
+    isWithinInterval(selectedDate.value, {
+      start: parseISO(event.startDate),
+      end: parseISO(event.endDate)
+    })
+  )
+})
+
+// 캘린더에 이벤트 데이터를 표시하기 위한 속성
+const calendarAttributes = computed(() => {
+  return academicEvents.value.map((event) => ({
+    key: event.AcademicEventId,
+    dates: { start: parseISO(event.startDate), end: parseISO(event.endDate) },
+    customData: { title: event.title },
+    popover: {
+      label: event.title
+    }
+  }))
+})
+
+// 날짜 범위 형식으로 변환하는 함수
+const formatDateRange = (startDate, endDate) => {
+  const start = format(parseISO(startDate), 'yyyy-MM-dd')
+  const end = format(parseISO(endDate), 'yyyy-MM-dd')
+  return start === end ? start : `${start} ~ ${end}`
+}
+
+// 외부 링크 (예시 데이터)
 const links = [
   {
     text: '동국대학교 홈페이지 바로가기',
