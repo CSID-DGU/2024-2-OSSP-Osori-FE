@@ -9,7 +9,7 @@ import 'tailwindcss/tailwind.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/fonts/fonts.css'
 
-import VCalendar from 'v-calendar' // v-calendar를 불러오기
+import VCalendar from 'v-calendar'
 axios.defaults.withCredentials = true
 
 // v-calendar 기본 스타일 추가
