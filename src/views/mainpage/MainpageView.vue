@@ -29,13 +29,18 @@
           <div
             v-for="(stamp, index) in stamps"
             :key="index"
-            :class="[
-              'absolute w-[50px] h-[50px] flex justify-center items-center rounded-full text-2xl text-white',
-              stamp.completed ? 'bg-[#F6B87A]' : 'bg-blue-500'
-            ]"
             :style="stamp.position"
+            class="absolute w-[50px] h-[50px] flex justify-center items-center"
           >
-            {{ stamp.label }}
+            <img
+              :src="
+                stamp.completed
+                  ? getCompletedStampIcon(stamp.label)
+                  : getGrayStampIcon(stamp.label)
+              "
+              alt="stamp"
+              class="w-full h-full"
+            />
           </div>
         </div>
 
@@ -112,6 +117,16 @@ const stamps = ref([
   { label: 'N', completed: false, position: { top: '325px', left: '25px' } },
   { label: 'G', completed: false, position: { top: '325px', left: '125px' } }
 ])
+
+// 함수: completed가 true일 때 색상이 있는 아이콘을 가져옵니다.
+const getCompletedStampIcon = (label) => {
+  return require(`@/assets/Icons/akoming/stamp/color/color${label.toLowerCase()}.svg`)
+}
+
+// 함수: completed가 false일 때 회색 아이콘을 가져옵니다.
+const getGrayStampIcon = (label) => {
+  return require(`@/assets/Icons/akoming/stamp/gray/gray${label.toLowerCase()}.svg`)
+}
 
 const tasks = ref([
   { name: '아코밍 출석', completed: true },
