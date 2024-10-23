@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import Footer from '@/views/mainpage/Footer.vue'
+import Footer from '@/components/layout/Footer.vue'
 </script>
 
 <style>

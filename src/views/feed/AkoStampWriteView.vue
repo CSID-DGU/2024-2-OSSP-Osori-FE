@@ -18,7 +18,7 @@
         style="height:600px">
         <div class="mb-6 text-center p-4 flex items-center justify-between">
           <p class="mb-2 text-[#FF7F00] text-left mt-4 text-lg text-gray-600 padding font-NaR" 
-            style="font-size: 30px; font-style: normal; font-weight: 400; line-height: normal;">
+            style="font-size: 30px; color:#FF7F00; font-style: normal; font-weight: 400; line-height: normal;">
             <span class="text-[25px]"> {{ currentDate[0] }} </span><br /> 
             {{ currentDate[1] }}<br />
             {{ currentDate[2] }}
@@ -66,7 +66,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import axios from 'axios'
-import Footer from '@/views/mainpage/Footer.vue'
+import Footer from '@/components/layout/Footer.vue'
 
 const currentDate = computed(() => {
   const now = new Date();
