@@ -1,4 +1,5 @@
 /* global.css */
+
 @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 
 @tailwind base;
@@ -24,4 +25,29 @@ button {
 
 .error-message {
   @apply mt-1 text-xs text-red-500;
-} 
+}
+
+@font-face {
+  font-family: "NaB";
+  src: url("/public/font/NanumSquareRoundB.ttf") format("truetype");
+}
+@font-face {
+  font-family: "NaR";
+  src: url("/public/font/NanumSquareRoundR.ttf") format("truetype");
+}
+@font-face {
+  font-family: "NaL";
+  src: url("/public/font/NanumSquareRoundL.ttf") format("truetype");
+}
+
+.font-NaB {
+  font-family: 'NaB', sans-serif;
+}
+
+.font-NaL {
+  font-family: 'NaL', sans-serif;
+}
+
+.font-NaR {
+  font-family: 'NaR', sans-serif;
+}

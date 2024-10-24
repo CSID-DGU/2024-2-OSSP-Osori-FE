@@ -7,6 +7,8 @@ import axios from 'axios'
 import './assets/styles/global.css'
 import 'tailwindcss/tailwind.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import './assets/fonts/fonts.css'
+
 import VCalendar from 'v-calendar' // v-calendar를 불러오기
 axios.defaults.withCredentials = true
 

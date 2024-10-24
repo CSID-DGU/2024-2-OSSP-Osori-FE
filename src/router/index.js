@@ -90,6 +90,16 @@ const routes = [
         path: 'ako-stamp-write',
         name: 'AkoStampWriteView',
         component: importedViews['AkoStampWriteView'] // 자동 임포트 적용
+      },
+      {
+        path: 'ako-stamp-board',
+        name: 'AkoStampBoard',
+        component: importedViews['AkoStampBoard'] // 자동 임포트 적용
+      },
+      {
+        path: 'ako-stamp-follow',
+        name: 'AkoStampFollow',
+        component: importedViews['AkoStampFollow'] // 자동 임포트 적용
       }
     ]
   },

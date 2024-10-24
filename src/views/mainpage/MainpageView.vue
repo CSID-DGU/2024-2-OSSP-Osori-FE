@@ -7,7 +7,9 @@
       <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24">
         <!-- 제목 -->
-        <h1 class="mb-6 text-2xl font-bold text-center text-gray-800">
+        <h1
+          class="mb-6 text-xl font-medium text-center text-gray-800 font-uhbeesehyun"
+        >
           오늘도 우리 아코는 한 걸음씩!
         </h1>
 
@@ -63,7 +65,12 @@
 
         <!-- 아코 이미지 -->
         <div class="text-center">
-          <svg
+          <img
+            src="@/assets/Icons/akoming/mainpage/minielephanticon.svg"
+            alt="아코 이미지"
+            class="w-32 h-32 mx-auto mb-2"
+          />
+          <!-- <svg
             class="w-32 h-32 mx-auto mb-2"
             viewBox="0 0 24 24"
             fill="none"
@@ -76,8 +83,13 @@
               d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
             />
             <path d="M14 9l-5 5-2-2" />
-          </svg>
+          </svg> -->
           <p class="text-sm text-gray-600">토실토실 아코가 자라는 중</p>
+          <img
+            src="@/assets/Icons/akoming/mainpage/ako-01.svg"
+            alt="아코 이미지"
+            class="w-32 h-32 mx-auto mb-2"
+          />
         </div>
       </main>
       <MainFooter />
@@ -87,8 +99,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import MainHeader from '@/views/mainpage/Header.vue'
-import MainFooter from '@/views/mainpage/Footer.vue'
+import MainHeader from '@/components/layout/Header.vue'
+import MainFooter from '@/components/layout/Footer.vue'
+import minielephanticon from '@/assets/Icons/akoming/mainpage/minielephanticon.svg'
 
 const stamps = ref([
   { label: 'A', completed: true, position: { top: '25px', left: '25px' } },
@@ -107,3 +120,13 @@ const tasks = ref([
   { name: '아코폴리오', completed: false }
 ])
 </script>
+
+<style scoped>
+@font-face {
+  font-family: 'UhBeeSe_hyun';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+</style>
