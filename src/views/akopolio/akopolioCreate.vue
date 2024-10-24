@@ -1,198 +1,329 @@
 <template>
-  <div class="main-container">
-    <img class="logo" :src="require('@/assets/images/Akoming.svg')" alt="Akoming Logo" />
-      <calendar-component></calendar-component>
-     
-   
+  <div class="container">
+    <!-- 헤더: 로고 -->
+    <header class="header">
+      <img class="logo" :src="require('@/assets/images/Akoming.svg')" alt="Akoming Logo" />
+    </header>
 
+    <!-- 활동명과 활동일 -->
+    <div class="activity-info">
+      <label for="activity-name">활동명</label>
+      <input type="text" id="activity-name" v-model="activityName" placeholder="활동명을 입력해주세요" />
 
-
-      <!-- 분야 설정 (태그 목록 토글) -->
-      <div class="tag-section">
-        <v-btn @click="toggleTagDropdown" class="tag-toggle" outlined>
-          분야설정
-          <v-icon>mdi-chevron-down</v-icon>
-        </v-btn>
-        <div v-if="tagDropdown" class="tags-container">
-          <v-btn
-            v-for="tag in tags"
-            :key="tag"
-            :class="['tag-button', { active: selectedTags.includes(tag) }]"
-            @click="toggleTag(tag)"
-            outlined
-          >
-            {{ tag }}
-          </v-btn>
-        </div>
-        <!-- 선택한 태그 표시 -->
-        <div class="selected-tags">
-          <span v-if="selectedTags.length">선택한 태그: {{ selectedTags.join(', ') }}</span>
-        </div>
-      </div>
-      <div class="combined-section">
-        <div class="header">오늘의 평가 (PMI + Star)</div>
-        <div class="subtitle">Plus-Minus-Interesting & Star</div>
-        <rating-component></rating-component>
-      </div>
-
-      <button class="submit-button" @click="submitForm">저장하기</button>
+      <label for="activity-date">활동일</label>
+      <input type="date" id="activity-date" v-model="activityDate" />
     </div>
- 
+
+    <!-- 분야 설정 (토글로 구현) -->
+    <div class="category">
+      <label @click="toggleDropdown" class="category-label">
+        분야 설정
+        <span v-if="selectedTags.length">
+          <span class="tag-badge" v-for="tag in selectedTags" :key="tag">
+            {{ tag }}
+          </span>
+        </span>
+      </label>
+
+      <div v-show="isDropdownOpen" class="tag-container">
+        <button
+          v-for="tag in tags"
+          :key="tag"
+          @click="toggleTag(tag)"
+          :class="{ active: selectedTags.includes(tag) }"
+        >
+          {{ tag }}
+        </button>
+      </div>
+    </div>
+
+    <!-- 경험 (STAR 모델) -->
+    <div class="experience">
+      <h2>경험</h2>
+      <div class="experience-box star-box">
+        <div class="star-section">
+          <h3>Situation</h3>
+          <textarea v-model="star.situation" placeholder="상황/배경을 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+
+        <div class="star-section">
+          <h3>Task</h3>
+          <textarea v-model="star.task" placeholder="문제/과제를 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+
+        <div class="star-section">
+          <h3>Action</h3>
+          <textarea v-model="star.action" placeholder="행동/생각/노력을 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+
+        <div class="star-section">
+          <h3>Result</h3>
+          <textarea v-model="star.result" placeholder="결과를 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 오늘의 PMI -->
+    <div class="pmi">
+
+
+
+
+
+
+
+
+      <h2>오늘의 PMI 
+        <span 
+           class="tooltip-icon" 
+           @mouseover="tooltipVisible = true" 
+           @mouseleave="tooltipVisible = false"
+        >ℹ️</span>
+
+        <!-- 말풍선 (툴팁) -->
+        <div v-if="tooltipVisible" class="tooltip">
+          어느 사항에 대하여 좋은 점, 나쁜 점, 흥미로운 점을 찾아내는 사고기법
+        </div>
+      </h2> 
+
+
+
+
+
+
+
+
+
+
+      <div class="pmi-box">
+        <div class="pmi-section">
+          <h3>Plus</h3>
+          <textarea v-model="pmi.plus" placeholder="오늘의 경험의 좋은 점을 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+
+        <div class="pmi-section">
+          <h3>Minus</h3>
+          <textarea v-model="pmi.minus" placeholder="오늘의 경험의 나쁜 점을 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+
+        <div class="pmi-section">
+          <h3>Interesting</h3>
+          <textarea v-model="pmi.interesting" placeholder="오늘의 경험에서 흥미로운 점을 작성해주세요" @input="autoResize($event)"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- 저장 버튼 -->
+    <button @click="saveData" class="save-button">저장하기</button>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      showTags: false,
+      activityName: '',
+      activityDate: '',
       tags: [
-        '교내동아리', '교양', '전공', '교외동아리', '학회', '봉사활동', '연구',
-        '서포터즈', '기자단', '부트캠프', '아르바이트', '학생회', '대외활동',
-        '스터디', '강연/행사', '인턴', '기타', '프로젝트',
+        '전공', '교양', '교내동아리', '교외동아리', '학회', '봉사활동', '인턴', '아르바이트',
+        '대외활동', '서포터즈', '기자단', '강연/행사', '스터디', '부트캠프', '프로젝트',
+        '연구', '학생회', '기타'
       ],
-      selectedTags: ['기타'], // 기본값으로 '기타' 선택
+      selectedTags: ['기타'], // 기본으로 '기타' 선택
+      isDropdownOpen: false,
+      star: {
+        situation: '',
+        task: '',
+        action: '',
+        result: ''
+      },
+      pmi: {
+        plus: '',
+        minus: '',
+        interesting: ''
+      },
+      tooltipVisible: false
     };
   },
+
+  computed: {
+    isFormComplete() {
+      return (
+        this.activityName &&
+        this.activityDate &&
+        this.selectedTags.length > 0 &&
+        Object.values(this.star).every((field) => field) &&
+        Object.values(this.pmi).every((field) => field)
+      );
+    }
+  },
+
   methods: {
-    toggleTagSection() {
-      this.showTags = !this.showTags;
+    toggleDropdown() {
+      this.isDropdownOpen = !this.isDropdownOpen;
     },
     toggleTag(tag) {
-      if (this.selectedTags.includes(tag)) {
-        this.selectedTags = this.selectedTags.filter((t) => t !== tag);
+      const index = this.selectedTags.indexOf(tag);
+      if (index > -1) {
+        this.selectedTags.splice(index, 1);
       } else {
         this.selectedTags.push(tag);
       }
     },
-    submitForm() {
-      // Form submit logic
-      console.log('Form submitted!');
+    autoResize(event) {
+      const textarea = event.target;
+      textarea.style.height = 'auto';
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    },
+    saveData() {
+      if (!this.isFormComplete) {
+        // 누락된 필드가 있을 경우 알림
+        alert('모든 필드를 입력해주세요.');
+        return;
+      }
+
+      const data = {
+        activityName: this.activityName,
+        activityDate: this.activityDate,
+        selectedTags: this.selectedTags,
+        star: this.star,
+        pmi: this.pmi
+      };
+      console.log('저장된 데이터:', data);
+      alert('활동이 저장되었습니다!');
     }
   }
 };
 </script>
 
 <style scoped>
-/* 전체 레이아웃 */
-.activity-form {
-  background-color: #fae6d4;
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffe8d1;
+}
+
+.header {
+  text-align: center;
+}
+
+.logo {
+  width: 120px;
+  margin-bottom: 20px;
+}
+
+.activity-info,
+.category,
+.experience,
+.pmi {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  background-color: #fff3e6;
+  border-radius: 5px;
+  resize: none; /* 사용자 수동 조절 비활성화 */
+}
+
+.star-box,
+.pmi-box {
+  background-color: #fff3e6;
   padding: 20px;
   border-radius: 10px;
-  max-width: 400px;
-  margin: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 로고 */
-.logo {
-  display: block;
-  margin: 0 auto 20px;
-  width: 120px;
-  max-width: 100%;
+.activity-info{
+  background-color: #fff3e6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* 태그 섹션 */
-.tag-section {
-  margin-top: 20px;
-}
-.tag-toggle {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #ffe4c4;
-  border-radius: 8px;
-  padding: 10px;
-  transition: background-color 0.3s;
-}
-.tag-toggle:hover {
-  background-color: #ffd5a8;
-}
-.tags-container {
+.tag-container {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
-  padding: 10px;
-  border: 1px solid #ff7f50;
-  border-radius: 8px;
-  background-color: #fff8f0;
-}
-.selected-tags {
-  margin-top: 10px;
-  color: #ff7f50;
-  font-weight: bold;
-}
-
-/* 태그 버튼 */
-.tag-button {
-  margin: 5px;
-  border-radius: 16px;
-  padding: 5px 10px;
-  color: #ff7f50;
-  transition: background-color 0.3s, color 0.3s;
-  border: 1px solid #ff7f50;
-}
-.tag-button:hover {
-  background-color: #ffe4c4;
-}
-.tag-button.active {
-  background-color: #ff7f50;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* PMI 및 Star 평가 섹션 */
-.combined-section {
-  margin-top: 30px;
-}
-.header {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #333;
-}
-.subtitle {
-  font-size: 0.8rem;
-  color: #ff7f50;
-  margin-bottom: 10px;
-}
-</style>
-
-<style>
-/* global.css */
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* 전역 스타일 */
-body {
-  @apply bg-customBg font-pretendard min-h-screen;
-}
-
-.main-container {
-  @apply w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative mx-auto;
-}
-
-input {
-  @apply w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200;
 }
 
 button {
-  @apply px-3 py-2 bg-[#F6B87A] text-white text-sm rounded-full hover:bg-[#e5a769] transition-colors duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed;
+  display: inline-block;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 50px;
+  background-color: white;
+  transition: background-color 0.3s;
 }
 
-.error-message {
-  @apply mt-1 text-xs text-red-500;
+button.active {
+  background-color: #F6B87A;
+  color: white;
 }
 
-/* Scoped 버튼 클래스는 여기서 우선순위 조정 */
-.submit-button {
-  @apply w-full py-3 bg-[#ff7f50] text-white text-sm rounded-full transition-colors duration-300;
+.tag-badge {
+  display: inline-block;
+  margin-left: 5px;
+  background-color: #F6B87A;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 13px;
 }
 
-.submit-button:hover {
-  background-color: #e67300 !important;
+.save-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #F6B87A;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
 }
+
+button:hover {
+  background-color: #f4c08c
+}
+
+.tooltip-icon {
+  cursor: pointer;
+  margin-left: 5px;
+}
+
+
+
+
+
+
+
+/*여기이상해*/
+
+.tooltip {
+  position: absolute; /* 툴팁을 공중에 띄우기 */
+  top: 30px; /* PMI 제목 아래로 간격 조정 */
+  left: 0;
+  background-color: rgba(51, 51, 51, 0.9); /* 반투명 검정 배경 */
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+  z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; /* 기본값은 투명하게 */
+  visibility: hidden; /* 처음엔 보이지 않도록 */
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tooltip-icon:hover + .tooltip {
+  opacity: 1; /* 호버 시 나타나도록 */
+  visibility: visible;
+}
+
 </style>
