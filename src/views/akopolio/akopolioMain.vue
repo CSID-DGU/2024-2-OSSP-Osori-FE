@@ -1,7 +1,7 @@
 <template>
     <div class="akopolio-page">
+      <MainHeader />
       <header class="header">
-        <img class="logo" :src="require('@/assets/images/Akoming.svg')" alt="Akoming Logo" />
         <input type="text" v-model="searchQuery" placeholder="아코폴리오 활동명을 입력하세요" />
         <div class="date-picker">
           <input type="date" v-model="startDate" @input="applyFilters" />
@@ -47,14 +47,20 @@
       <button class="floating-btn" @click="goToWritePage">
         <img class="logo" :src="require('@/assets/images/Akoming.svg')" alt="Akoming Logo" />
       </button>
+      <MainFooter />
     </div>
   </template>
   
   <script>
   import PaginationNav from './paginationNav.vue';
+  import MainHeader from '../../components/layout/Header.vue'
+  import MainFooter from '../../components/layout/Footer.vue'
   
   export default {
-    components: { PaginationNav },
+    components: { 
+      MainHeader,
+      MainFooter,
+      PaginationNav},
     data() {
       return {
         searchQuery: '',

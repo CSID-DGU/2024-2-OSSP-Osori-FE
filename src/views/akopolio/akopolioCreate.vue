@@ -1,46 +1,50 @@
 <template>
   <div class="container">
-    <!-- 헤더: 로고 -->
-    <header class="header">
-      <img class="logo" :src="require('@/assets/images/Akoming.svg')" alt="Akoming Logo" />
-    </header>
+    <!-- 헤더 -->
+    <MainHeader />
 
     <!-- 활동명과 활동일 -->
     <div class="activity-info">
-      <label for="activity-name">활동명</label>
-      <input type="text" id="activity-name" v-model="activityName" placeholder="활동명을 입력해주세요" />
+      <div class="activity-name-container">
+        <label for="activity-name"><h2>활동명</h2></label>
+        <input type="text" id="activity-name" v-model="activityName" placeholder="활동명을 입력해주세요" />
+      </div>
 
-      <label for="activity-date">활동일</label>
-      <input type="date" id="activity-date" v-model="activityDate" />
+      <div class="activity-date-container">
+        <label for="activity-date"> <h2>활동일</h2> </label>
+        <input type="date" id="activity-date" v-model="activityDate" />
+      </div>
     </div>
 
-    <!-- 분야 설정 (토글로 구현) -->
-    <div class="category">
-      <label @click="toggleDropdown" class="category-label">
-        분야 설정
-        <span v-if="selectedTags.length">
-          <span class="tag-badge" v-for="tag in selectedTags" :key="tag">
-            {{ tag }}
+    <!-- 분야 설정 -->
+    <div class="category-box">
+      <div class="category">
+        <label @click="toggleDropdown" class="category-label" >
+          <h2>분야 설정</h2>
+          <span v-if="selectedTags.length">
+            <span class="tag-badge" v-for="tag in selectedTags" :key="tag">
+              {{ tag }}
+            </span>
           </span>
-        </span>
-      </label>
+        </label>
 
-      <div v-show="isDropdownOpen" class="tag-container">
-        <button
-          v-for="tag in tags"
-          :key="tag"
-          @click="toggleTag(tag)"
-          :class="{ active: selectedTags.includes(tag) }"
-        >
-          {{ tag }}
-        </button>
+        <div v-show="isDropdownOpen" class="tag-container">
+          <button
+            v-for="tag in tags"
+            :key="tag"
+            @click="toggleTag(tag)"
+            :class="{ active: selectedTags.includes(tag) }"
+          >
+            {{ tag }}
+          </button>
+        </div>
       </div>
     </div>
 
     <!-- 경험 (STAR 모델) -->
-    <div class="experience">
-      <h2>경험</h2>
+    <div class="experience-container">
       <div class="experience-box star-box">
+        <h2>경험</h2>
         <div class="star-section">
           <h3>Situation</h3>
           <textarea v-model="star.situation" placeholder="상황/배경을 작성해주세요" @input="autoResize($event)"></textarea>
@@ -64,38 +68,20 @@
     </div>
 
     <!-- 오늘의 PMI -->
-    <div class="pmi">
-
-
-
-
-
-
-
-
-      <h2>오늘의 PMI 
-        <span 
-           class="tooltip-icon" 
-           @mouseover="tooltipVisible = true" 
-           @mouseleave="tooltipVisible = false"
-        >ℹ️</span>
-
-        <!-- 말풍선 (툴팁) -->
-        <div v-if="tooltipVisible" class="tooltip">
-          어느 사항에 대하여 좋은 점, 나쁜 점, 흥미로운 점을 찾아내는 사고기법
-        </div>
-      </h2> 
-
-
-
-
-
-
-
-
-
-
+    <div class="pmi-container">
       <div class="pmi-box">
+        <h2>오늘의 PMI 
+          <span 
+            class="tooltip-icon" 
+            @mouseover="tooltipVisible = true" 
+            @mouseleave="tooltipVisible = false"
+          >ℹ️</span>
+          
+          <div v-if="tooltipVisible" class="tooltip">
+            어느 사항에 대하여 좋은 점, 나쁜 점, 흥미로운 점을 찾아내는 사고기법
+          </div>
+        </h2>
+
         <div class="pmi-section">
           <h3>Plus</h3>
           <textarea v-model="pmi.plus" placeholder="오늘의 경험의 좋은 점을 작성해주세요" @input="autoResize($event)"></textarea>
@@ -115,11 +101,19 @@
 
     <!-- 저장 버튼 -->
     <button @click="saveData" class="save-button">저장하기</button>
+    <MainFooter />
   </div>
 </template>
 
 <script>
+import MainHeader from '../../components/layout/Header.vue'
+import MainFooter from '../../components/layout/Footer.vue'
+
 export default {
+  components: {
+    MainHeader,
+    MainFooter
+  },
   data() {
     return {
       activityName: '',
@@ -198,28 +192,29 @@ export default {
 
 <style scoped>
 .container {
-  width: 100%;
+  width: 395px;
   max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 4rem auto;
+  padding: 20px;  
   background-color: #ffe8d1;
+  min-height: calc(100vh - 120px); /* 헤더와 푸터를 고려한 페이지 높이 조정 */
 }
 
 .header {
   text-align: center;
 }
 
-.logo {
-  width: 120px;
+.activity-info,
+.category-box,
+.experience-container,
+.pmi-container {
   margin-bottom: 20px;
 }
 
-.activity-info,
-.category,
-.experience,
-.pmi {
-  margin-bottom: 20px;
+.activity-name-container {
+  margin-bottom: 20px; 
 }
+
 
 input[type="text"],
 input[type="date"],
@@ -229,7 +224,8 @@ textarea {
   margin-top: 5px;
   background-color: #fff3e6;
   border-radius: 5px;
-  resize: none; /* 사용자 수동 조절 비활성화 */
+  resize: none;
+  font-size: 13px;
 }
 
 .star-box,
@@ -245,19 +241,22 @@ textarea {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
 }
 
 .tag-container {
   display: flex;
   flex-wrap: wrap;
   margin-top: 10px;
+  font-size: 12px;
 }
 
 button {
   display: inline-block;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 50px;
+  margin: 3px;
+  padding: 8px;
+  border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
 }
@@ -267,9 +266,22 @@ button.active {
   color: white;
 }
 
+/* 분야 설정 박스 */
+.category-box {
+  background-color: #fff3e6;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-label {
+  display: flex; 
+  align-items: center; 
+}
+
 .tag-badge {
   display: inline-block;
-  margin-left: 5px;
+  margin-left: 10px;
   background-color: #F6B87A;
   color: white;
   padding: 5px 10px;
@@ -283,47 +295,40 @@ button.active {
   background-color: #F6B87A;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 18px;
+  border-radius: 10px;
+  font-size: 16px;
   cursor: pointer;
+  ;
 }
 
-button:hover {
-  background-color: #f4c08c
+.save-button:hover {
+  background-color: #f4c08c;
 }
 
-.tooltip-icon {
-  cursor: pointer;
-  margin-left: 5px;
+h3 {
+  font-size: 15px; 
+  color: #FF7F00;
+  margin-top: 10px;
 }
 
+h2 {
+  margin: 0;
+  font-size: 15px;  
+}
 
-
-
-
-
-
-/*여기이상해*/
+label {
+  font-size: 15px;  
+}
 
 .tooltip {
-  position: absolute; /* 툴팁을 공중에 띄우기 */
-  top: 30px; /* PMI 제목 아래로 간격 조정 */
-  left: 0;
-  background-color: rgba(51, 51, 51, 0.9); /* 반투명 검정 배경 */
+  position: absolute;
+  background-color: rgba(51, 51, 51, 0.9);
   color: white;
-  padding: 8px 12px;
-  border-radius: 8px;
-  white-space: nowrap; /* 줄바꿈 방지 */
-  z-index: 1000;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  opacity: 0; /* 기본값은 투명하게 */
-  visibility: hidden; /* 처음엔 보이지 않도록 */
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 8px;
+  border-radius: 5px;
+  z-index: 1000; 
+  white-space: nowrap; 
 }
 
-.tooltip-icon:hover + .tooltip {
-  opacity: 1; /* 호버 시 나타나도록 */
-  visibility: visible;
-}
 
 </style>
