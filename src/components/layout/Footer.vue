@@ -1,22 +1,21 @@
 <template>
   <footer
-    class="bg-white shadow-sm py-2 px-4 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
+    class="bg-white shadow-sm py-2.5 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
   >
-    <nav class="flex items-center justify-between h-full">
+    <nav class="flex items-center justify-center h-full max-w-md mx-auto">
       <router-link
         v-for="(item, index) in navItems"
         :key="index"
         :to="item.route"
-        class="flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-300 hover:bg-gray-100"
+        class="flex items-center justify-center w-16 h-11 active:transform-none"
         :class="{
-          'text-[#F4B28C] hover:bg-[#F4B28C] hover:bg-opacity-10':
-            $route.path === item.route
+          'text-[#F4B28C]': $route.path === item.route
         }"
       >
         <img
           :src="item.icon"
           :alt="item.label"
-          class="w-5 h-5 object-contain"
+          class="w-6 h-6 object-contain"
         />
       </router-link>
     </nav>
