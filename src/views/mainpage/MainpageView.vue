@@ -57,7 +57,7 @@
               class="flex items-center justify-between flex-1 h-[40px] px-3 bg-white rounded-[17px]"
             >
               <span
-                class="text-sm"
+                class="text-sm font-nanum-square-round"
                 :class="{
                   'text-[#FF7F00]': task.completed,
                   'text-[#B3B3B3]': !task.completed
@@ -80,7 +80,7 @@
               class="flex items-center justify-between flex-1 h-[40px] px-3 bg-white rounded-[17px]"
             >
               <span
-                class="text-sm"
+                class="text-sm font-nanum-square-round"
                 :class="{
                   'text-[#FF7F00]': task.completed,
                   'text-[#B3B3B3]': !task.completed
@@ -106,7 +106,9 @@
               alt="미니 아코 이미지"
               class="w-8 h-8 mr-2"
             />
-            <p class="text-sm text-gray-600">토실토실 아코가 자라는 중</p>
+            <p class="text-sm text-gray-600 font-nanum-square-round">
+              토실토실 아코가 자라는 중
+            </p>
           </div>
           <img
             src="@/assets/Icons/akoming/mainpage/ako-01.svg"
