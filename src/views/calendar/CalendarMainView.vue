@@ -11,7 +11,10 @@
       <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24" style="margin-top: 30px">
         <div class="text-left mb-4">
-          <h1 class="text-xl font-bold text-gray-800 font-nanum-square-round">
+          <h1
+            class="text-xl font-bold text-gray-800 font-nanum-square-round"
+            style="margin-bottom: -40px"
+          >
             {{ currentYear }} at 동국대학교
           </h1>
         </div>
@@ -64,10 +67,12 @@
             v-for="(link, index) in links"
             :key="index"
             :href="link.url"
-            class="block text-center py-3 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300 no-underline font-nanum-square-round"
+            class="block text-center py-2 bg-[#FFD9BB] text-black text-sm font-medium rounded-lg hover:bg-[#f1cdb1] transition-colors duration-300 no-underline font-nanum-square-round inner-shadow"
             target="_blank"
+            style="max-width: 80%; margin: 0 auto; margin-bottom: 10px"
           >
             {{ link.text }}
+            <ArrowRightIcon class="w-4 h-4 ml-2" />
           </a>
         </div>
       </main>
@@ -190,5 +195,15 @@ const links = [
 .custom-calendar :deep(.vc-pane, .vc-header, .vc-weeks, .vc-day) {
   border: none;
   box-shadow: none;
+}
+
+.inner-shadow {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.link-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
