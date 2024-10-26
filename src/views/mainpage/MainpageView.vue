@@ -5,7 +5,7 @@
     >
       <MainHeader />
       <!-- 본문 내용 -->
-      <main class="flex flex-col px-6 pt-20 pb-24">
+      <main class="flex flex-col px-6 pt-24 pb-24">
         <!-- 제목 -->
         <h1
           class="mb-6 text-xl font-medium text-center text-gray-800 font-uhbeesehyun"
@@ -14,15 +14,15 @@
         </h1>
 
         <!-- 스탬프 영역 -->
-        <div class="relative w-[300px] h-[400px] mx-auto mb-6">
+        <div class="relative w-[390px] h-[520px] mx-auto mb-6">
           <svg
             class="absolute top-0 left-0 z-0 w-full h-full"
-            viewBox="0 0 300 400"
+            viewBox="0 0 390 520"
           >
             <path
-              d="M 50 50 L 150 50 Q 250 50, 250 125 Q 250 200, 150 200 L 50 200 A 75 75 0 0 0 50 350 L 150 350"
-              stroke="#ccc"
-              stroke-width="4"
+              d="M 60 40 L 195 40 Q 330 40, 330 137.5 Q 330 235, 195 235 L 60 235 A 87.5 87.5 0 0 0 60 410 L 270 410"
+              stroke="#BBB4B4"
+              stroke-width="3"
               fill="transparent"
             />
           </svg>
@@ -30,7 +30,7 @@
             v-for="(stamp, index) in stamps"
             :key="index"
             :style="stamp.position"
-            class="absolute w-[50px] h-[50px] flex justify-center items-center"
+            class="absolute w-[85px] h-[85px] flex justify-center items-center"
           >
             <img
               :src="
@@ -45,55 +45,49 @@
         </div>
 
         <!-- 할 일 표시 -->
-        <div class="mb-6 space-y-4">
-          <div class="flex space-x-4">
+        <div class="mb-6 space-y-3">
+          <div class="flex space-x-3">
             <div
               v-for="(task, index) in tasks.slice(0, 2)"
               :key="index"
-              class="flex items-center justify-between flex-1 p-3 bg-white rounded-lg shadow-sm"
+              class="flex items-center justify-between flex-1 p-2 bg-white rounded-[20px] shadow-sm"
             >
-              <span class="text-sm">{{ task.name }}</span>
-              <span v-if="task.completed" class="text-[#F6B87A]">✔</span>
+              <span
+                class="text-sm"
+                :class="{ 'text-[#FF7F00]': task.completed }"
+                >{{ task.name }}</span
+              >
             </div>
           </div>
-          <div class="flex space-x-4">
+          <div class="flex space-x-3">
             <div
               v-for="(task, index) in tasks.slice(2)"
               :key="index"
-              class="flex items-center justify-between flex-1 p-3 bg-white rounded-lg shadow-sm"
+              class="flex items-center justify-between flex-1 p-2 bg-white rounded-[20px] shadow-sm"
             >
-              <span class="text-sm">{{ task.name }}</span>
-              <span v-if="task.completed" class="text-[#F6B87A]">✔</span>
+              <span
+                class="text-sm"
+                :class="{ 'text-[#FF7F00]': task.completed }"
+                >{{ task.name }}</span
+              >
             </div>
           </div>
         </div>
 
         <!-- 아코 이미지 -->
-        <div class="text-center">
-          <img
-            src="@/assets/Icons/akoming/mainpage/minielephanticon.svg"
-            alt="아코 이미지"
-            class="w-32 h-32 mx-auto mb-2"
-          />
-          <!-- <svg
-            class="w-32 h-32 mx-auto mb-2"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path
-              d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+        <div class="text-center flex flex-col items-center">
+          <div class="flex items-center mb-2">
+            <img
+              src="@/assets/Icons/akoming/mainpage/minielephanticon.svg"
+              alt="미니 아코 이미지"
+              class="w-6 h-6 mr-2"
             />
-            <path d="M14 9l-5 5-2-2" />
-          </svg> -->
-          <p class="text-sm text-gray-600">토실토실 아코가 자라는 중</p>
+            <p class="text-lg text-gray-600">토실토실 아코가 자라는 중</p>
+          </div>
           <img
             src="@/assets/Icons/akoming/mainpage/ako-01.svg"
             alt="아코 이미지"
-            class="w-32 h-32 mx-auto mb-2"
+            class="w-64 h-64 mx-auto"
           />
         </div>
       </main>
@@ -109,13 +103,13 @@ import MainFooter from '@/components/layout/Footer.vue'
 import minielephanticon from '@/assets/Icons/akoming/mainpage/minielephanticon.svg'
 
 const stamps = ref([
-  { label: 'A', completed: true, position: { top: '25px', left: '25px' } },
-  { label: 'K', completed: true, position: { top: '25px', left: '125px' } },
-  { label: 'O', completed: true, position: { top: '100px', left: '225px' } },
-  { label: 'M', completed: false, position: { top: '175px', left: '125px' } },
-  { label: 'I', completed: false, position: { top: '175px', left: '25px' } },
-  { label: 'N', completed: false, position: { top: '325px', left: '25px' } },
-  { label: 'G', completed: false, position: { top: '325px', left: '125px' } }
+  { label: 'A', completed: true, position: { top: '0px', left: '17px' } },
+  { label: 'K', completed: true, position: { top: '0px', left: '152px' } },
+  { label: 'O', completed: true, position: { top: '95px', left: '287px' } },
+  { label: 'M', completed: false, position: { top: '192px', left: '152px' } },
+  { label: 'I', completed: false, position: { top: '192px', left: '17px' } },
+  { label: 'N', completed: false, position: { top: '367px', left: '107px' } },
+  { label: 'G', completed: false, position: { top: '367px', left: '242px' } }
 ])
 
 // 함수: completed가 true일 때 색상이 있는 아이콘을 가져옵니다.
