@@ -10,7 +10,7 @@
         <h1 class="text-6xl font-bold text-gray-800 mb-4 font-uhbeesehyun">
           404
         </h1>
-        <p class="text-lg text-gray-600 mb-8">페이지를 찾을 수 없습니다</p>
+        <p class="text-base text-gray-600 mb-8">페이지를 찾을 수 없습니다</p>
         <router-link
           to="/main"
           class="px-6 py-3 bg-[#F4B28C] text-white rounded-full no-underline"
