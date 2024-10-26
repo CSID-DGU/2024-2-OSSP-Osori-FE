@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
+  <div class="min-h-screen bg-[#FFF9F2] font-nanum flex justify-center">
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
     >
