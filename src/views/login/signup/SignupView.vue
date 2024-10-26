@@ -54,6 +54,7 @@
               <input
                 type="email"
                 id="email"
+                style="height: 37.6px"
                 v-model="email"
                 placeholder="이메일 입력"
                 @input="validateEmail"
@@ -63,6 +64,7 @@
               />
               <button
                 type="button"
+                style="height: 37.6px"
                 @click="sendVerificationEmail"
                 :disabled="!isEmailValid"
                 class="px-3 py-2 bg-[#F6B87A] text-white text-sm rounded-full hover:bg-[#e5a769] transition-colors duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed font-nanum-square-round"

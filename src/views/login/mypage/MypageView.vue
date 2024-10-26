@@ -91,12 +91,14 @@
                 <input
                   type="password"
                   v-model="currentPassword"
+                  style="height: 37.6px"
                   placeholder="현재 비밀번호를 입력하세요"
                   class="flex-grow px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
                 />
                 <button
                   @click="verifyCurrentPassword"
                   class="px-3 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+                  style="height: 37.6px"
                 >
                   확인하기
                 </button>
@@ -126,10 +128,12 @@
                 <input
                   type="password"
                   v-model="confirmPassword"
+                  style="height: 37.6px"
                   placeholder="새 비밀번호를 다시 입력하세요"
                   class="flex-grow px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
                 />
                 <button
+                  style="height: 37.6px"
                   @click="updatePassword"
                   class="px-3 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
                 >
