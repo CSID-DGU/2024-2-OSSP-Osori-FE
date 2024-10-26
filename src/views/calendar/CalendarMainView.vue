@@ -4,7 +4,7 @@
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
     >
       <!-- 상단바 -->
-      <header
+      <!-- <header
         class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
       >
         <div class="flex items-center justify-between">
@@ -15,7 +15,8 @@
             마이페이지
           </button>
         </div>
-      </header>
+      </header> -->
+      <MainHeader />
 
       <!-- 본문 내용 -->
       <main class="flex flex-col px-6 pt-20 pb-24">
