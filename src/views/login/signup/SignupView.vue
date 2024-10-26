@@ -4,11 +4,20 @@
   >
     <div class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative">
       <!-- 상단바 -->
-      <header
+      <!-- <header
         class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10 font-nanum-square-round"
       >
         <div class="flex items-center justify-between">
           <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
+
+        </div>
+      </header> -->
+
+      <header
+        class="bg-white py-2 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
+      >
+        <div class="flex items-center justify-between">
+          <img src="@/assets/images/Akoming.svg" alt="로고" class="h-12" />
           <button
             @click="$router.push('/auth/login')"
             class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm font-nanum-square-round"
@@ -54,6 +63,7 @@
               <input
                 type="email"
                 id="email"
+                style="height: 37.6px"
                 v-model="email"
                 placeholder="이메일 입력"
                 @input="validateEmail"
@@ -63,6 +73,7 @@
               />
               <button
                 type="button"
+                style="height: 37.6px"
                 @click="sendVerificationEmail"
                 :disabled="!isEmailValid"
                 class="px-3 py-2 bg-[#F6B87A] text-white text-sm rounded-full hover:bg-[#e5a769] transition-colors duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed font-nanum-square-round"
