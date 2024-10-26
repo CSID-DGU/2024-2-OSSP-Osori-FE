@@ -37,9 +37,7 @@
         </section>
 
         <section class="mt-8">
-          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round">
-            개인정보
-          </h2>
+          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round"></h2>
           <div class="space-y-4">
             <!-- 실명 -->
             <div class="space-y-1">
