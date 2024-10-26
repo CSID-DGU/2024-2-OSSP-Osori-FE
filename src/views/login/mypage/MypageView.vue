@@ -97,7 +97,7 @@
                 />
                 <button
                   @click="verifyCurrentPassword"
-                  class="px-3 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+                  class="px-3 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
                   style="height: 37.6px"
                 >
                   확인하기
@@ -135,7 +135,7 @@
                 <button
                   style="height: 37.6px"
                   @click="updatePassword"
-                  class="px-3 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+                  class="px-3 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
                 >
                   수정하기
                 </button>
@@ -168,12 +168,15 @@
                 class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
               />
             </div>
-            <button
-              @click="updateProfile"
-              class="w-full px-4 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
-            >
-              수정하기
-            </button>
+            <div style="text-align: center">
+              <button
+                @click="updateProfile"
+                style="width: 160px; margin-top: 20px"
+                class="w-full px-4 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+              >
+                저장하기
+              </button>
+            </div>
           </div>
         </section>
       </main>
