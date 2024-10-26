@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="bg-white shadow-sm py-2.5 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
+    class="bg-white py-2.5 fixed bottom-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
   >
     <nav class="flex items-center justify-center h-full max-w-md mx-auto">
       <router-link
@@ -55,7 +55,7 @@ const navItems = ref([
     label: '피드',
     icon: new URL('@/assets/Icons/akoming/bottom/feedicon.svg', import.meta.url)
       .href,
-    route: '/feed/ako-stamp-board'
+    route: '/feed/ako-stamp-write'
   },
   {
     label: '마이페이지',

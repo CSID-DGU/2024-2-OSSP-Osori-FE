@@ -1,33 +1,28 @@
 <template>
-  <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
+  <div class="min-h-screen bg-[#FFF9F2] font-nanum flex justify-center">
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
     >
       <!-- 상단바 -->
-      <header
-        class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
-        <div class="flex items-center justify-between">
-          <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
-          <button
-            @click="handleLogout"
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
-          >
-            로그아웃
-          </button>
-        </div>
-      </header>
+      <MainHeader />
 
       <!-- 본문 내용 -->
-      <main class="flex flex-col px-12 pt-16 pb-24">
+      <main class="flex flex-col px-12 pt-16 pb-24 overflow-y-auto">
         <section class="mt-9">
-          <h1 class="mb-4 text-xl font-bold">
-            <span class="text-2xl">{{ user.nickname }}</span
-            >님의 마이페이지
+          <h1 class="mb-4 text-xl font-bold font-nanum-square-round">
+            <!-- nickname 부분에 font-nanum-square-round 클래스 추가 -->
+            <span class="text-2xl font-nanum-square-round">{{
+              user.nickname
+            }}</span>
+            님의 <br />마이페이지
           </h1>
 
-          <h2 class="mb-2 text-lg font-semibold">자기소개</h2>
-          <p class="p-3 mb-2 text-sm bg-white rounded-lg">
+          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round">
+            자기소개
+          </h2>
+          <p
+            class="p-3 mb-2 text-sm bg-white rounded-lg font-nanum-square-round"
+          >
             {{ user.introduce || '자기소개를 입력하세요.' }}
           </p>
           <button
@@ -39,10 +34,14 @@
         </section>
 
         <section class="mt-8">
-          <h2 class="mb-2 text-lg font-semibold">개인정보</h2>
+          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round">
+            개인정보
+          </h2>
           <div class="space-y-4">
+            <!-- 실명 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >실명</label
               >
               <input
@@ -52,9 +51,10 @@
                 class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
               />
             </div>
-
+            <!-- 이메일 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >이메일</label
               >
               <input
@@ -64,9 +64,10 @@
                 class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
               />
             </div>
-
+            <!-- 닉네임 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >닉네임</label
               >
               <input
@@ -77,26 +78,32 @@
               />
             </div>
 
+            <!-- 현재 비밀번호 확인 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >현재 비밀번호 확인</label
               >
-              <input
-                type="password"
-                v-model="currentPassword"
-                placeholder="현재 비밀번호를 입력하세요"
-                class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
-              />
+              <div class="flex space-x-2">
+                <input
+                  type="password"
+                  v-model="currentPassword"
+                  placeholder="현재 비밀번호를 입력하세요"
+                  class="flex-grow px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
+                />
+                <button
+                  @click="verifyCurrentPassword"
+                  class="px-3 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+                >
+                  확인하기
+                </button>
+              </div>
             </div>
-            <button
-              @click="verifyCurrentPassword"
-              class="w-full px-4 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
-            >
-              확인하기
-            </button>
 
+            <!-- 새 비밀번호와 확인 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >새 비밀번호</label
               >
               <input
@@ -108,25 +115,30 @@
             </div>
 
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >새 비밀번호 확인</label
               >
-              <input
-                type="password"
-                v-model="confirmPassword"
-                placeholder="새 비밀번호를 다시 입력하세요"
-                class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
-              />
+              <div class="flex space-x-2">
+                <input
+                  type="password"
+                  v-model="confirmPassword"
+                  placeholder="새 비밀번호를 다시 입력하세요"
+                  class="flex-grow px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
+                />
+                <button
+                  @click="updatePassword"
+                  class="px-3 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+                >
+                  수정하기
+                </button>
+              </div>
             </div>
-            <button
-              @click="updatePassword"
-              class="w-full px-4 py-2 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
-            >
-              수정하기
-            </button>
 
+            <!-- 학번과 학과 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >학번</label
               >
               <input
@@ -138,7 +150,8 @@
             </div>
 
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >학과</label
               >
               <input
@@ -157,21 +170,28 @@
           </div>
         </section>
       </main>
+
       <!-- 하단바 -->
       <MainFooter />
     </div>
   </div>
 </template>
 
-<script src="./MypageScript.js">
+<script setup>
+import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
-import './MypageScript.js';
-
-export default {
-  components: {
-    MainFooter
-  }
-}
+import {
+  user,
+  password,
+  confirmPassword,
+  currentPassword,
+  passwordVerified,
+  handleLogout,
+  fetchUser,
+  verifyCurrentPassword,
+  updatePassword,
+  updateProfile
+} from './MypageScript.js'
 </script>
 
 <style scoped></style>

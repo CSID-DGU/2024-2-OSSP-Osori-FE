@@ -1,79 +1,125 @@
 <template>
-  <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
+  <div
+    class="min-h-screen bg-[#FFF9F2] font-nanum-square-round flex justify-center relative"
+  >
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
     >
       <!-- 상단바 -->
-      <header
-        class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-      >
-        <div class="flex items-center justify-between">
-          <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
-          <button
-            class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm"
-          >
-            마이페이지
-          </button>
-        </div>
-      </header>
+      <MainHeader />
 
       <!-- 본문 내용 -->
-      <main class="flex flex-col px-6 pt-20 pb-24">
-        <div class="text-center mb-6">
-          <h1 class="text-2xl font-bold text-gray-800">
-            {{ currentYear }} at 동국대학교 {{ currentMonth }}월
-          </h1>
+      <main class="flex flex-col px-6 pt-20 pb-24" style="margin-top: 30px">
+        <div class="mb-4 mx-4">
+          <h2
+            class="text-xl font-semibold text-gray-800 font-nanum-square-round mb-2"
+          >
+            {{ currentYear }} at 동국대학교
+          </h2>
+          <div class="flex items-center justify-between">
+            <h3
+              class="text-3xl font-bold text-gray-800 font-nanum-square-round"
+            >
+              {{ currentMonth }}월
+            </h3>
+            <div class="flex space-x-6">
+              <!-- 화살표 버튼 -->
+              <button @click="goToPrevMonth" class="text-2xl no-hover">
+                ‹
+              </button>
+              <button @click="goToNextMonth" class="text-2xl no-hover">
+                ›
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- 캘린더 -->
         <div
-          class="bg-white rounded-lg shadow-sm p-4 mb-6 flex justify-center items-center"
+          class="bg-[#FAE8DA] rounded-lg p-4 mb-4 flex flex-col items-center calendar-container mx-auto"
         >
-          <v-calendar
-            title-position="left"
-            expanded
-            borderless
-            v-model="selectedDate"
-            is-expanded
-            :attributes="calendarAttributes"
-            :color="selectedColor"
-            class="custom-calendar"
-            @dayclick="onDateSelect"
-          ></v-calendar>
+          <div class="grid grid-cols-7 gap-4 text-center mb-4">
+            <span
+              v-for="day in DAY_LIST"
+              :key="day"
+              class="text-gray-500 text-sm"
+              style="margin-right: 7px"
+              >{{ day }}</span
+            >
+          </div>
+          <div
+            v-for="week in weekCalendarList"
+            :key="week.toString()"
+            class="flex w-full justify-between mb-1"
+          >
+            <button
+              v-for="day in week"
+              :key="day"
+              class="flex flex-col items-center w-full h-8 justify-center rounded-lg"
+              :class="{
+                'text-[#17A1FA]': isSundayOrSaturday(day),
+                'text-[#B3B3B3]': !isSundayOrSaturday(day) && day !== 0,
+                'bg-[#FF7F00] text-white': day === selectedDay,
+                invisible: day === 0
+              }"
+              style="font-size: 0.75rem; width: 2rem; height: 2rem; margin: 2px"
+              @click="selectDay(day)"
+            >
+              <span>{{ day !== 0 ? day : '' }}</span>
+              <span
+                v-if="hasEvent(day)"
+                class="bg-[#B3B3B3] w-1 h-1 rounded-full mt-1"
+              ></span>
+            </button>
+          </div>
         </div>
 
-        <!-- 학사 일정 목록 -->
+        <!-- 학사 일정 목록 팝업 -->
         <div
-          v-if="selectedEvents.length > 0"
-          class="bg-white rounded-lg shadow-sm p-4"
+          v-if="isScheduleOpen && selectedEvents.length > 0"
+          class="schedule-popup fixed bottom-0 left-0 right-0 bg-white rounded-t-3xl p-6 overflow-y-auto max-h-[60vh] w-[395px] mx-auto"
         >
-          <h2 class="text-lg font-bold mb-4">선택한 날짜의 학사 일정</h2>
-          <ul>
-            <li
-              v-for="(event, index) in selectedEvents"
-              :key="index"
-              class="mb-2"
-            >
-              <p class="text-gray-700">
-                <strong>{{ event.title }}</strong>
-              </p>
-              <p class="text-sm text-gray-500">
-                {{ formatDateRange(event.startDate, event.endDate) }}
-              </p>
-            </li>
-          </ul>
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-bold font-nanum-square-round">학사 일정</h2>
+            <button @click="closeSchedule" class="text-gray-500 text-lg">
+              ✕
+            </button>
+          </div>
+          <div
+            v-for="(event, index) in selectedEvents"
+            :key="index"
+            class="mb-4 border-b border-gray-200 pb-4"
+          >
+            <div class="flex items-start">
+              <div
+                class="w-8 h-8 bg-[#FF7F00] rounded text-white flex items-center justify-center font-bold text-sm mr-4"
+              >
+                {{ selectedDay }}
+              </div>
+              <div>
+                <p class="text-gray-700 font-nanum-square-round">
+                  {{ event.title }}
+                </p>
+                <p class="text-sm text-gray-500 font-nanum-square-round">
+                  {{ formatDateRange(event.startDate, event.endDate) }}
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- 링크 섹션 -->
-        <div class="space-y-4">
+        <div class="space-y-2">
           <a
             v-for="(link, index) in links"
             :key="index"
             :href="link.url"
-            class="block text-center py-3 bg-[#F6B87A] text-white text-sm font-medium rounded-full shadow hover:bg-[#e5a769] transition-colors duration-300 no-underline"
+            class="block text-center py-2 bg-[#FFD9BB] text-black text-sm font-medium rounded-lg hover:bg-[#f1cdb1] transition-colors duration-300 no-underline font-nanum-square-round inner-shadow"
             target="_blank"
+            style="max-width: 80%; margin: 0 auto; margin-bottom: 10px"
           >
             {{ link.text }}
+            <ArrowRightIcon class="w-4 h-4 ml-2" />
           </a>
         </div>
       </main>
@@ -85,115 +131,64 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { format, isWithinInterval, parseISO } from 'date-fns'
-import 'v-calendar/dist/style.css'
+import {
+  DAY_LIST,
+  currentDate,
+  selectedDay,
+  isScheduleOpen,
+  currentYear,
+  currentMonth,
+  academicEvents,
+  goToPrevMonth,
+  goToNextMonth,
+  weekCalendarList,
+  selectDay,
+  closeSchedule,
+  isSundayOrSaturday,
+  hasEvent,
+  selectedEvents,
+  formatDateRange,
+  links
+} from './CalendarMainScript.js'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
-
-// 현재 날짜를 기준으로 연도와 월을 가져옴
-const currentDate = new Date()
-const currentYear = format(currentDate, 'yyyy')
-const currentMonth = format(currentDate, 'MM')
-
-// 학사 일정 데이터 (예시 데이터)
-const academicEvents = ref([
-  {
-    AcademicEventId: 1,
-    title: '개강일',
-    startDate: '2024-03-01',
-    endDate: '2024-03-01'
-  },
-  {
-    AcademicEventId: 2,
-    title: '종강일',
-    startDate: '2024-06-30',
-    endDate: '2024-06-30'
-  },
-  {
-    AcademicEventId: 3,
-    title: '중간고사',
-    startDate: '2024-04-15',
-    endDate: '2024-04-19'
-  },
-  {
-    AcademicEventId: 4,
-    title: '기말고사',
-    startDate: '2024-06-15',
-    endDate: '2024-06-19'
-  }
-])
-
-const selectedDate = ref(new Date()) // 달력에서 선택된 날짜
-const selectedColor = ref('#F6B87A') // 선택된 날짜의 색상
-
-// 날짜 선택 시 호출되는 함수
-const onDateSelect = (day) => {
-  selectedDate.value = day.date
-}
-
-// 선택된 날짜에 해당하는 이벤트 필터링
-const selectedEvents = computed(() => {
-  return academicEvents.value.filter((event) =>
-    isWithinInterval(selectedDate.value, {
-      start: parseISO(event.startDate),
-      end: parseISO(event.endDate)
-    })
-  )
-})
-
-// 캘린더에 이벤트 데이터를 표시하기 위한 속성 (일정 있는 날에 배경색 표시)
-const calendarAttributes = computed(() => {
-  return academicEvents.value.map((event) => ({
-    key: event.AcademicEventId,
-    dates: { start: parseISO(event.startDate), end: parseISO(event.endDate) },
-    customData: { title: event.title },
-    popover: {
-      label: event.title
-    },
-    // 일정이 있는 날에 대한 진한 주황색 배경 설정
-    highlight: {
-      backgroundColor: '#FF7F00', // 진한 주황색 배경
-      contentColor: '#ffffff' // 텍스트 색상
-    }
-  }))
-})
-
-// 날짜 범위 형식으로 변환하는 함수
-const formatDateRange = (startDate, endDate) => {
-  const start = format(parseISO(startDate), 'yyyy-MM-dd')
-  const end = format(parseISO(endDate), 'yyyy-MM-dd')
-  return start === end ? start : `${start} ~ ${end}`
-}
-
-// 외부 링크 (예시 데이터)
-const links = [
-  {
-    text: '동국대학교 홈페이지 바로가기',
-    url: 'https://www.dongguk.edu/main'
-  },
-  {
-    text: '동국대학교 학사일정 바로가기',
-    url: 'https://www.dongguk.edu/schedule/detail?schedule_info_seq=22'
-  },
-  {
-    text: 'ndrims 바로가기',
-    url: 'https://ndrims.dongguk.edu/unis/index.do'
-  }
-]
 </script>
 
 <style scoped>
-.custom-calendar {
-  --vc-bg-light-900: #ff7f00; /* 커스텀 색상 */
-  --vc-bg-light-800: #e65c00;
-  --vc-border-radius: 0.5rem; /* 둥근 테두리 */
-  --vc-border-width: 0; /* 캘린더 전체 테두리 제거 */
+.calendar-container {
+  width: 100%;
 }
 
-/* 각 날짜 셀에 적용된 테두리 제거 */
-.custom-calendar :deep(.vc-pane, .vc-header, .vc-weeks, .vc-day) {
-  border: none;
-  box-shadow: none;
+.font-nanum-square-round {
+  font-family: 'NanumSquareRound', sans-serif;
+}
+
+.schedule-popup {
+  max-height: 60vh;
+  background-color: #ffffff;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 1.5rem;
+  width: 395px;
+}
+
+.highlighted-date {
+  background-color: #ff7f00 !important;
+  color: white !important;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 4px;
+}
+
+.inner-shadow {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.no-hover {
+  transition: none;
+  color: inherit;
+}
+
+.no-hover:hover {
+  color: inherit;
 }
 </style>

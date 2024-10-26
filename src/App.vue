@@ -9,6 +9,8 @@
 <script>
 import '@/assets/styles/main.css'
 import '@/assets/styles/global.css'
+import MainHeader from '@/components/layout/Header.vue'
+import MainFooter from '@/components/layout/Footer.vue'
 export default {
   name: 'App' // 컴포넌트 명 추가
 }
