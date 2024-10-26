@@ -131,6 +131,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 import {
   DAY_LIST,
   currentDate,
@@ -152,6 +153,11 @@ import {
 } from './CalendarMainScript.js'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
+
+// 페이지 로드 시 이번 달로 초기화
+onMounted(() => {
+  currentDate.value = new Date()
+})
 </script>
 
 <style scoped>
