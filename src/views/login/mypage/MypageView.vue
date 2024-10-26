@@ -9,13 +9,20 @@
       <!-- 본문 내용 -->
       <main class="flex flex-col px-12 pt-16 pb-24 overflow-y-auto">
         <section class="mt-9">
-          <h1 class="mb-4 text-xl font-bold">
-            <span class="text-2xl">{{ user.nickname }}</span
-            ><br />님의 마이페이지
+          <h1 class="mb-4 text-xl font-bold font-nanum-square-round">
+            <!-- nickname 부분에 font-nanum-square-round 클래스 추가 -->
+            <span class="text-2xl font-nanum-square-round">{{
+              user.nickname
+            }}</span>
+            님의 <br />마이페이지
           </h1>
 
-          <h2 class="mb-2 text-lg font-semibold">자기소개</h2>
-          <p class="p-3 mb-2 text-sm bg-white rounded-lg">
+          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round">
+            자기소개
+          </h2>
+          <p
+            class="p-3 mb-2 text-sm bg-white rounded-lg font-nanum-square-round"
+          >
             {{ user.introduce || '자기소개를 입력하세요.' }}
           </p>
           <button
@@ -27,11 +34,14 @@
         </section>
 
         <section class="mt-8">
-          <h2 class="mb-2 text-lg font-semibold">개인정보</h2>
+          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round">
+            개인정보
+          </h2>
           <div class="space-y-4">
             <!-- 실명 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >실명</label
               >
               <input
@@ -43,7 +53,8 @@
             </div>
             <!-- 이메일 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >이메일</label
               >
               <input
@@ -55,7 +66,8 @@
             </div>
             <!-- 닉네임 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >닉네임</label
               >
               <input
@@ -68,7 +80,8 @@
 
             <!-- 현재 비밀번호 확인 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >현재 비밀번호 확인</label
               >
               <div class="flex space-x-2">
@@ -89,7 +102,8 @@
 
             <!-- 새 비밀번호와 확인 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >새 비밀번호</label
               >
               <input
@@ -101,7 +115,8 @@
             </div>
 
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >새 비밀번호 확인</label
               >
               <div class="flex space-x-2">
@@ -122,7 +137,8 @@
 
             <!-- 학번과 학과 -->
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >학번</label
               >
               <input
@@ -134,7 +150,8 @@
             </div>
 
             <div class="space-y-1">
-              <label class="block text-sm font-medium text-gray-700"
+              <label
+                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
                 >학과</label
               >
               <input
