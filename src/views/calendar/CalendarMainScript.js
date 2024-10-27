@@ -23,7 +23,8 @@ export const academicEvents = ref([
   { title: '개강일', startDate: '2024-03-01', endDate: '2024-03-01' },
   { title: '종강일', startDate: '2024-06-30', endDate: '2024-06-30' },
   { title: '중간고사', startDate: '2024-04-15', endDate: '2024-04-19' },
-  { title: '기말고사', startDate: '2024-06-15', endDate: '2024-06-19' }
+  { title: '기말고사', startDate: '2024-06-15', endDate: '2024-06-19' },
+  { title: '중간고사', startDate: '2024-10-21', endDate: '2024-10-25' }
 ])
 
 onMounted(() => {

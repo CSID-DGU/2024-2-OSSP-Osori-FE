@@ -23,7 +23,7 @@ import MainFooter from '@/components/layout/Footer.vue'
 
 <style scoped>
 .feed-page {
-  max-width: 395px;
+  max-width: 345px;
   margin: 0 auto;
 }
 .component-spacing {
