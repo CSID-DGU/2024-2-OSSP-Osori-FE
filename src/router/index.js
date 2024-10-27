@@ -98,6 +98,11 @@ const routes = [
         path: 'ako-stamp-follow',
         name: 'AkoStampFollow',
         component: importedViews['AkoStampFollow'] // 자동 임포트 적용
+      },
+      {
+        path: 'main',
+        name: 'MainFeedPage',
+        component: importedViews['MainFeedPage'] // 자동 임포트 적용
       }
     ]
   }
