@@ -35,7 +35,7 @@
           style="margin-top: 160px"
           class="flex flex-col justify-center flex-grow px-12 pt-16 pb-8 font-nanum-square-round"
         >
-          <h1 class="mb-2 text-2xl font-bold text-center">로그인</h1>
+          <h1 class="mb-2 text-2xl font-bold text-center font-nanum">로그인</h1>
           <form @submit.prevent="onSubmit" class="my-8 space-y-4">
             <!-- 이메일 입력란 -->
             <div class="space-y-1">
