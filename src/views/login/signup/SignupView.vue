@@ -2,17 +2,11 @@
   <div
     class="min-h-screen bg-[#FFF9F2] font-nanum-square-round flex justify-center"
   >
-    <div class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative">
+    <!-- 모바일 영역 -->
+    <div
+      class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen flex flex-col relative"
+    >
       <!-- 상단바 -->
-      <!-- <header
-        class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10 font-nanum-square-round"
-      >
-        <div class="flex items-center justify-between">
-          <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
-
-        </div>
-      </header> -->
-
       <header
         class="bg-white py-2 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
       >
@@ -29,7 +23,7 @@
 
       <!-- 본문 내용 -->
       <main
-        class="flex flex-col justify-center min-h-screen px-12 pt-16 pb-8 font-nanum-square-round"
+        class="flex flex-col justify-center flex-grow px-12 pt-16 pb-8 font-nanum-square-round"
       >
         <h1 class="mb-2 text-2xl font-bold text-center font-nanum-square-round">
           회원가입
@@ -210,11 +204,5 @@
 
 .font-nanum-square-round {
   font-family: 'NanumSquareRound', sans-serif;
-}
-
-@media (min-width: 396px) {
-  body {
-    background-color: #fff9f2;
-  }
 }
 </style>
