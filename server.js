@@ -29,6 +29,6 @@ const app = express()
 // )
 
 // Express 서버 시작
-app.listen(3000, () => {
-  console.log('Express 서버가 3000번 포트에서 실행 중입니다.')
+app.listen(3001, () => {
+  console.log('Express 서버가 3001번 포트에서 실행 중입니다.')
 })
