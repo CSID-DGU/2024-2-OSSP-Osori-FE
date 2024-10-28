@@ -21,6 +21,7 @@ module.exports = defineConfig({
         changeOrigin: true, // 백엔드 서버의 도메인과 상관없이 요청을 보낼 수 있게 허용
         secure: false // HTTPS가 아니므로 설정 (필요한 경우 추가)
       }
-    }
+    },
+    port: 3000
   }
 })
