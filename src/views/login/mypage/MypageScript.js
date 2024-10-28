@@ -126,7 +126,28 @@ export async function updatePassword() {
   }
 }
 
-// 유저 프로필 수정 (추가적인 프로필 수정 함수가 필요하다면 여기에 작성)
-export async function updateProfile() {
-  // 프로필 수정 로직 작성
+// 유저 프로필 수정
+export async function updateProfile(profileData) {
+  const url = `${process.env.VUE_APP_BE_API_URL}/api/users/profile`
+  const options = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+      // 필요한 경우 인증 토큰 추가
+      // 'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(profileData)
+  }
+
+  try {
+    const response = await fetch(url, options)
+    if (!response.ok) {
+      throw new Error('Network response was not ok')
+    }
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error)
+    throw error
+  }
 }

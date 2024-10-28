@@ -11,6 +11,9 @@ module.exports = {
       },
       colors: {
         customBg: '#FFF9F2'
+      },
+      fontSize: {
+        xxs: '0.625rem' // 10px
       }
     }
   },

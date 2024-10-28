@@ -16,21 +16,40 @@
             님의 <br />마이페이지
           </h1>
 
-          <h2 class="mb-2 text-lg font-semibold font-nanum-square-round">
-            나의 아코자국들
-          </h2>
-          <ul v-if="goals.length > 0" class="space-y-3">
+          <ul v-if="goals.length > 0" class="space-y-3 p-4 bg-white rounded-lg">
+            <h2
+              class="mb-2 text-lg font-semibold font-nanum-square-round"
+              style="margin-bottom: -50px"
+            >
+              나의 아코자국들
+            </h2>
             <li
               v-for="(goal, index) in goals"
               :key="index"
-              class="p-3 bg-white rounded-lg"
+              class="flex items-center justify-between"
             >
-              <p class="text-sm font-nanum-square-round">{{ goal.content }}</p>
-              <p class="text-xs text-gray-500">
-                {{ formatDate(goal.createdAt) }}
+              <!-- 날짜 부분: 주황색 정사각형 -->
+              <p
+                class="text-xxs font-nanum-square-round flex-shrink-0 mr-2 p-1 rounded-sm text-center"
+                style="
+                  background-color: #ff7f00;
+                  color: white;
+                  width: 30px;
+                  height: 30px;
+                "
+              >
+                {{ formatDate2(goal.createdAt) }}
+              </p>
+
+              <!-- 목표 내용 부분 -->
+              <p
+                class="text-sm font-nanum-square-round flex-grow text-left ml-3"
+              >
+                {{ goal.content }}
               </p>
             </li>
           </ul>
+
           <p v-else class="text-sm font-nanum-square-round">
             아직 목표 기록이 없습니다.
           </p>
@@ -235,6 +254,10 @@ const formatDate = (date) => {
   const options = { month: 'long', day: 'numeric' }
   return new Date(date).toLocaleDateString('ko-KR', options)
 }
-</script>
 
-<style scoped></style>
+// 날짜 형식 포맷
+const formatDate2 = (date) => {
+  const options = { month: '2-digit', day: '2-digit' } // 'MM.DD' 형식
+  return new Date(date).toLocaleDateString('ko-KR', options).replace(/\//g, '.')
+}
+</script>
