@@ -18,7 +18,7 @@ export default {
   props: {
     duration: {
       type: Number,
-      default: 500 // 1초 동안 로고 표시
+      default: 500 // 0.5초 동안 로고 표시
     }
   },
   setup(props, { emit }) {
