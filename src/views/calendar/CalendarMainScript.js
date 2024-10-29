@@ -40,12 +40,15 @@ onMounted(() => {
 // 백엔드에서 학사 일정 가져오기
 const fetchAcademicEvents = async () => {
   try {
-    const response = await axios.get(`/api/calendar`, {
-      params: {
-        year: currentYear.value,
-        month: currentMonth.value
+    const response = await axios.get(
+      `${process.env.VUE_APP_BE_API_URL}/api/calendar`,
+      {
+        params: {
+          year: currentYear.value,
+          month: currentMonth.value
+        }
       }
-    })
+    )
     academicEvents.value = response.data || []
   } catch (error) {
     console.error('서버에 연결할 수 없어 임시 데이터를 사용합니다.', error)
