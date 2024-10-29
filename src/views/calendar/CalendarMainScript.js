@@ -32,14 +32,13 @@ const temporaryEvents = [
 // 학사 일정 데이터 저장소
 export const academicEvents = ref([])
 
-onMounted(() => {
-  selectedDay.value = new Date().getDate()
-  fetchAcademicEvents()
-})
-
 // 백엔드에서 학사 일정 가져오기
-const fetchAcademicEvents = async () => {
+export const fetchAcademicEvents = async () => {
   try {
+    console.log(
+      'API 요청 URL:',
+      `${process.env.VUE_APP_BE_API_URL}/api/calendar`
+    )
     const response = await axios.get(
       `${process.env.VUE_APP_BE_API_URL}/api/calendar`,
       {
@@ -51,8 +50,11 @@ const fetchAcademicEvents = async () => {
     )
     academicEvents.value = response.data || []
   } catch (error) {
-    console.error('서버에 연결할 수 없어 임시 데이터를 사용합니다.', error)
-    academicEvents.value = temporaryEvents // 서버 연결 실패 시 임시 데이터 사용
+    console.log(
+      '서버에 연결할 수 없어 임시 데이터를 사용합니다:',
+      error.message
+    )
+    academicEvents.value = [...temporaryEvents]
   }
 }
 
