@@ -187,7 +187,7 @@
             </div>
             <div style="text-align: center">
               <button
-                @click="updateProfile"
+                @click="saveProfile"
                 style="width: 160px; margin-top: 20px"
                 class="w-full px-4 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
               >
@@ -259,5 +259,17 @@ const formatDate = (date) => {
 const formatDate2 = (date) => {
   const options = { month: '2-digit', day: '2-digit' } // 'MM.DD' 형식
   return new Date(date).toLocaleDateString('ko-KR', options).replace(/\//g, '.')
+}
+
+const saveProfile = () => {
+  const profileData = {
+    name: user.name,
+    email: user.email,
+    nickname: user.nickname,
+    studentNumber: user.studentNumber,
+    major: user.major,
+    introduce: user.introduce
+  }
+  updateProfile(profileData)
 }
 </script>
