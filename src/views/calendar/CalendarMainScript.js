@@ -1,4 +1,5 @@
 import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
 import {
   format,
   getDaysInMonth,
@@ -19,17 +20,43 @@ export const isScheduleOpen = ref(false)
 export const currentYear = computed(() => format(currentDate.value, 'yyyy'))
 export const currentMonth = computed(() => format(currentDate.value, 'M'))
 
-export const academicEvents = ref([
+// 임시 학사 일정 데이터
+const temporaryEvents = [
   { title: '개강일', startDate: '2024-03-01', endDate: '2024-03-01' },
   { title: '종강일', startDate: '2024-06-30', endDate: '2024-06-30' },
   { title: '중간고사', startDate: '2024-04-15', endDate: '2024-04-19' },
   { title: '기말고사', startDate: '2024-06-15', endDate: '2024-06-19' },
   { title: '중간고사', startDate: '2024-10-21', endDate: '2024-10-25' }
-])
+]
 
-onMounted(() => {
-  selectedDay.value = new Date().getDate()
-})
+// 학사 일정 데이터 저장소
+export const academicEvents = ref([])
+
+// 백엔드에서 학사 일정 가져오기
+export const fetchAcademicEvents = async () => {
+  try {
+    console.log(
+      'API 요청 URL:',
+      `${process.env.VUE_APP_BE_API_URL}/api/calendar`
+    )
+    const response = await axios.get(
+      `${process.env.VUE_APP_BE_API_URL}/api/calendar`,
+      {
+        params: {
+          year: currentYear.value,
+          month: currentMonth.value
+        }
+      }
+    )
+    academicEvents.value = response.data || []
+  } catch (error) {
+    console.log(
+      '서버에 연결할 수 없어 임시 데이터를 사용합니다:',
+      error.message
+    )
+    academicEvents.value = [...temporaryEvents]
+  }
+}
 
 export const goToPrevMonth = () => {
   currentDate.value = subMonths(currentDate.value, 1)

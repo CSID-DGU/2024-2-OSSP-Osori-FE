@@ -126,7 +126,29 @@ export async function updatePassword() {
   }
 }
 
-// 유저 프로필 수정 (추가적인 프로필 수정 함수가 필요하다면 여기에 작성)
-export async function updateProfile() {
-  // 프로필 수정 로직 작성
+// 유저 프로필 수정
+export async function updateProfile(profileData) {
+  const url = `${process.env.VUE_APP_BE_API_URL}/api/users/profile`
+  const options = {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(profileData),
+    credentials: 'include' // 세션 포함해야함
+  }
+
+  try {
+    const response = await fetch(url, options)
+    if (!response.ok) {
+      throw new Error('프로필 수정 실패')
+    }
+    const data = await response.json()
+    alert('프로필이 수정되었습니다.')
+    Object.assign(user, profileData)
+    return data
+  } catch (error) {
+    console.error('프로필 수정 오류:', error)
+    throw error
+  }
 }
