@@ -58,9 +58,20 @@ const routes = [
     ]
   },
   {
-    path: '/portfolios',
+    path: '/akopolio',
     component: PortfolioLayout, // 공통 레이아웃 컴포넌트
-    children: []
+    children: [
+      {
+        path: 'main',
+        name: 'akopolioMain',
+        component: importedViews['akopolioMain'] // 자동 임포트 적용
+      },
+      {
+        path: 'create',
+        name: 'akopolioCreate',
+        component: importedViews['akopolioCreate'] // 자동 임포트 적용
+      }
+    ]
   },
   {
     path: '/:catchAll(.*)',
@@ -107,16 +118,6 @@ const routes = [
         component: importedViews['MainFeedPage'] // 자동 임포트 적용
       }
     ]
-  },
-  {
-    path: '/akopolio',
-    name: 'akopolioMain',
-    component: akopolioMain,
-  },
-  {
-    path: '/akopolio/create',
-    name: 'akopolioCreate',
-    component: akopolioCreate,
   }
 ]
 
