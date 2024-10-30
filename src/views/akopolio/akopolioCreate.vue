@@ -169,25 +169,64 @@ export default {
       textarea.style.height = 'auto';
       textarea.style.height = `${textarea.scrollHeight}px`;
     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     saveData() {
       if (!this.isFormComplete) {
-        // 누락된 필드가 있을 경우 알림
         alert('모든 필드를 입력해주세요.');
         return;
       }
 
-      const data = {
-        activityName: this.activityName,
-        activityDate: this.activityDate,
-        selectedTags: this.selectedTags,
-        star: this.star,
-        pmi: this.pmi
-      };
-      console.log('저장된 데이터:', data);
-      alert('활동이 저장되었습니다!');
+    const newPortfolio = {
+      title: this.activityName,
+      createdDate: this.activityDate,
+      tags: this.selectedTags,
+      star: this.star,
+      pmi: this.pmi
+    };
+
+    this.$store.dispatch('addPortfolio', newPortfolio); // Vuex 액션 호출
+    alert('활동이 저장되었습니다!');
+    this.resetForm(); // 폼 초기화 (필요 시)
+  },
+    resetForm() {
+      this.activityName = '';
+      this.activityDate = '';
+      this.selectedTags = [];
+      this.star = { situation: '', task: '', action: '', result: '' };
+      this.pmi = { plus: '', minus: '', interesting: '' };
     }
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </script>
 
 <style scoped>
