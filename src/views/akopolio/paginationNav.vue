@@ -4,13 +4,13 @@
       &lt;
     </button>
 
-    <!-- 1부터 5까지의 페이지 버튼 표시 -->
+    <!-- 페이지 번호 표시 -->
     <button 
       v-for="page in visiblePages" 
       :key="page" 
       @click="changePage(page)"
       :class="{ 'active': page === currentPage }">
-      <span :class="{ 'selected': page === currentPage }">{{ page }}</span>
+      {{ page }}
     </button>
 
     <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
@@ -28,22 +28,18 @@ export default {
   computed: {
     visiblePages() {
       const pages = [];
-      const startPage = Math.max(1, this.currentPage - 2); // 현재 페이지의 두 페이지 앞부터
-      const endPage = Math.min(this.totalPages, startPage + 4); // 시작 페이지에서 5개까지
+      const maxVisible = 5; // 최대 표시할 페이지 수
+      let startPage = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+      let endPage = Math.min(this.totalPages, startPage + maxVisible - 1);
 
-      // 현재 페이지가 1인 경우
-      if (this.currentPage === 1) {
-        for (let i = 1; i <= Math.min(5, this.totalPages); i++) {
-          pages.push(i);
-        }
-      } else {
-        for (let i = startPage; i <= endPage; i++) {
-          if (i <= this.totalPages) {
-            pages.push(i);
-          }
-        }
+      // 끝 페이지가 부족할 때 시작 페이지 조정
+      if (endPage - startPage < maxVisible - 1) {
+        startPage = Math.max(1, endPage - maxVisible + 1);
       }
-      
+
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
       return pages;
     },
   },
@@ -73,7 +69,7 @@ button {
   font-size: 16px;
 }
 
-button.active .selected {
+button.active{
   font-weight: bold;
 }
 

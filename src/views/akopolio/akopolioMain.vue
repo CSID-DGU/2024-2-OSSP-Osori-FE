@@ -44,7 +44,8 @@
       </div>
     </div>
 
-    <div class="portfolio-list">
+    <!-- 포트폴리오 목록 또는 데이터 없음 메시지 -->
+    <div v-if="filteredPortfolioList.length > 0" class="portfolio-list">
       <div
         v-for="item in filteredPortfolioList"
         :key="item.id"
@@ -55,11 +56,15 @@
           <p class="created-date">작성일: {{ item.createdDate }}</p>
         </div>
         <div class="portfolio-tags">
-          <span v-for="tag in item.tags" :key="tag" class="portfolio-tag">{{
-            tag
-          }}</span>
+          <span v-for="tag in item.tags" :key="tag" class="portfolio-tag">
+            {{ tag }}
+          </span>
         </div>
       </div>
+    </div>
+
+    <div v-else class="no-data">
+      등록된 포트폴리오가 없습니다.
     </div>
 
     <pagination-nav
@@ -80,15 +85,16 @@
 </template>
 
 <script>
-import PaginationNav from './paginationNav.vue'
-import MainHeader from '../../components/layout/Header.vue'
-import MainFooter from '../../components/layout/Footer.vue'
+import PaginationNav from './paginationNav.vue';
+import MainHeader from '../../components/layout/Header.vue';
+import MainFooter from '../../components/layout/Footer.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
     MainHeader,
     MainFooter,
-    PaginationNav
+    PaginationNav,
   },
   data() {
     return {
@@ -99,105 +105,105 @@ export default {
       itemsPerPage: 8,
       selectedTags: [],
       tags: [
-        '전공',
-        '교양',
-        '교내동아리',
-        '교외동아리',
-        '학회',
-        '봉사활동',
-        '인턴',
-        '아르바이트',
-        '대외활동',
-        '서포터즈',
-        '기자단',
-        '강연/행사',
-        '스터디',
-        '부트캠프',
-        '프로젝트',
-        '연구',
-        '학생회',
-        '기타'
+        '전공', '교양', '교내동아리', '교외동아리', '학회', '봉사활동',
+        '인턴', '아르바이트', '대외활동', '서포터즈', '기자단',
+        '강연/행사', '스터디', '부트캠프', '프로젝트', '연구',
+        '학생회', '기타'
       ],
       isDropdownOpen: false,
-      portfolioList: this.generatePortfolioList(50) // 예시: 50개 데이터 생성
-    }
+    };
   },
   computed: {
-    filteredPortfolioList() {
-      let filteredList = this.portfolioList
-
-      if (this.searchQuery) {
-        filteredList = filteredList.filter((item) =>
-          item.title.includes(this.searchQuery)
-        )
-      }
-
-      if (this.selectedTags.length > 0) {
-        filteredList = filteredList.filter((item) =>
-          this.selectedTags.every((tag) => item.tags.includes(tag))
-        )
-      }
-
-      if (this.startDate && this.endDate) {
-        filteredList = filteredList.filter((item) => {
-          return (
-            new Date(item.createdDate) >= new Date(this.startDate) &&
-            new Date(item.createdDate) <= new Date(this.endDate)
-          )
-        })
-      }
-
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage
-      const endIndex = startIndex + this.itemsPerPage
-      return filteredList.slice(startIndex, endIndex)
+    ...mapGetters(['getPortfolios']),
+    
+    portfolioList() {
+      return this.getPortfolios || []; // 안전하게 빈 배열 처리
     },
+
+    filteredPortfolioList() {
+      let filteredList = this.portfolioList; // Vuex에서 가져온 포트폴리오 리스트
+
+      // 검색 필터 적용
+      if (this.searchQuery) {
+        filteredList = filteredList.filter(item =>
+          item.title.includes(this.searchQuery)
+        );
+      }
+
+      // 태그 필터 적용
+      if (this.selectedTags.length > 0) {
+        filteredList = filteredList.filter(item =>
+          this.selectedTags.every(tag => item.tags.includes(tag))
+        );
+      }
+
+      // 날짜 필터 적용
+      if (this.startDate && this.endDate) {
+        filteredList = filteredList.filter(item => {
+          const itemDate = new Date(item.createdDate);
+          return (
+            itemDate >= new Date(this.startDate) &&
+            itemDate <= new Date(this.endDate)
+          );
+        });
+      }
+
+      // 페이지네이션 적용
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return filteredList.slice(startIndex, endIndex);
+    },
+
     totalPages() {
-      return Math.ceil(this.portfolioList.length / this.itemsPerPage)
+      const totalFilteredItems = this.portfolioList.filter(item => {
+        return (
+          (!this.searchQuery || item.title.includes(this.searchQuery)) &&
+          (this.selectedTags.length === 0 || 
+            this.selectedTags.every(tag => item.tags.includes(tag))) &&
+          (!this.startDate || !this.endDate ||
+            (new Date(item.createdDate) >= new Date(this.startDate) &&
+             new Date(item.createdDate) <= new Date(this.endDate)))
+        );
+      }).length;
+      return Math.ceil(totalFilteredItems / this.itemsPerPage);
     }
   },
   methods: {
     toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen
+      this.isDropdownOpen = !this.isDropdownOpen;
     },
+
     toggleTag(tag) {
-      const index = this.selectedTags.indexOf(tag)
+      const index = this.selectedTags.indexOf(tag);
       if (index > -1) {
-        this.selectedTags.splice(index, 1)
+        this.selectedTags.splice(index, 1);
       } else {
-        this.selectedTags.push(tag)
+        this.selectedTags.push(tag);
       }
+      this.applyFilters(); // 태그 변경 시 필터 적용
     },
-    generatePortfolioList(count) {
-      const tags = ['전공', '스터디', '인턴', '프로젝트', '봉사활동']
-      const portfolio = []
-      for (let i = 1; i <= count; i++) {
-        portfolio.push({
-          id: i,
-          title: `포트폴리오 ${i}`,
-          tags: [tags[i % tags.length]],
-          createdDate: `2024-${String((i % 12) + 1).padStart(2, '0')}-01`
-        })
-      }
-      return portfolio
-    },
+
     applyFilters() {
-      this.currentPage = 1 // 필터 적용 시 페이지를 1로 초기화
+      this.currentPage = 1; // 필터 적용 시 첫 페이지로 초기화
     },
+
     handlePageChanged(newPage) {
-      this.currentPage = newPage
+      this.currentPage = newPage;
     },
+
     goToCreatePage() {
-      this.$router.push('/akopolio/create')
+      this.$router.push('/akopolio/create');
     },
+
     resetFilters() {
-      this.searchQuery = ''
-      this.startDate = ''
-      this.endDate = ''
-      this.selectedTags = []
-      this.currentPage = 1
+      this.searchQuery = '';
+      this.startDate = '';
+      this.endDate = '';
+      this.selectedTags = [];
+      this.currentPage = 1;
     }
   }
-}
+};
 </script>
 
 <style scoped>

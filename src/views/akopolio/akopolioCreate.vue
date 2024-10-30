@@ -123,7 +123,7 @@ export default {
         '대외활동', '서포터즈', '기자단', '강연/행사', '스터디', '부트캠프', '프로젝트',
         '연구', '학생회', '기타'
       ],
-      selectedTags: ['기타'], // 기본으로 '기타' 선택
+      selectedTags: ['기타'], 
       isDropdownOpen: false,
       star: {
         situation: '',
@@ -170,19 +170,7 @@ export default {
       textarea.style.height = `${textarea.scrollHeight}px`;
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     saveData() {
       if (!this.isFormComplete) {
         alert('모든 필드를 입력해주세요.');
@@ -197,35 +185,23 @@ export default {
       pmi: this.pmi
     };
 
-    this.$store.dispatch('addPortfolio', newPortfolio); // Vuex 액션 호출
-    alert('활동이 저장되었습니다!');
+        // Vuex 액션 호출 후, 목록 페이지로 이동
+        this.$store.dispatch('addPortfolio', newPortfolio).then(() => {
+      alert('활동이 저장되었습니다!');
+      this.$router.push('/akopolio/main'); // 메인 목록 페이지로 이동
+    });
+
     this.resetForm(); // 폼 초기화 (필요 시)
   },
-    resetForm() {
+  resetForm() {
       this.activityName = '';
       this.activityDate = '';
-      this.selectedTags = [];
+      this.selectedTags = ['기타']; // 기본 태그로 초기화
       this.star = { situation: '', task: '', action: '', result: '' };
       this.pmi = { plus: '', minus: '', interesting: '' };
     }
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </script>
 
