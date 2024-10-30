@@ -16,13 +16,28 @@
             님의 <br />마이페이지
           </h1>
 
-          <ul v-if="goals.length > 0" class="space-y-3 p-4 bg-white rounded-lg">
+          <ul
+            v-if="goals.length > 0"
+            class="space-y-3 p-4 bg-white rounded-lg relative"
+          >
+            <!-- 타이틀 -->
             <h2
-              class="mb-2 text-lg font-semibold font-nanum-square-round"
-              style="margin-bottom: -50px"
+              class="mb-2 text-sm font-semibold font-nanum-square-round relative inline-block px-2"
+              style="
+                background-color: white; /* 배경색 추가 */
+                position: absolute;
+                top: -15px; /* 사각형 위로 일부만 나오게 조정 */
+                left: 16px;
+                padding-left: 10px;
+                padding-right: 10px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+              "
             >
               나의 아코자국들
             </h2>
+
+            <!-- 목표 리스트 -->
             <li
               v-for="(goal, index) in goals"
               :key="index"

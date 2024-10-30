@@ -43,7 +43,7 @@ const navItems = ref([
       '@/assets/Icons/akoming/bottom/akofolioicon.svg',
       import.meta.url
     ).href,
-    route: '/akofolio'
+    route: '/akopolio/main'
   },
   {
     label: '홈',
