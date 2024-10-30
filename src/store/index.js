@@ -3,18 +3,27 @@ import auth from '../views/test/auth.js'; // auth 모듈 import
 import login from './modules/login.js'; // 로그인 모듈 import
 import { v4 as uuidv4 } from 'uuid'; // UUID를 사용하여 고유 ID 생성
 
+// 로컬 스토리지에서 포트폴리오 가져오기
+const getStoredPortfolios = () => {
+  const storedPortfolios = localStorage.getItem('portfolios');
+  return storedPortfolios ? JSON.parse(storedPortfolios) : [];
+};
+
 const store = createStore({
   state: {
-    portfolios: [],  // 포트폴리오를 저장할 배열
+    portfolios: getStoredPortfolios(), // 로컬 스토리지에서 포트폴리오 초기화
   },
   mutations: {
     ADD_PORTFOLIO(state, portfolio) {
-      state.portfolios.push({ ...portfolio, id: uuidv4() });  // 고유 ID 추가
+      const newPortfolio = { ...portfolio, id: uuidv4() }; // 고유 ID 추가
+      state.portfolios.push(newPortfolio); // 포트폴리오 추가
+      localStorage.setItem('portfolios', JSON.stringify(state.portfolios)); // 로컬 스토리지에 저장
     },
+    // 포트폴리오를 업데이트할 수 있는 다른 뮤테이션 추가 가능
   },
   actions: {
     addPortfolio({ commit }, portfolio) {
-      commit('ADD_PORTFOLIO', portfolio);  // mutation 호출
+      commit('ADD_PORTFOLIO', portfolio); // mutation 호출
     },
   },
   getters: {
@@ -23,10 +32,11 @@ const store = createStore({
     },
   },
   modules: {
-    login,  // 로그인 모듈
-    auth,   // auth 모듈
+    login, // 로그인 모듈
+    auth,  // auth 모듈
   },
 });
 
 export default store;
+
 
