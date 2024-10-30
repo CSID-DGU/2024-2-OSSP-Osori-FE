@@ -133,21 +133,22 @@ export async function updateProfile(profileData) {
     method: 'PATCH',
     headers: {
       'Content-Type': 'application/json'
-      // 필요한 경우 인증 토큰 추가
-      // 'Authorization': `Bearer ${token}`,
     },
-    body: JSON.stringify(profileData)
+    body: JSON.stringify(profileData),
+    credentials: 'include' // 세션 포함해야함
   }
 
   try {
     const response = await fetch(url, options)
     if (!response.ok) {
-      throw new Error('Network response was not ok')
+      throw new Error('프로필 수정 실패')
     }
     const data = await response.json()
+    alert('프로필이 수정되었습니다.')
+    Object.assign(user, profileData)
     return data
   } catch (error) {
-    console.error('There was a problem with the fetch operation:', error)
+    console.error('프로필 수정 오류:', error)
     throw error
   }
 }

@@ -12,23 +12,31 @@
       <main class="flex flex-col px-6 pt-20 pb-24" style="margin-top: 30px">
         <div class="mb-4 mx-4">
           <h2
-            class="text-xl font-semibold text-gray-800 font-nanum-square-round mb-2"
+            class="text-xl font-middle text-gray-800 font-nanum-square-round mb-2"
           >
             {{ currentYear }} at 동국대학교
           </h2>
           <div class="flex items-center justify-between">
             <h3
-              class="text-3xl font-bold text-gray-800 font-nanum-square-round"
+              class="text-2xl font-bold text-gray-800 font-nanum-square-round"
             >
               {{ currentMonth }}월
             </h3>
             <div class="flex space-x-6">
               <!-- 화살표 버튼 -->
               <button @click="goToPrevMonth" class="text-2xl no-hover">
-                ‹
+                <img
+                  :src="require('@/assets/Icons/akoming/arrowright.svg')"
+                  alt="arrow right"
+                  class="transform scale-x-[-1]"
+                />
               </button>
               <button @click="goToNextMonth" class="text-2xl no-hover">
-                ›
+                <img
+                  :src="require('@/assets/Icons/akoming/arrowright.svg')"
+                  alt="arrow right"
+                  style="margin-right: 10px"
+                />
               </button>
             </div>
           </div>
@@ -114,12 +122,16 @@
             v-for="(link, index) in links"
             :key="index"
             :href="link.url"
-            class="block text-center py-2 bg-[#FFD9BB] text-black text-sm font-medium rounded-lg hover:bg-[#f1cdb1] transition-colors duration-300 no-underline font-nanum-square-round inner-shadow"
+            class="flex items-center justify-between text-left pl-4 py-2 bg-[#FFD9BB] text-black text-sm font-medium rounded-lg hover:bg-[#f1cdb1] transition-colors duration-300 no-underline font-nanum-square-round inner-shadow"
             target="_blank"
             style="max-width: 80%; margin: 0 auto; margin-bottom: 10px"
           >
             {{ link.text }}
-            <ArrowRightIcon class="w-4 h-4 ml-2" />
+            <img
+              :src="require('@/assets/Icons/akoming/arrowright.svg')"
+              alt="arrow right"
+              class="w-4 h-4 ml-2 mr-4"
+            />
           </a>
         </div>
       </main>
@@ -131,7 +143,8 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
+
 import {
   DAY_LIST,
   currentDate,
@@ -149,14 +162,18 @@ import {
   hasEvent,
   selectedEvents,
   formatDateRange,
-  links
+  links,
+  fetchAcademicEvents
 } from './CalendarMainScript.js'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
+import ArrowRightIcon from '@/assets/Icons/akoming/arrowright.svg'
 
 // 페이지 로드 시 이번 달로 초기화
 onMounted(() => {
   currentDate.value = new Date()
+  selectedDay.value = new Date().getDate()
+  fetchAcademicEvents()
 })
 </script>
 
