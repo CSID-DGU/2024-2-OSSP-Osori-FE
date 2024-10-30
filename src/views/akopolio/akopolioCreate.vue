@@ -181,8 +181,8 @@ export default {
       title: this.activityName,
       createdDate: this.activityDate,
       tags: this.selectedTags,
-      star: this.star,
-      pmi: this.pmi
+      star: {...this.star},
+      pmi: {...this.pmi}
     };
 
         // Vuex 액션 호출 후, 목록 페이지로 이동

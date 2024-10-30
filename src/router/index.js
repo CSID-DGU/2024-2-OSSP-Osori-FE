@@ -70,7 +70,13 @@ const routes = [
         path: 'create',
         name: 'akopolioCreate',
         component: importedViews['akopolioCreate'] // 자동 임포트 적용
+      },
+      {
+        path: 'detail/:id',
+        name: 'akopolioDetail',
+        component: importedViews['akopolioDetail'] // 자동 임포트 적용
       }
+
     ]
   },
   {

@@ -50,6 +50,7 @@
         v-for="item in filteredPortfolioList"
         :key="item.id"
         class="portfolio-card"
+        @click="goToDetailPage(item.id)" 
       >
         <div class="portfolio-content">
           <h3 class="portfolio-title">{{ item.title }}</h3>
@@ -64,7 +65,7 @@
     </div>
 
     <div v-else class="no-data">
-      등록된 포트폴리오가 없습니다.
+      <h2>등록된 포트폴리오가 없습니다.</h2>
     </div>
 
     <pagination-nav
@@ -201,7 +202,11 @@ export default {
       this.endDate = '';
       this.selectedTags = [];
       this.currentPage = 1;
-    }
+    },
+
+    goToDetailPage(id) {
+    this.$router.push(`/akopolio/detail/${id}`); // ID를 포함하여 상세 페이지로 이동
+    },
   }
 };
 </script>
@@ -316,11 +321,13 @@ button.active {
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s;
+  
 }
 
 .portfolio-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
 }
 
 .portfolio-content {
