@@ -19,11 +19,16 @@ const store = createStore({
       state.portfolios.push(newPortfolio); // 포트폴리오 추가
       localStorage.setItem('portfolios', JSON.stringify(state.portfolios)); // 로컬 스토리지에 저장
     },
-    // 포트폴리오를 업데이트할 수 있는 다른 뮤테이션 추가 가능
+    DELETE_PORTFOLIO(state, portfolioId) {
+      state.portfolios = state.portfolios.filter(portfolio => portfolio.id !== portfolioId);
+    },
   },
   actions: {
     addPortfolio({ commit }, portfolio) {
       commit('ADD_PORTFOLIO', portfolio); // mutation 호출
+    },
+    deletePortfolio({ commit }, portfolioId) {
+      commit('DELETE_PORTFOLIO', portfolioId);
     },
   },
   getters: {
