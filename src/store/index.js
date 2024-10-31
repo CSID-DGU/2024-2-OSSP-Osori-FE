@@ -21,6 +21,15 @@ const store = createStore({
     },
     DELETE_PORTFOLIO(state, portfolioId) {
       state.portfolios = state.portfolios.filter(portfolio => portfolio.id !== portfolioId);
+      localStorage.setItem('portfolios', JSON.stringify(state.portfolios)); // 로컬 스토리지에 삭제 후 저장
+    },
+     // 수정 기능을 위한 UPDATE_PORTFOLIO 뮤테이션 추가
+     UPDATE_PORTFOLIO(state, updatedPortfolio) {
+      const index = state.portfolios.findIndex(portfolio => portfolio.id === updatedPortfolio.id);
+      if (index !== -1) {
+        state.portfolios.splice(index, 1, updatedPortfolio); // 기존 항목을 업데이트된 항목으로 교체
+        localStorage.setItem('portfolios', JSON.stringify(state.portfolios)); // 로컬 스토리지에 업데이트 후 저장
+      }
     },
   },
   actions: {
@@ -29,6 +38,10 @@ const store = createStore({
     },
     deletePortfolio({ commit }, portfolioId) {
       commit('DELETE_PORTFOLIO', portfolioId);
+    },
+     // 수정 기능을 위한 updatePortfolio 액션 추가
+     updatePortfolio({ commit }, updatedPortfolio) {
+      commit('UPDATE_PORTFOLIO', updatedPortfolio); // UPDATE_PORTFOLIO 뮤테이션 호출
     },
   },
   getters: {
