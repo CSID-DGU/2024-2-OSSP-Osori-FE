@@ -75,7 +75,12 @@ const routes = [
         path: 'detail/:id',
         name: 'akopolioDetail',
         component: importedViews['akopolioDetail'] // 자동 임포트 적용
-      }
+      },
+      {
+        path: 'edit/:id',
+        name: 'akopolioEdit',
+        component: importedViews['akopolioEdit'] // 자동 임포트 적용
+      },
 
     ]
   },
