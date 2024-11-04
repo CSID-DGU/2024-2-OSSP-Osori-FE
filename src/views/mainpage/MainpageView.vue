@@ -154,14 +154,34 @@ const fetchQuestStatus = async () => {
 
 // 스탬프 상태 정의
 const stamps = ref([
-  { label: 'A', completed: true, position: { top: '-18px', left: '12px' } },
-  { label: 'K', completed: true, position: { top: '-18px', left: '147px' } },
-  { label: 'O', completed: true, position: { top: '62px', left: '262px' } },
+  { label: 'A', completed: false, position: { top: '-18px', left: '12px' } },
+  { label: 'K', completed: false, position: { top: '-18px', left: '147px' } },
+  { label: 'O', completed: false, position: { top: '62px', left: '262px' } },
   { label: 'M', completed: false, position: { top: '144px', left: '157px' } },
   { label: 'I', completed: false, position: { top: '144px', left: '22px' } },
   { label: 'N', completed: false, position: { top: '297px', left: '102px' } },
   { label: 'G', completed: false, position: { top: '297px', left: '237px' } }
 ])
+
+// 각 스탬프의 상태를 받아와서 stamps에 업데이트하는 함수
+const fetchStampsStatus = async () => {
+  try {
+    const userId = 'user-id' // 실제 사용자 ID로 설정해야 함
+    const response = await axios.get(`/api/quests/${userId}`)
+    const { stamp1, stamp2, stamp3, stamp4, stamp5, stamp6, stamp7 } =
+      response.data
+
+    stamps.value[0].completed = stamp1 // 스탬프 A
+    stamps.value[1].completed = stamp2 // 스탬프 K
+    stamps.value[2].completed = stamp3 // 스탬프 O
+    stamps.value[3].completed = stamp4 // 스탬프 M
+    stamps.value[4].completed = stamp5 // 스탬프 I
+    stamps.value[5].completed = stamp6 // 스탬프 N
+    stamps.value[6].completed = stamp7 // 스탬프 G
+  } catch (error) {
+    console.error('스탬프 상태를 가져오는 중 오류 발생:', error)
+  }
+}
 
 // 아코 이미지 경로 저장할 변수
 const elephantIcons = [
@@ -216,8 +236,10 @@ const getTaskIcon = (taskName) => {
   }
 }
 
+// onMounted에서 호출하여 초기 데이터 로드
 onMounted(() => {
   fetchQuestStatus()
+  fetchStampsStatus() // 스탬프 상태도 불러오기
   setElephantIconByLevel()
 })
 </script>
