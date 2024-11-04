@@ -2,27 +2,30 @@
   <div class="follow-stats" @click="goToFollowPage">
     <div class="date-info">{{ formattedDate }}</div>
     <div class="follow-info">
-      <span>팔로워 {{ followerCount }}명</span>
-      <span>팔로잉 {{ followingCount }}명</span>
-      <span class="arrow-icon">›</span>
+      <span class="follower-text">팔로워</span> 
+      <span class="follower-count">{{ followerCount }}명</span>
+      <span class="following-text">팔로잉</span>
+      <span class="following-count">{{ followingCount }}명</span>
+      <img src="../../../assets/images/next.svg">
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const followerCount = ref(0) // API에서 받아오는 팔로워 수
 const followingCount = ref(0) // API에서 받아오는 팔로잉 수
 
 // 현재 날짜를 포맷팅
-const formattedDate = ref(
-  new Date().toLocaleDateString('ko-KR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  })
-)
+const formattedDate = computed(() => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  const day = String(date.getDate()).padStart(2, '0');
+  
+  return `${year} . ${month} . ${day}`;
+});
 
 const goToFollowPage = () => {
   // 팔로우 관리 페이지로 이동하는 함수
@@ -33,16 +36,19 @@ const goToFollowPage = () => {
 .follow-stats {
   display: flex;
   align-items: center;
+  height: 37px;
   padding: 8px;
-  background-color: #f6f6f6;
-  font-family: 'NanumSquareRound', sans-serif;
+  border-radius: 10px;
+  background: #FFF;
 }
 
 .date-info {
   flex: 1;
   text-align: left;
-  color: #333;
+  color: #FF7F00; /* 날짜 색상 */
+  font-family: 'NaR';
   font-size: 0.9rem;
+  padding-left: 5px;
 }
 
 .follow-info {
@@ -59,5 +65,23 @@ const goToFollowPage = () => {
 .arrow-icon {
   font-size: 1rem;
   color: #999;
+}
+
+.follower-text,
+.following-text {
+  color: #000;
+  font-family: 'NaR';
+  font-size: 15px;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.follower-count,
+.following-count {
+  color: #000;
+  font-family: 'NaB';
+  font-size: 15px;
+  font-weight: 400;
+  line-height: normal;
 }
 </style>
