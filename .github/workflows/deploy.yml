@@ -1,10 +1,9 @@
-# deploy.yml
 name: Deploy Vue.js to EC2
 
 on:
   push:
     branches:
-      - main  # main 브랜치에 push될 때 트리거
+      - main
 
 jobs:
   build:
@@ -22,7 +21,6 @@ jobs:
 
     - name: Push Docker image to Docker Hub
       run: |
-        docker tag ${{ secrets.DOCKER_USERNAME }}/my-vue-app:latest ${{ secrets.DOCKER_USERNAME }}/my-vue-app:latest
         docker push ${{ secrets.DOCKER_USERNAME }}/my-vue-app:latest
 
   deploy:
@@ -41,4 +39,4 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/my-vue-app:latest
           docker stop my-vue-app || true
           docker rm my-vue-app || true
-          docker run -d -p 80:80 —name my-vue-app ${{ secrets.DOCKER_USERNAME }}/my-vue-app:latest
+          docker run -d -p 80:80 --name my-vue-app ${{ secrets.DOCKER_USERNAME }}/my-vue-app:latest
