@@ -17,5 +17,6 @@ module.exports = {
       }
     }
   },
-  plugins: []
+  plugins: [],
+  purge: ['./src/**/*.html', './src/**/*.vue', './public/**/*.html']
 }
