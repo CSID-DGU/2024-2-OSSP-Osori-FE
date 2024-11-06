@@ -17,9 +17,9 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8082', // 백엔드 서버 주소
-        changeOrigin: true, // 백엔드 서버의 도메인과 상관없이 요청을 보낼 수 있게 허용
-        secure: false // HTTPS가 아니므로 설정 (필요한 경우 추가)
+        target:
+          'http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080',
+        changeOrigin: true
       }
     },
     port: 3000
