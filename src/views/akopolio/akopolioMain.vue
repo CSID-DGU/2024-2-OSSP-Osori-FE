@@ -89,7 +89,6 @@
 import PaginationNav from './paginationNav.vue';
 import MainHeader from '../../components/layout/Header.vue';
 import MainFooter from '../../components/layout/Footer.vue';
-import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -112,17 +111,18 @@ export default {
         '학생회', '기타'
       ],
       isDropdownOpen: false,
+      portfolioList: [
+        // 백엔드 API로 받아오는 데이터로 대체 필요
+        { id: 1, title: '융합프로그래밍', createdDate: '2024-11-01', tags: ['전공'] },
+        { id: 2, title: '오픈소스소프트웨어 실습', createdDate: '2024-10-15', tags: ['전공', '프로젝트'] },
+        { id: 3, title: '성남시 IT 서비스 스터디', createdDate: '2024-09-10', tags: ['스터디'] },
+        // 여기에 더 많은 포트폴리오 데이터가 추가될 수 있음
+      ]
     };
   },
   computed: {
-    ...mapGetters(['getPortfolios']),
-    
-    portfolioList() {
-      return this.getPortfolios || []; // 안전하게 빈 배열 처리
-    },
-
     filteredPortfolioList() {
-      let filteredList = this.portfolioList; // Vuex에서 가져온 포트폴리오 리스트
+      let filteredList = this.portfolioList;
 
       // 검색 필터 적용
       if (this.searchQuery) {
@@ -205,11 +205,22 @@ export default {
     },
 
     goToDetailPage(id) {
-    this.$router.push(`/akopolio/detail/${id}`); // ID를 포함하여 상세 페이지로 이동
+      this.$router.push(`/akopolio/detail/${id}`); // ID를 포함하여 상세 페이지로 이동
     },
+
+    // API에서 포트폴리오 데이터 받아오는 함수 (백엔드 연결 필요)
+    // async fetchPortfolios() {
+    //   try {
+    //     const response = await axios.get('/api/portfolios');
+    //     this.portfolioList = response.data;
+    //   } catch (error) {
+    //     console.error('Error fetching portfolios:', error);
+    //   }
+    // }
   }
 };
 </script>
+
 
 <style scoped>
 .akopolio-page {

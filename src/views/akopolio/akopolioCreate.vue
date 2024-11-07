@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <!-- 헤더 -->
+    <!-- Header -->
     <MainHeader />
 
-    <!-- 활동명과 활동일 -->
+    <!-- Activity Name and Date -->
     <div class="activity-info">
       <div class="activity-name-container">
         <label for="activity-name"><h2>활동명</h2></label>
@@ -11,15 +11,15 @@
       </div>
 
       <div class="activity-date-container">
-        <label for="activity-date"> <h2>활동일</h2> </label>
+        <label for="activity-date"><h2>활동일</h2></label>
         <input type="date" id="activity-date" v-model="activityDate" />
       </div>
     </div>
 
-    <!-- 분야 설정 -->
+    <!-- Category Selection -->
     <div class="category-box">
       <div class="category">
-        <label @click="toggleDropdown" class="category-label" >
+        <label @click="toggleDropdown" class="category-label">
           <h2>분야 설정</h2>
           <span v-if="selectedTags.length">
             <span class="tag-badge" v-for="tag in selectedTags" :key="tag">
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <!-- 경험 (STAR 모델) -->
+    <!-- STAR Experience -->
     <div class="experience-container">
       <div class="experience-box star-box">
         <h2>경험</h2>
@@ -67,7 +67,7 @@
       </div>
     </div>
 
-    <!-- 오늘의 PMI -->
+    <!-- PMI Section -->
     <div class="pmi-container">
       <div class="pmi-box">
         <h2>오늘의 PMI 
@@ -99,15 +99,38 @@
       </div>
     </div>
 
-    <!-- 저장 버튼 -->
+    <div class="image-upload-container">
+      <h2>활동 이미지 업로드</h2>
+      <h3>최대 5장까지 가능해요!&nbsp;&nbsp;<span>{{ images.length }} / 5</span></h3>
+      <label for="file-upload" class="custom-file-upload">
+
+
+      <i class="fas fa-upload"></i> 파일 선택
+      </label>
+      <input type="file" id="file-upload" multiple @change="handleFileChange" accept="image/*" />
+
+
+      <input type="file" multiple @change="handleFileChange" accept="image/*" />
+      <div class="image-preview-container" v-if="images.length">
+        <div class="image-card" v-for="(image, index) in images" :key="index">
+          <div class="image-preview-card">
+            <img :src="image.previewUrl" :alt="image.name" class="image-preview" />
+            <button @click="removeImage(index)" class="delete-image-btn">X</button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+    <!-- Save Button -->
     <button @click="saveData" class="save-button">저장하기</button>
     <MainFooter />
   </div>
 </template>
 
 <script>
-import MainHeader from '../../components/layout/Header.vue'
-import MainFooter from '../../components/layout/Footer.vue'
+import axios from 'axios';
+import MainHeader from '../../components/layout/Header.vue';
+import MainFooter from '../../components/layout/Footer.vue';
 
 export default {
   components: {
@@ -123,7 +146,7 @@ export default {
         '대외활동', '서포터즈', '기자단', '강연/행사', '스터디', '부트캠프', '프로젝트',
         '연구', '학생회', '기타'
       ],
-      selectedTags: ['기타'], 
+      selectedTags: ['기타'],
       isDropdownOpen: false,
       star: {
         situation: '',
@@ -136,22 +159,22 @@ export default {
         minus: '',
         interesting: ''
       },
-      tooltipVisible: false
+      tooltipVisible: false,
+      images: [], // 선택된 이미지 파일 배열
+      uploadedImageUrls: [] // 업로드된 이미지의 URL 저장
     };
   },
-
   computed: {
     isFormComplete() {
       return (
         this.activityName &&
         this.activityDate &&
         this.selectedTags.length > 0 &&
-        Object.values(this.star).every((field) => field) &&
-        Object.values(this.pmi).every((field) => field)
+        Object.values(this.star).every(field => field) &&
+        Object.values(this.pmi).every(field => field)
       );
     }
   },
-
   methods: {
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen;
@@ -169,40 +192,124 @@ export default {
       textarea.style.height = 'auto';
       textarea.style.height = `${textarea.scrollHeight}px`;
     },
+    handleFileChange(event) {
+  const selectedFiles = Array.from(event.target.files);
 
-    
-    saveData() {
+  // 파일 수 제한
+  if (this.images.length + selectedFiles.length > 5) {
+    alert('최대 5개의 이미지만 업로드할 수 있습니다.');
+    return;
+  }
+
+  // 새로 선택된 파일들에 대해 미리보기 URL 생성
+  const newImages = selectedFiles.map(file => ({
+    file,
+    name: file.name,
+    size: file.size,
+    previewUrl: URL.createObjectURL(file) // 미리보기 URL 생성
+  }));
+
+  // 중복된 이미지가 아닌 경우만 추가
+  const uniqueNewImages = newImages.filter(newImage => 
+    !this.images.some(existingImage => existingImage.previewUrl === newImage.previewUrl)
+  );
+
+  if (uniqueNewImages.length === 0) {
+    alert('이미 선택된 이미지입니다.');
+    return;
+  }
+
+  // 새로운 이미지를 기존 배열에 추가
+  this.images = [...this.images, ...uniqueNewImages];
+},
+      removeImage(index) {
+        // 이미지 삭제 시 미리보기 URL 해제
+        URL.revokeObjectURL(this.images[index].previewUrl);
+        this.images.splice(index, 1);
+      },
+    async uploadImages() {
+      const uploadedUrls = [];
+      
+      for (const image of this.images) {
+        try {
+          // 1. 프리사인드 URL 요청
+          /*
+          const { data } = await axios.post('/api/get-presigned-url', {
+            fileName: image.name,
+            fileType: image.type
+          });
+          */
+
+          // 2. 프리사인드 URL을 이용해 이미지 업로드
+          /*
+          await axios.put(data.url, image, {
+            headers: { 'Content-Type': image.type }
+          });
+          */
+
+          // 3. 업로드된 이미지의 URL을 저장 (프리사인드 URL에서 파일 URL을 추출)
+          /*
+          const uploadedUrl = data.url.split('?')[0];
+          uploadedUrls.push(uploadedUrl);
+          */
+          
+          console.log('Image ready to upload:', image.name);
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          alert('이미지 업로드 중 오류가 발생했습니다.');
+        }
+      }
+      
+      this.uploadedImageUrls = uploadedUrls;
+    },
+    async saveData() {
       if (!this.isFormComplete) {
         alert('모든 필드를 입력해주세요.');
         return;
       }
+      // 이미지가 선택된 경우 업로드 진행
+      if (this.images.length > 0) {
+        await this.uploadImages();
+      }
 
-    const newPortfolio = {
-      title: this.activityName,
-      createdDate: this.activityDate,
-      tags: this.selectedTags,
-      star: {...this.star},
-      pmi: {...this.pmi}
-    };
+      // 백엔드 연동을 위한 데이터 객체
+      const newPortfolio = {
+        title: this.activityName,
+        createdDate: this.activityDate,
+        tags: this.selectedTags,
+        star: { ...this.star },
+        pmi: { ...this.pmi },
+        images: this.uploadedImageUrls // 업로드된 이미지 URL을 포함
+      };
 
-        // Vuex 액션 호출 후, 목록 페이지로 이동
-        this.$store.dispatch('addPortfolio', newPortfolio).then(() => {
-      alert('활동이 저장되었습니다!');
-      this.$router.push('/akopolio/main'); // 메인 목록 페이지로 이동
-    });
+      try {
+        // 이 부분에서 실제 백엔드로 데이터를 전송할 예정
+        // await axios.post('/api/portfolios', newPortfolio);
 
-    this.resetForm(); // 폼 초기화 (필요 시)
-  },
-  resetForm() {
+        // 현재는 백엔드 연동 부분을 주석 처리해두었으므로, 임시 메시지만 표시
+        console.log('저장할 데이터:', newPortfolio); // 콘솔에 데이터 확인
+        alert('(테스트) 활동이 저장되었습니다!'); // 임시 알림 메시지
+
+        // 실제 백엔드와 연동 시, 저장 후 리디렉션 설정
+        // this.$router.push('/akopolio/main'); 
+
+        this.resetForm(); // 데이터 저장 후 입력 폼 초기화
+      } catch (error) {
+        console.error('Error saving portfolio:', error);
+        alert('저장 중 오류가 발생했습니다.');
+      }
+    },
+    resetForm() {
       this.activityName = '';
       this.activityDate = '';
-      this.selectedTags = ['기타']; // 기본 태그로 초기화
+      this.selectedTags = ['기타'];
       this.star = { situation: '', task: '', action: '', result: '' };
       this.pmi = { plus: '', minus: '', interesting: '' };
+      this.images = [];
+      this.uploadedImageUrls = [];
     }
   }
 };
-
 </script>
 
 <style scoped>
@@ -222,6 +329,7 @@ export default {
 .activity-info,
 .category-box,
 .experience-container,
+.image-upload-container,
 .pmi-container {
   margin-bottom: 20px;
 }
@@ -243,6 +351,7 @@ textarea {
   font-size: 13px;
 }
 
+.image-upload-container,
 .star-box,
 .pmi-box {
   background-color: #fff3e6;
@@ -345,5 +454,65 @@ label {
   white-space: nowrap; 
 }
 
+.image-preview-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.image-preview-card {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.delete-image-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: black;
+  border: none;
+  background: none; /* 배경색 제거 */
+  font-size: 16px; /* X 아이콘이 더 잘 보이도록 크기 조정 */
+  cursor: pointer;
+  transition: color 0.3s; /* 색상 전환 애니메이션 추가 */
+}
+
+.delete-image-btn:hover {
+  color: white; 
+}
+
+
+
+
+/* 기본 input[type="file"] 숨기기 */
+input[type="file"] {
+  display: none;
+}
+
+/* 커스텀 버튼 스타일 */
+.custom-file-upload {
+  background-color: white; /* 배경색 */
+  color: #f3ab62; /* 글자색 */
+  padding: 10px 128px; /* 버튼 크기 */
+  font-size: 13px; /* 글자 크기 */
+  border-radius: 5px; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; /* 마우스 오버 시 부드럽게 색상 변화 */
+}
+
+.custom-file-upload:hover {
+  background-color: #f6e3d2; /* 마우스를 올렸을 때 배경색 변경 */
+}
 
 </style>
