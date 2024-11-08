@@ -15,13 +15,13 @@ module.exports = defineConfig({
     }
   },
   devServer: {
-    proxy: {
-      '/api': {
-        target:
-          'http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080',
-        changeOrigin: true
-      }
-    },
+    // proxy: {
+    //   '/api': {
+    //     target:
+    //       'http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080',
+    //     changeOrigin: true
+    //   }
+    // },
     port: 3000
   }
 })
