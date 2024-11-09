@@ -18,9 +18,10 @@
 | 융합SW연계전공    | 융합SW연계전공    | 융합SW연계전공 | 데이터사이언스연계전공 |
 | [@saokiritoni](https://github.com/saokiritoni) | [@yebin-jeong](https://github.com/yebin-jeong) | [@study2895](https://github.com/study2895) | [@Minn_Choi](https://github.com/Minn_Choi) |
 
+---
 
-
-지도교수: 융합SW교육원 박효순 교수님
+### 👨‍🏫 지도교수
+**📘 융합SW교육원 박효순 교수님**
 
 <br><br>
 
