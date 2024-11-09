@@ -99,19 +99,12 @@
 
 > [시연 영상 보기](#)
 
+<br>
 
+| 📚 자료 관리                | 📄 보고서 및 발표 자료      |
+|-----------------------------|-----------------------------|
+| [**API 명세서**](https://www.notion.so/API-12db4ba0516b81ec851acf0067da9ba1?pvs=4) | [**수행계획서**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%E1%84%8B%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AB%E1%84%89%E1%85%A9%E1%84%89%E1%85%B3SW%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%89%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%E1%84%80%E1%85%A8%E1%84%92%E1%85%AC%E1%86%A8%E1%84%89%E1%85%A5_%E1%84%8B%E1%85%A9%E1%84%89%E1%85%A9%E1%84%85%E1%85%B5.pdf) |
+| [**기능 명세서**](https://www.notion.so/12db4ba0516b810bb53bfacb7de892d7?pvs=4) | [**수행계획서 발표 자료**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4SW%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C_1%ED%8C%80_%EC%98%A4%EC%86%8C%EB%A6%AC_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf) |
+| [**이슈 관리**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/issues)     |                             |
+| [**회의록**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%ED%9A%8C%EC%9D%98%EB%A1%9D.md)       |
 
-## 📚 자료 관리
-
-- **API 명세서**: [바로가기](#)
-- **프로젝트 관리**: [바로가기](#)
-- **이슈 관리**: [바로가기](#)
-- **회의록**: [바로가기](#)
-- **중간발표 자료**: [바로가기](#)
-
-
-
-## 📄 보고서 및 발표 자료
-
-- **중간보고서**: [바로가기](#)
-- **최종보고서**: [바로가기](#)
