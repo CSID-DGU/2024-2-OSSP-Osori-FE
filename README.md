@@ -16,7 +16,7 @@
 | 팀장, 백엔드, 배포    | 팀원, 프론트엔드    | 팀원, 프론트엔드    | 팀원, 프론트엔드, 배포  |
 | 경영정보학과  | 산업시스템공학과      | 건축공학전공    | 경영정보학과     |
 | 융합SW연계전공    | 융합SW연계전공    | 융합SW연계전공 | 데이터사이언스연계전공 |
-| [@saokiritoni](https://github.com/saokiritoni) | [@yebin-jeong](https://github.com/yebin-jeong) | [@study2895](https://github.com/study2895) | [@Minn_Choi](https://github.com/Minn-Choi) |
+| [@saokiritoni](https://github.com/saokiritoni) | [@yebin-jeong](https://github.com/yebin-jeong) | [@study2895](https://github.com/study2895) | [@Minn-Choi](https://github.com/Minn-Choi) |
 
 ---
 
