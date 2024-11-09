@@ -9,13 +9,15 @@
 
 ## 🧑‍🤝‍🧑 팀 구성원
 
-| ![이소은 사진](#) | ![정예빈 사진](#) | ![정지원 사진](#) | ![최민 사진](#) |
+| <img src="https://github.com/user-attachments/assets/4da10aed-14f2-461a-acd6-182c8e4b60ad" width="140" /> | <img src="https://github.com/user-attachments/assets/684e8c19-58a4-47ce-ab4c-5ae0d68a1f2628ddd73adf" width="140" /> | <img src="https://github.com/user-attachments/assets/a80b532e-c2f9-4136-9ebf-f5706ebd29b5" width="140" /> | <img src="https://github.com/user-attachments/assets/0bbeb677-c1ef-4075-944f-e2dac4ecc4fc" width="140" /> |
 | :-----------------: | :-----------------: | :-----------------: | :----------------: |
 | **이소은**       | **정예빈**       | **정지원**       | **최 민**       |
 | 팀장, 백엔드    | 팀원    | 팀원    | 팀원  |
 | 경영정보학과  | 산업시스템공학과      | 건축공학전공    | 경영정보학과     |
 | 융합SW연계전공    | 융합SW연계전공    | 융합SW연계전공 | 데이터사이언스 연계전공 |
-| [@saokiritoni](#)       | [@yebin-jeong](#)      | [@study2895](#)      | [@Minn_Choi](#)       |  
+| [@saokiritoni](https://github.com/saokiritoni) | [@yebin-jeong](https://github.com/yebin-jeong) | [@study2895](https://github.com/study2895) | [@Minn_Choi](https://github.com/Minn_Choi) |
+
+
 
 지도교수: 융합SW교육원 박효순 교수님
 
