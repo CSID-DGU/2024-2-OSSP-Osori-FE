@@ -83,36 +83,23 @@
             </p>
           </div>
 
-          <!-- 인증번호 입력란 및 인증확인 버튼 -->
+          <!-- 인증번호 입력란 -->
           <div v-if="emailSent" class="space-y-1">
             <label
               for="authCode"
               class="block text-sm font-medium text-gray-700 font-nanum-square-round"
               >인증번호</label
             >
-            <div class="flex space-x-2">
-              <input
-                type="text"
-                id="authCode"
-                v-model="authCode"
-                placeholder="인증번호 입력"
-                required
-                class="flex-grow px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200 font-nanum-square-round"
-              />
-              <button
-                type="button"
-                @click="verifyCode"
-                class="px-3 py-2 bg-[#F6B87A] text-white text-sm rounded-full hover:bg-[#e5a769] transition-colors duration-300 font-nanum-square-round"
-              >
-                인증확인
-              </button>
-            </div>
-            <p
-              v-if="!isCodeValid && authCode !== ''"
-              class="mt-1 text-xs text-red-500 font-nanum-square-round"
-            >
-              인증번호가 올바르지 않습니다.
-            </p>
+            <input
+              type="text"
+              id="authCode"
+              v-model="authCode"
+              @input="checkCodeLength"
+              placeholder="인증번호 입력"
+              maxlength="6"
+              required
+              class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200 font-nanum-square-round"
+            />
           </div>
 
           <!-- 비밀번호 입력란 -->
