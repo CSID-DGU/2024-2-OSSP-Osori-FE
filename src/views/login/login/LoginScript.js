@@ -6,24 +6,19 @@ export default {
       email: '',
       password: '',
       isEmailValid: true,
-      showLogo: true // 로고를 보여줄지 여부
+      showLoading: true // 로딩 화면 표시 여부
     }
   },
   mounted() {
     // 2초 후 로고 페이지에서 로그인 페이지로 전환
     setTimeout(() => {
-      this.showLogo = false
+      this.showLoading = false
     }, 2000) // 2000ms = 2초
   },
   methods: {
     validateEmail() {
       // 이메일이 반드시 @dgu.ac.kr 로 끝나도록 체크
-      const emailDomain = '@dgu.ac.kr'
-      if (this.email.endsWith(emailDomain)) {
-        this.isEmailValid = true
-      } else {
-        this.isEmailValid = false
-      }
+      this.isEmailValid = this.email.endsWith('@dgu.ac.kr')
     },
     async onSubmit() {
       if (!this.isEmailValid) {
@@ -46,8 +41,7 @@ export default {
           const userData = response.data // 서버에서 받은 사용자 데이터
 
           alert('로그인 성공!')
-          // 로그인 성공 후 페이지 이동 등의 추가 로직
-          // 로그인 성공 후 MypageView로 리다이렉트
+          // 로그인 성공 후 MyPage로 리다이렉트
           this.$router.push('/mypage')
         }
       } catch (error) {
