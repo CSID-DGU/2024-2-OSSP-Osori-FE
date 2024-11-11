@@ -13,7 +13,7 @@
 | <img src="https://github.com/user-attachments/assets/4da10aed-14f2-461a-acd6-182c8e4b60ad" width="140" /> | <img src="https://github.com/user-attachments/assets/684e8c19-58a4-47ce-ab4c-5ae0d68a1f2628ddd73adf" width="140" /> | <img src="https://github.com/user-attachments/assets/a80b532e-c2f9-4136-9ebf-f5706ebd29b5" width="140" /> | <img src="https://github.com/user-attachments/assets/0bbeb677-c1ef-4075-944f-e2dac4ecc4fc" width="140" /> |
 | :-----------------: | :-----------------: | :-----------------: | :----------------: |
 | **이소은**       | **정예빈**       | **정지원**       | **최 민**       |
-| 팀장, 백엔드, 배포    | 팀원, 프론트엔드    | 팀원, 프론트엔드    | 팀원, 프론트엔드, 배포, 디자인  |
+| 팀장, 백엔드, 배포    | 팀원, 프론트엔드    | 팀원, 프론트엔드    | 팀원, 프론트엔드, 배포, <br/>디자인  |
 | 경영정보학과  | 산업시스템공학과      | 건축공학전공    | 경영정보학과     |
 | 융합SW연계전공    | 융합SW연계전공    | 융합SW연계전공 | 데이터사이언스연계전공 |
 | [@saokiritoni](https://github.com/saokiritoni) | [@yebin-jeong](https://github.com/yebin-jeong) | [@study2895](https://github.com/study2895) | [@Minn-Choi](https://github.com/Minn-Choi) |
