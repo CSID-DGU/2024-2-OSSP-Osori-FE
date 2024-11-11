@@ -77,6 +77,13 @@ export default {
       this.validatePassword()
 
       if (this.isEmailValid && this.isPasswordValid && this.authCode) {
+        console.log('Request Payload:', {
+          email: this.email,
+          authCode: this.authCode,
+          password: this.password,
+          nickname: this.nickname
+        })
+
         fetch(`${process.env.VUE_APP_BE_API_URL}/api/users/signup`, {
           method: 'POST',
           headers: {
@@ -84,25 +91,31 @@ export default {
           },
           body: JSON.stringify({
             email: this.email,
-            code: this.authCode, // 인증 코드 키를 'code'로 수정
+            authCode: this.authCode,
             password: this.password,
             nickname: this.nickname
           })
         })
-          .then((response) => response.text())
+          .then((response) => {
+            if (!response.ok) {
+              return response.text().then((errorText) => {
+                console.error('Server Error Response:', errorText)
+                throw new Error(errorText || '회원가입 요청에 실패했습니다.')
+              })
+            }
+            return response.text()
+          })
           .then((data) => {
             if (data === '회원가입이 완료되었습니다🎉') {
               alert(data)
               this.$router.push('/login')
-            } else if (data.includes('인증 코드가 일치하지 않습니다')) {
-              alert('인증 코드가 일치하지 않습니다.')
             } else {
-              alert('회원가입에 실패했습니다. 다시 시도해주세요.')
+              alert(data)
             }
           })
           .catch((error) => {
             console.error('Failed to register:', error)
-            alert('회원가입 중 오류가 발생했습니다.')
+            alert(error.message || '회원가입 중 오류가 발생했습니다.')
           })
       } else {
         if (!this.isEmailValid) {

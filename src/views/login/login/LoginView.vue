@@ -95,6 +95,7 @@
 
 <script>
 import LogoLoading from '@/components/LogoLoading.vue'
+import LoginScript from './LoginScript.js' // LoginScript.js 불러오기
 
 export default {
   components: {
@@ -109,11 +110,13 @@ export default {
     }
   },
   methods: {
+    ...LoginScript.methods, // LoginScript.js의 methods 불러오기
     validateEmail() {
       this.isEmailValid = this.email.endsWith('@dgu.ac.kr')
     },
     onSubmit() {
-      // 로그인 처리 로직
+      this.validateEmail() // 이메일 유효성 검사
+      LoginScript.methods.onSubmit.call(this) // LoginScript.js의 onSubmit 호출
     }
   }
 }
