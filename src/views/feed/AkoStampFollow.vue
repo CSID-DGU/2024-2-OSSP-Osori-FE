@@ -110,9 +110,9 @@ onMounted(() => {
 
 <style scoped>
 .unfollow-button {
-  font-size: 11px;
-  width: 62px;
-  height: 24px;
+  font-size: 12.5px;
+  width: 70px;
+  height: 28px;
   margin-left: 8px;
   font-family: 'NaR';
   border-radius: 20px;
@@ -132,8 +132,8 @@ onMounted(() => {
 
 .followerDelete-btn {
   font-size: 15px;
-  width: 62px;
-  height: 24px;
+  width: 70px;
+  height: 28px;
   margin-left: 8px;
   font-family: 'NaR';
   border-radius: 20px;
