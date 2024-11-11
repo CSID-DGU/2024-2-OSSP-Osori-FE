@@ -1,7 +1,7 @@
+// SignupScript.js
 export default {
   data() {
     return {
-      name: '',
       email: '',
       authCode: '', // 사용자가 입력한 인증번호
       password: '',
@@ -36,7 +36,6 @@ export default {
     updateSubmitStatus() {
       // 모든 필드가 유효한 경우에만 canSubmit 활성화
       this.canSubmit =
-        this.name &&
         this.email &&
         this.isEmailValid &&
         this.authCode.length === 6 &&
@@ -78,14 +77,6 @@ export default {
       this.validatePassword()
 
       if (this.isEmailValid && this.isPasswordValid && this.authCode) {
-        console.log({
-          email: this.email,
-          code: this.authCode, // 인증 코드 키를 'code'로 수정
-          password: this.password,
-          name: this.name,
-          nickname: this.nickname
-        })
-
         fetch(`${process.env.VUE_APP_BE_API_URL}/api/users/signup`, {
           method: 'POST',
           headers: {
@@ -93,9 +84,8 @@ export default {
           },
           body: JSON.stringify({
             email: this.email,
-            code: this.authCode, // 여기서도 'code'로 수정
+            code: this.authCode, // 인증 코드 키를 'code'로 수정
             password: this.password,
-            name: this.name,
             nickname: this.nickname
           })
         })
@@ -135,7 +125,6 @@ export default {
     password: 'validatePassword',
     confirmPassword: 'updateSubmitStatus',
     authCode: 'checkAuthCodeLength',
-    name: 'updateSubmitStatus',
     nickname: 'updateSubmitStatus'
   }
 }
