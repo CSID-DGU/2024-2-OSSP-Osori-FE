@@ -209,6 +209,7 @@ export default {
     previewUrl: URL.createObjectURL(file) // 미리보기 URL 생성
   }));
 
+
   // 중복된 이미지가 아닌 경우만 추가
   const uniqueNewImages = newImages.filter(newImage => 
     !this.images.some(existingImage => existingImage.previewUrl === newImage.previewUrl)
@@ -463,17 +464,17 @@ label {
 
 .image-preview-card {
   position: relative;
-  width: 300px;
-  height: 300px;
-  border: 1px solid #ddd;
+  width: 300px; /* 최대 너비 조정 */
+  height: 300px; /* 최대 높이 조정 */
+  border-color: transparent; 
   border-radius: 5px;
   overflow: hidden;
 }
 
 .image-preview {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 300px; /* 원하는 최대 너비 */
+  max-height: 300px; /* 원하는 최대 높이 */
+  object-fit: contain; /* 이미지 비율 유지하며 잘리지 않게 표시 */
 }
 
 .delete-image-btn {
