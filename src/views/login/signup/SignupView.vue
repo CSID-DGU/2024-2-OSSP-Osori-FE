@@ -29,23 +29,6 @@
           회원가입
         </h1>
         <form @submit.prevent="onSubmit" class="my-8 space-y-4">
-          <!-- 실명 입력란 -->
-          <div class="space-y-1">
-            <label
-              for="name"
-              class="block text-sm font-medium text-gray-700 font-nanum-square-round"
-              >실명</label
-            >
-            <input
-              type="text"
-              id="name"
-              v-model="name"
-              placeholder="실명 입력"
-              required
-              class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200 font-nanum-square-round"
-            />
-          </div>
-
           <!-- 이메일 입력란 및 인증하기 버튼 -->
           <div class="space-y-1">
             <label
@@ -94,7 +77,7 @@
               type="text"
               id="authCode"
               v-model="authCode"
-              @input="checkCodeLength"
+              @input="checkAuthCodeLength"
               placeholder="인증번호 입력"
               maxlength="6"
               required
@@ -138,7 +121,7 @@
               id="confirmPassword"
               v-model="confirmPassword"
               placeholder="비밀번호 확인"
-              @input="checkPasswordMatch"
+              @input="updateSubmitStatus"
               required
               class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200 font-nanum-square-round"
             />
@@ -155,7 +138,7 @@
             <label
               for="nickname"
               class="block text-sm font-medium text-gray-700 font-nanum-square-round"
-              >닉네임 10자까지!</label
+              >닉네임 (10자까지)</label
             >
             <input
               type="text"
