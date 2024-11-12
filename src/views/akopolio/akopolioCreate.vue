@@ -70,17 +70,7 @@
     <!-- PMI Section -->
     <div class="pmi-container">
       <div class="pmi-box">
-        <h2>오늘의 PMI 
-          <span 
-            class="tooltip-icon" 
-            @mouseover="tooltipVisible = true" 
-            @mouseleave="tooltipVisible = false"
-          >ℹ️</span>
-          
-          <div v-if="tooltipVisible" class="tooltip">
-            어느 사항에 대하여 좋은 점, 나쁜 점, 흥미로운 점을 찾아내는 사고기법
-          </div>
-        </h2>
+        <h2>오늘의 PMI</h2>
 
         <div class="pmi-section">
           <h3>Plus</h3>
@@ -119,6 +109,7 @@
           </div>
         </div>
       </div>
+
   </div>
 
     <!-- Save Button -->
@@ -176,52 +167,72 @@ export default {
     }
   },
   methods: {
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
-    },
-    toggleTag(tag) {
-      const index = this.selectedTags.indexOf(tag);
-      if (index > -1) {
-        this.selectedTags.splice(index, 1);
-      } else {
-        this.selectedTags.push(tag);
-      }
-    },
-    autoResize(event) {
-      const textarea = event.target;
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    },
-    handleFileChange(event) {
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  },
+  toggleTag(tag) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index > -1) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(tag);
+    }
+  },
+  autoResize(event) {
+    const textarea = event.target;
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  },
+  handleFileChange(event) {
   const selectedFiles = Array.from(event.target.files);
 
-  // 파일 수 제한
   if (this.images.length + selectedFiles.length > 5) {
     alert('최대 5개의 이미지만 업로드할 수 있습니다.');
     return;
   }
 
-  // 새로 선택된 파일들에 대해 미리보기 URL 생성
-  const newImages = selectedFiles.map(file => ({
-    file,
-    name: file.name,
-    size: file.size,
-    previewUrl: URL.createObjectURL(file) // 미리보기 URL 생성
-  }));
+  const newImagesPromises = selectedFiles.map(file => {
+    const previewUrl = URL.createObjectURL(file);
+    const imageElement = new Image();
+    imageElement.src = previewUrl;
 
+    return new Promise(resolve => {
+      imageElement.onload = () => {
+        const aspectRatio = imageElement.width / imageElement.height;
+        let containerWidth, containerHeight;
 
-  // 중복된 이미지가 아닌 경우만 추가
-  const uniqueNewImages = newImages.filter(newImage => 
-    !this.images.some(existingImage => existingImage.previewUrl === newImage.previewUrl)
-  );
+        if (aspectRatio > 1) {
+          containerWidth = '300px';
+          containerHeight = `${300 / aspectRatio}px`;
+        } else {
+          containerWidth = `${300 * aspectRatio}px`;
+          containerHeight = '300px';
+        }
 
-  if (uniqueNewImages.length === 0) {
-    alert('이미 선택된 이미지입니다.');
-    return;
-  }
+        resolve({
+          file,
+          name: file.name,
+          size: file.size,
+          previewUrl,
+          containerWidth,
+          containerHeight
+        });
+      };
+    });
+  });
 
-  // 새로운 이미지를 기존 배열에 추가
-  this.images = [...this.images, ...uniqueNewImages];
+  Promise.all(newImagesPromises).then(newImages => {
+    const uniqueNewImages = newImages.filter(newImage => 
+      !this.images.some(existingImage => existingImage.previewUrl === newImage.previewUrl)
+    );
+
+    if (uniqueNewImages.length === 0) {
+      alert('이미 선택된 이미지입니다.');
+      return;
+    }
+
+    this.images = [...this.images, ...uniqueNewImages];
+  });
 },
       removeImage(index) {
         // 이미지 삭제 시 미리보기 URL 해제
@@ -263,6 +274,8 @@ export default {
       
       this.uploadedImageUrls = uploadedUrls;
     },
+
+    
     async saveData() {
       if (!this.isFormComplete) {
         alert('모든 필드를 입력해주세요.');
@@ -445,36 +458,23 @@ label {
   font-size: 15px;  
 }
 
-.tooltip {
-  position: absolute;
-  background-color: rgba(51, 51, 51, 0.9);
-  color: white;
-  padding: 8px;
-  border-radius: 5px;
-  z-index: 1000; 
-  white-space: nowrap; 
-}
-
 .image-preview-container {
   display: flex;
-  gap: 10px;
-  margin-top: 15px;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 .image-preview-card {
+  width: 100%;
+  max-width: 300px;
   position: relative;
-  width: 300px; /* 최대 너비 조정 */
-  height: 300px; /* 최대 높이 조정 */
-  border-color: transparent; 
-  border-radius: 5px;
   overflow: hidden;
 }
 
 .image-preview {
-  max-width: 300px; /* 원하는 최대 너비 */
-  max-height: 300px; /* 원하는 최대 높이 */
-  object-fit: contain; /* 이미지 비율 유지하며 잘리지 않게 표시 */
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지가 컨테이너 내에서 비율을 유지하면서 크기 조정 */
 }
 
 .delete-image-btn {
@@ -488,6 +488,7 @@ label {
   cursor: pointer;
   transition: color 0.3s; /* 색상 전환 애니메이션 추가 */
 }
+
 
 .delete-image-btn:hover {
   color: white; 
@@ -509,6 +510,7 @@ input[type="file"] {
   font-size: 13px; /* 글자 크기 */
   border-radius: 5px; 
   cursor: pointer; 
+  margin-bottom: 10px;
   transition: background-color 0.3s ease; /* 마우스 오버 시 부드럽게 색상 변화 */
 }
 
