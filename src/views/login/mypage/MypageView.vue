@@ -18,16 +18,16 @@
 
           <ul
             v-if="goals.length > 0"
-            class="space-y-3 p-4 bg-white rounded-lg relative"
+            class="relative p-4 space-y-3 bg-white rounded-lg"
           >
-            <div class="flex justify-between items-center">
+            <div class="flex items-center justify-between">
               <!-- 타이틀 -->
               <h2
-                class="mb-2 text-sm font-semibold font-nanum-square-round relative inline-block px-2"
+                class="relative inline-block px-2 mb-2 text-sm font-semibold font-nanum-square-round"
                 style="
-                  background-color: white; /* 배경색 추가 */
+                  background-color: white;
                   position: absolute;
-                  top: -15px; /* 사각형 위로 일부만 나오게 조정 */
+                  top: -15px;
                   left: 16px;
                   padding-left: 10px;
                   padding-right: 10px;
@@ -40,11 +40,11 @@
 
               <!-- 더보기 -->
               <h2
-                class="mb-2 text-sm font-semibold font-nanum-square-round relative inline-block px-2"
+                class="relative inline-block px-2 mb-2 text-sm font-semibold font-nanum-square-round"
                 style="
                   background-color: white;
                   position: absolute;
-                  top: -15px; /* 사각형 위로 일부만 나오게 조정 */
+                  top: -15px;
                   left: 16px;
                   padding-left: 10px;
                   padding-right: 10px;
@@ -63,7 +63,7 @@
             >
               <!-- 날짜 부분: 주황색 정사각형 -->
               <p
-                class="text-xxs font-nanum-square-round flex-shrink-0 mr-2 p-1 rounded-sm text-center"
+                class="flex-shrink-0 p-1 mr-2 text-center rounded-sm text-xxs font-nanum-square-round"
                 style="
                   background-color: #ff7f00;
                   color: white;
@@ -76,7 +76,7 @@
 
               <!-- 목표 내용 부분 -->
               <p
-                class="text-sm font-nanum-square-round flex-grow text-left ml-3"
+                class="flex-grow ml-3 text-sm text-left font-nanum-square-round"
               >
                 {{ goal.content }}
               </p>
@@ -91,19 +91,6 @@
         <section class="mt-8">
           <h2 class="mb-2 text-lg font-semibold font-nanum-square-round"></h2>
           <div class="space-y-4">
-            <!-- 실명 -->
-            <div class="space-y-1">
-              <label
-                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
-                >실명</label
-              >
-              <input
-                type="text"
-                v-model="user.name"
-                readonly
-                class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
-              />
-            </div>
             <!-- 이메일 -->
             <div class="space-y-1">
               <label
