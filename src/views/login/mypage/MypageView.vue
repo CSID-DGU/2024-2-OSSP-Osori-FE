@@ -229,7 +229,7 @@
 <script setup>
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 // 사용자 정보 및 목표 데이터
 import {
@@ -245,7 +245,9 @@ import {
   updateProfile
 } from './MypageScript.js'
 
-const goals = ref([])
+const goals = ref([]) // 목표 데이터
+const isExpanded = ref(false) // 더보기 상태 관리
+const maxVisibleGoals = 3 // 기본 표시할 목표 수
 
 // 목표 기록 가져오기
 const fetchGoals = async () => {
@@ -271,18 +273,23 @@ onMounted(() => {
   fetchGoals()
 })
 
-// 날짜 형식 포맷
-const formatDate = (date) => {
-  const options = { month: 'long', day: 'numeric' }
-  return new Date(date).toLocaleDateString('ko-KR', options)
-}
+// 더보기 상태에 따른 표시할 목표 계산
+const displayedGoals = computed(() => {
+  return isExpanded.value ? goals.value : goals.value.slice(0, maxVisibleGoals)
+})
 
-// 날짜 형식 포맷
+// 날짜 형식 포맷 (MM.DD 형식)
 const formatDate2 = (date) => {
-  const options = { month: '2-digit', day: '2-digit' } // 'MM.DD' 형식
+  const options = { month: '2-digit', day: '2-digit' }
   return new Date(date).toLocaleDateString('ko-KR', options).replace(/\//g, '.')
 }
 
+// 접기/더보기 상태 토글
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value
+}
+
+// 프로필 저장
 const saveProfile = () => {
   const profileData = {
     name: user.name,
