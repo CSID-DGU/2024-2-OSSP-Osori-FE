@@ -1,10 +1,7 @@
-// MypageScript.js
-
 import { reactive, ref } from 'vue'
 
 // user 객체를 reactive로 설정
 export const user = reactive({
-  name: '임시 실명',
   email: 'example@dgu.ac.kr',
   nickname: '임시 닉네임',
   studentNumber: '00000000',
