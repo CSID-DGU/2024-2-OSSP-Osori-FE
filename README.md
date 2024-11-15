@@ -1,5 +1,6 @@
 ## 2024-2-OSSP-Osori-FE
 🍊 오픈소스소프트웨어프로젝트 1반 오소리 프론트엔드 레포지토리 !
+[swagger-ui](http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html#/)
 <br><br>
 
 
