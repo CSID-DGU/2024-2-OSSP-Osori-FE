@@ -38,22 +38,24 @@
                 나의 아코자국들
               </h2>
 
-              <!-- 더보기 -->
-              <h2
+              <!-- 더보기 버튼 -->
+              <button
+                @click="toggleExpand"
                 class="relative inline-block px-2 mb-2 text-sm font-semibold font-nanum-square-round"
                 style="
                   background-color: white;
                   position: absolute;
                   top: -15px;
-                  left: 16px;
+                  right: 16px;
                   padding-left: 10px;
                   padding-right: 10px;
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
+                  cursor: pointer;
                 "
               >
-                더보기
-              </h2>
+                {{ isExpanded ? '접기' : '더보기' }}
+              </button>
             </div>
             <!-- 목표 리스트 -->
             <li
