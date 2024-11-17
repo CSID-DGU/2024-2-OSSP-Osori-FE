@@ -2,9 +2,21 @@
   <div class="min-h-screen bg-[#FFF9F2] font-nanum flex justify-center">
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
+      style="scroll-behavior: smooth"
     >
       <!-- 상단바 -->
       <MainHeader />
+
+      <!-- 로그아웃 버튼 -->
+      <div class="absolute top-4 right-4">
+        <button
+          @click="handleLogout"
+          class="px-4 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+          style="margin-top: 60px"
+        >
+          로그아웃
+        </button>
+      </div>
 
       <!-- 본문 내용 -->
       <main class="flex flex-col px-12 pt-16 pb-24 overflow-y-auto">
@@ -18,16 +30,16 @@
 
           <ul
             v-if="goals.length > 0"
-            class="space-y-3 p-4 bg-white rounded-lg relative"
+            class="relative p-4 space-y-3 bg-white rounded-lg"
           >
-            <div class="flex justify-between items-center">
+            <div class="flex items-center justify-between">
               <!-- 타이틀 -->
               <h2
-                class="mb-2 text-sm font-semibold font-nanum-square-round relative inline-block px-2"
+                class="relative inline-block px-2 mb-2 text-sm font-semibold font-nanum-square-round"
                 style="
-                  background-color: white; /* 배경색 추가 */
+                  background-color: white;
                   position: absolute;
-                  top: -15px; /* 사각형 위로 일부만 나오게 조정 */
+                  top: -15px;
                   left: 16px;
                   padding-left: 10px;
                   padding-right: 10px;
@@ -38,22 +50,24 @@
                 나의 아코자국들
               </h2>
 
-              <!-- 더보기 -->
-              <h2
-                class="mb-2 text-sm font-semibold font-nanum-square-round relative inline-block px-2"
+              <!-- 더보기 버튼 -->
+              <button
+                @click="toggleExpand"
+                class="relative inline-block px-2 mb-2 text-sm font-semibold font-nanum-square-round"
                 style="
                   background-color: white;
                   position: absolute;
-                  top: -15px; /* 사각형 위로 일부만 나오게 조정 */
-                  left: 16px;
+                  top: -15px;
+                  right: 16px;
                   padding-left: 10px;
                   padding-right: 10px;
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
+                  cursor: pointer;
                 "
               >
-                더보기
-              </h2>
+                {{ isExpanded ? '접기' : '더보기' }}
+              </button>
             </div>
             <!-- 목표 리스트 -->
             <li
@@ -63,7 +77,7 @@
             >
               <!-- 날짜 부분: 주황색 정사각형 -->
               <p
-                class="text-xxs font-nanum-square-round flex-shrink-0 mr-2 p-1 rounded-sm text-center"
+                class="flex-shrink-0 p-1 mr-2 text-center rounded-sm text-xxs font-nanum-square-round"
                 style="
                   background-color: #ff7f00;
                   color: white;
@@ -76,7 +90,7 @@
 
               <!-- 목표 내용 부분 -->
               <p
-                class="text-sm font-nanum-square-round flex-grow text-left ml-3"
+                class="flex-grow ml-3 text-sm text-left font-nanum-square-round"
               >
                 {{ goal.content }}
               </p>
@@ -91,19 +105,6 @@
         <section class="mt-8">
           <h2 class="mb-2 text-lg font-semibold font-nanum-square-round"></h2>
           <div class="space-y-4">
-            <!-- 실명 -->
-            <div class="space-y-1">
-              <label
-                class="block text-sm font-medium text-gray-700 font-nanum-square-round"
-                >실명</label
-              >
-              <input
-                type="text"
-                v-model="user.name"
-                readonly
-                class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
-              />
-            </div>
             <!-- 이메일 -->
             <div class="space-y-1">
               <label
@@ -240,9 +241,10 @@
 <script setup>
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
-// 사용자 정보 및 목표 데이터
+
+// MyPageScript.js에서 필요한 데이터와 함수 가져오기
 import {
   user,
   password,
@@ -256,7 +258,9 @@ import {
   updateProfile
 } from './MypageScript.js'
 
-const goals = ref([])
+const goals = ref([]) // 목표 데이터
+const isExpanded = ref(false) // 더보기 상태 관리
+const maxVisibleGoals = 3 // 기본 표시할 목표 수
 
 // 목표 기록 가져오기
 const fetchGoals = async () => {
@@ -280,20 +284,26 @@ const fetchGoals = async () => {
 // 페이지 마운트 시 목표 기록 가져오기
 onMounted(() => {
   fetchGoals()
+  fetchUser() // MyPageScript.js의 유저 정보 가져오기 함수 호출
 })
 
-// 날짜 형식 포맷
-const formatDate = (date) => {
-  const options = { month: 'long', day: 'numeric' }
-  return new Date(date).toLocaleDateString('ko-KR', options)
-}
+// 더보기 상태에 따른 표시할 목표 계산
+const displayedGoals = computed(() => {
+  return isExpanded.value ? goals.value : goals.value.slice(0, maxVisibleGoals)
+})
 
-// 날짜 형식 포맷
+// 날짜 형식 포맷 (MM.DD 형식)
 const formatDate2 = (date) => {
-  const options = { month: '2-digit', day: '2-digit' } // 'MM.DD' 형식
+  const options = { month: '2-digit', day: '2-digit' }
   return new Date(date).toLocaleDateString('ko-KR', options).replace(/\//g, '.')
 }
 
+// 접기/더보기 상태 토글
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value
+}
+
+// 프로필 저장
 const saveProfile = () => {
   const profileData = {
     name: user.name,

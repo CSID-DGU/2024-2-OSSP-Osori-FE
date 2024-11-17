@@ -1,10 +1,7 @@
-// MypageScript.js
-
 import { reactive, ref } from 'vue'
 
 // user 객체를 reactive로 설정
 export const user = reactive({
-  name: '임시 실명',
   email: 'example@dgu.ac.kr',
   nickname: '임시 닉네임',
   studentNumber: '00000000',
@@ -21,6 +18,7 @@ export const passwordVerified = ref(false)
 // 로그아웃 함수
 export async function handleLogout() {
   try {
+    // 로그아웃 요청
     const response = await fetch(
       `${process.env.VUE_APP_BE_API_URL}/api/users/logout`,
       {
@@ -28,9 +26,15 @@ export async function handleLogout() {
         credentials: 'include' // 세션을 포함하여 로그아웃 요청
       }
     )
+
     if (response.ok) {
       alert('로그아웃되었습니다.')
-      // Vue Router 사용 시 `$router.push`는 vue 인스턴스가 필요
+
+      // JSESSIONID 쿠키 강제 삭제
+      document.cookie =
+        'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+
+      // 로그아웃 후 리디렉트
       window.location.href = '/auth/login'
     } else {
       alert('로그아웃 실패.')
@@ -39,6 +43,7 @@ export async function handleLogout() {
   } catch (error) {
     alert('로그아웃 오류.')
     console.error('로그아웃 오류:', error)
+    this.$router.push('/auth/signup')
   }
 }
 
@@ -52,6 +57,8 @@ export async function fetchUser() {
         credentials: 'include' // 세션 유지
       }
     )
+    console.log('유저 데이터:', response.data)
+
     if (response.ok) {
       const userData = await response.json()
       Object.assign(user, userData) // user 객체 업데이트
@@ -63,8 +70,15 @@ export async function fetchUser() {
       )
     }
   } catch (error) {
-    console.error('유저 정보 불러오기 오류:', error)
-    alert('유저 정보를 불러올 수 없어 임시 데이터를 표시합니다.')
+    console.error(
+      '프로필 조회 실패:',
+      error.response?.status,
+      error.response?.data
+    )
+    if (error.response?.status === 401) {
+      alert('세션이 만료되었습니다. 다시 로그인하세요.')
+      window.location.href = '/auth/login'
+    }
   }
 }
 

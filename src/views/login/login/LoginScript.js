@@ -26,6 +26,10 @@ export default {
         return
       }
 
+      // 기존 JSESSIONID 쿠키 삭제
+      document.cookie =
+        'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+
       try {
         // 로그인 API 호출
         const response = await axios.post(
@@ -33,6 +37,9 @@ export default {
           {
             email: this.email,
             password: this.password
+          },
+          {
+            withCredentials: true // 세션 쿠키를 포함하여 서버와 통신
           }
         )
 
