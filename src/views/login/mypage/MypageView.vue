@@ -2,9 +2,21 @@
   <div class="min-h-screen bg-[#FFF9F2] font-nanum flex justify-center">
     <div
       class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
+      style="scroll-behavior: smooth"
     >
       <!-- 상단바 -->
       <MainHeader />
+
+      <!-- 로그아웃 버튼 -->
+      <div class="absolute top-4 right-4">
+        <button
+          @click="handleLogout"
+          class="px-4 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
+          style="margin-top: 60px"
+        >
+          로그아웃
+        </button>
+      </div>
 
       <!-- 본문 내용 -->
       <main class="flex flex-col px-12 pt-16 pb-24 overflow-y-auto">
@@ -231,7 +243,8 @@ import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
-// 사용자 정보 및 목표 데이터
+
+// MyPageScript.js에서 필요한 데이터와 함수 가져오기
 import {
   user,
   password,
@@ -271,6 +284,7 @@ const fetchGoals = async () => {
 // 페이지 마운트 시 목표 기록 가져오기
 onMounted(() => {
   fetchGoals()
+  fetchUser() // MyPageScript.js의 유저 정보 가져오기 함수 호출
 })
 
 // 더보기 상태에 따른 표시할 목표 계산
