@@ -230,6 +230,7 @@ export default {
   padding: 20px;
   background-color: #ffe8d1;
   min-height: calc(100vh - 120px);
+  position: relative;
 }
 
 h3 {
@@ -410,9 +411,9 @@ button.active {
 }
 
 .floating-btn {
-  position: fixed;
-  bottom: 90px;
-  right: 280px;
+  position: absolute; /* 부모 요소에 상대적으로 고정 */
+  bottom: 4%; /* 부모 요소의 높이를 기준으로 */
+  right: 5%; /* 부모 요소의 너비를 기준으로 */
   background-color: #f4b28c;
   color: white;
   border-radius: 50%;
@@ -424,6 +425,7 @@ button.active {
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+
 
 .floating-btn img {
   width: 30px;
