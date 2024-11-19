@@ -1,9 +1,9 @@
 ## 2024-2-OSSP-Osori-FE
 🍊 오픈소스소프트웨어프로젝트 1반 오소리 프론트엔드 레포지토리 !
-[swagger-ui](http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html#/)
+
+
+[![swagger-ui](https://img.shields.io/badge/swagger-ui-green?style=for-the-badge&logo=github)](http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html#/)
 <br><br>
-
-
 
 # 🐘 아코밍 (Akoming)
 
@@ -57,7 +57,13 @@
   - 프로젝트의 주요 디렉토리 구조와 설명을 포함합니다.
 
 - ### 🧩 다이어그램
-  - 아키텍처 다이어그램, 서비스 흐름, 데이터 흐름 등을 그림으로 표현합니다.
+   아키텍처 다이어그램, 서비스 흐름, 데이터 흐름 등을 그림으로 표현합니다.
+    #### 1️⃣ 아키텍처 다이어그램
+  &nbsp;&nbsp;&nbsp;![Blank diagram](https://github.com/user-attachments/assets/65e85db8-54e2-441d-a143-758e20f9b09b)
+
+    #### 2️⃣ 시퀀스 다이어그램
+  
+ &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;![image01](https://github.com/user-attachments/assets/7f0c37e1-d403-4241-bbc7-904487b112df)
 
 - ### 🗄 ERD
   ![osori](https://github.com/user-attachments/assets/d90a2ae9-aac0-4ba0-92bf-fd08abee8d4b)
