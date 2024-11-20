@@ -1,4 +1,3 @@
-<!-- 로그인하고 id값 불러오는 것과 등록 테스트 해야함 -->
 <template>
   <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
     <div
@@ -16,6 +15,7 @@
         <img
           src="@/assets/images/back.svg"
           alt="이전"
+          @click="goBack" 
           style="
             width: 24px;
             height: 24px;
@@ -118,21 +118,41 @@ const userId = 1
 const registerGoal = async () => {
   if (userText.value.trim() !== '') {
     try {
+      const token = localStorage.getItem('authToken') // 저장된 토큰을 가져옵니다.
+      if (!token) {
+        alert('로그인이 필요합니다.')
+        return
+      }
+
       const response = await axios.post(
         `${process.env.VUE_APP_BE_API_URL}/api/goals`,
         {
-          userId: userId,
-          content: userText.value
+          content: userText.value // 전송할 데이터
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가
+          }
         }
       )
+
       alert(`목표가 등록되었습니다: ${response.data.content}`)
       userText.value = ''
     } catch (error) {
       console.error('목표 등록 오류:', error)
-      alert('목표 등록에 실패했습니다. 다시 시도해주세요.')
+      if (error.response && error.response.status === 401) {
+        alert('인증에 실패했습니다. 다시 로그인해주세요.')
+      } else {
+        alert('목표 등록에 실패했습니다. 다시 시도해주세요.')
+      }
     }
   } else {
     alert('문구를 입력해주세요.')
   }
+}
+
+// 이전 페이지로 돌아가는 함수
+const goBack = () => {
+  window.history.back()
 }
 </script>

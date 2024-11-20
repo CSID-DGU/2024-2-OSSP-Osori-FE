@@ -16,6 +16,7 @@
           src="@/assets/images/back.svg"
           alt="이전"
           style="width: 24px; height: 24px; margin-top: 10px; margin-bottom: 20px; cursor: pointer;"
+          @click="goBack"
         />
 
         <div class="bg-white rounded-2xl mb-4" style="height: 300px; display: flex; justify-content: center;">
@@ -57,18 +58,17 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
 import Footer from '@/components/layout/Footer.vue';
 
 const followerCount = ref(0);
 const followingCount = ref(0);
 const followers = ref([]);
 const followings = ref([]);
-const showFollowers = ref(true); // 팔로워 리스트 보이기
-const showFollowings = ref(false); // 팔로잉 리스트 보이기
+const showFollowers = ref(true);
+const showFollowings = ref(false); 
 
-// 팔로워 및 팔로잉 수 가져오기 (임시 데이터 사용)
 function fetchFollowerCount() {
-  // 임시 팔로워 데이터
   followers.value = [
     { followingId: 1, nickname: '미니', email: 'follower1@example.com' },
     { followingId: 2, nickname: '토니', email: 'follower2@example.com' },
@@ -78,7 +78,6 @@ function fetchFollowerCount() {
 }
 
 function fetchFollowingCount() {
-  // 임시 팔로잉 데이터
   followings.value = [
     { followingId: 4, nickname: '동국이', email: 'following1@example.com' },
     { followingId: 5, nickname: '미니', email: 'following2@example.com' },
@@ -87,7 +86,6 @@ function fetchFollowingCount() {
   followingCount.value = followings.value.length;
 }
 
-// 팔로워 차단
 function blockFollower(id) {
   const index = followers.value.findIndex(follower => follower.followingId === id);
   if (index !== -1) {
@@ -96,11 +94,15 @@ function blockFollower(id) {
   }
 }
 
-// 팔로우 취소
 function unfollow(id) {
   followings.value = followings.value.filter(following => following.followingId !== id);
   followingCount.value--;
 }
+
+const router = useRouter();
+const goBack = () => {
+  router.back(); 
+};
 
 onMounted(() => {
   fetchFollowerCount();

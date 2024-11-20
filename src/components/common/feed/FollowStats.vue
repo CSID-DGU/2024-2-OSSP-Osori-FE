@@ -6,13 +6,14 @@
       <span class="follower-count">{{ followerCount }}명</span>
       <span class="following-text">팔로잉</span>
       <span class="following-count">{{ followingCount }}명</span>
-      <img src="../../../assets/images/next.svg">
+      <img class='na' src="../../../assets/images/next.svg" alt="Next" />
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 const followerCount = ref(0) // API에서 받아오는 팔로워 수
 const followingCount = ref(0) // API에서 받아오는 팔로잉 수
@@ -27,8 +28,10 @@ const formattedDate = computed(() => {
   return `${year} . ${month} . ${day}`;
 });
 
+const router = useRouter()
+
 const goToFollowPage = () => {
-  // 팔로우 관리 페이지로 이동하는 함수
+  router.push('/feed/ako-stamp-follow') // 팔로우 관리 페이지로 이동
 }
 </script>
 
@@ -36,6 +39,7 @@ const goToFollowPage = () => {
 .follow-stats {
   display: flex;
   align-items: center;
+  width: 100%;
   height: 37px;
   padding: 8px;
   border-radius: 10px;
@@ -83,5 +87,9 @@ const goToFollowPage = () => {
   font-size: 15px;
   font-weight: 400;
   line-height: normal;
+}
+
+.na{
+  cursor: pointer;
 }
 </style>

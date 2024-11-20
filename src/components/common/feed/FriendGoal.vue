@@ -17,7 +17,7 @@ import CommentInput from './CommentInput.vue'
 import CommentList from './CommentList.vue'
 
 const friendNickname = ref('토니')
-const friendGoalContent = ref('이따 상록원에서 밥먹을사람? 김치철판어쩌고저쩌고')
+const friendGoalContent = ref('이따 상록원에서 밥먹을사람있나요? 같이 먹어요')
 const showCommentSection = ref(false)
 
 const toggleCommentSection = () => {

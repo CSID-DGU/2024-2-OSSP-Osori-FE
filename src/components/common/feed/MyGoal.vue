@@ -25,7 +25,7 @@ import CommentInput from './CommentInput.vue'
 import CommentList from './CommentList.vue'
 
 const nickname = ref('민달팽럴')
-const goalContent = ref('포기하지 않고 긍정적으로 오늘의 할일을 마무리하자냥냥걸')
+const goalContent = ref('포기하지 않고 긍정적으로 오늘의 할일을 마무리하자')
 const showCommentSection = ref(false)
 
 const toggleCommentSection = () => {
@@ -96,7 +96,6 @@ const deleteGoal = () => {
 
 
 .comment-section {
-  margin-top: 8px;
 }
 
 .line{

@@ -1,9 +1,9 @@
 <template>
   <div class="comment-list">
     <div v-for="comment in comments" :key="comment.id" class="comment">
-      <span>{{ comment.nickname }}</span>
-      <span>{{ comment.emoji }}</span>
-      <p>{{ comment.content }}</p>
+      <div class="nick">{{ comment.nickname }}</div>
+      <div>{{ comment.emoji }}</div>
+      <div class="comment">{{ comment.content }}</div>
     </div>
   </div>
 </template>
@@ -18,10 +18,38 @@ const comments = ref([
 </script>
 
 <style scoped>
-.comment-list .comment {
+
+.comment-list{
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap:5px;
+  margin-bottom: 5px;
+}
+.comment{
+  display: flex;
+  gap:10px;
+  margin-left: 5px;
+}
+
+.nick{
+  font-family: 'NaB';
+  font-size: 15px;
+  color:#FF7F00;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: flex;
   align-items: center;
-  margin-bottom: 8px;
+}
+
+.comment{
+  font-family: 'NaL';
+  font-size: 14px;
+  color:#000000;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  display: flex;
+  align-items: center;
 }
 </style>
