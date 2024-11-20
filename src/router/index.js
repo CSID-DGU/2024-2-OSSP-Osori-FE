@@ -7,6 +7,7 @@ import FeedLayout from '@/components/layout/FeedLayout.vue'
 import akopolioCreate from '@/views/akopolio/akopolioCreate.vue'
 import akopolioMain from '@/views/akopolio/akopolioMain.vue'
 
+
 // 자동 임포트 함수 (src/views 내의 모든 .vue 파일을 임포트)
 function importAllViews() {
   const viewFiles = require.context('@/views', true, /\.vue$/)
