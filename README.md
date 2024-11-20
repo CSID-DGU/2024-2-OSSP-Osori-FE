@@ -1,9 +1,9 @@
 ## 2024-2-OSSP-Osori-FE
 🍊 오픈소스소프트웨어프로젝트 1반 오소리 프론트엔드 레포지토리 !
-[swagger-ui](http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html#/)
+
+
+[![swagger-ui](https://img.shields.io/badge/swagger-ui-green?style=for-the-badge&logo=github)](http://ec2-43-202-20-87.ap-northeast-2.compute.amazonaws.com:8080/swagger-ui/index.html#/)
 <br><br>
-
-
 
 # 🐘 아코밍 (Akoming)
 
@@ -57,7 +57,13 @@
   - 프로젝트의 주요 디렉토리 구조와 설명을 포함합니다.
 
 - ### 🧩 다이어그램
-  - 아키텍처 다이어그램, 서비스 흐름, 데이터 흐름 등을 그림으로 표현합니다.
+   아키텍처 다이어그램, 서비스 흐름, 데이터 흐름 등을 그림으로 표현합니다.
+    #### 1️⃣ 아키텍처 다이어그램
+  &nbsp;&nbsp;&nbsp;![Blank diagram](https://github.com/user-attachments/assets/65e85db8-54e2-441d-a143-758e20f9b09b)
+
+    #### 2️⃣ 시퀀스 다이어그램
+  
+ &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;![image01](https://github.com/user-attachments/assets/7f0c37e1-d403-4241-bbc7-904487b112df)
 
 - ### 🗄 ERD
   ![osori](https://github.com/user-attachments/assets/d90a2ae9-aac0-4ba0-92bf-fd08abee8d4b)
@@ -120,7 +126,7 @@
 | 📚 **자료 관리**                                    | 📄 **보고서**                                                                 | 📝 **발표 자료**                                                               |
 |---------------------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------|
 | [**API 명세서**](https://www.notion.so/API-12db4ba0516b81ec851acf0067da9ba1?pvs=4) | [**수행계획서**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%E1%84%8B%E1%85%A9%E1%84%91%E1%85%B3%E1%86%AB%E1%84%89%E1%85%A9%E1%84%89%E1%85%B3SW%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%8C%E1%85%A6%E1%86%A8%E1%84%90%E1%85%B3%20%E1%84%89%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%E1%84%80%E1%85%A8%E1%84%92%E1%85%B5%E1%86%A8%E1%84%89%E1%85%A5_%E1%84%8B%E1%85%A9%E1%84%89%E1%85%A9%E1%84%85%E1%85%B5.pdf) | [**수행계획서 발표 자료**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4SW%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C_1%ED%8C%80_%EC%98%A4%EC%86%8C%EB%A6%AC_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C.pdf) |
-| [**기능 명세서**](https://www.notion.so/12db4ba0516b810bb53bfacb7de892d7?pvs=4)     |                                                                  |      [**중간보고서 발표 자료**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4SW%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C_1%ED%8C%80_%EC%98%A4%EC%86%8C%EB%A6%AC_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C-2.pptx)                                                                                 |
+| [**기능 명세서**](https://www.notion.so/12db4ba0516b810bb53bfacb7de892d7?pvs=4)     |    [**중간보고서**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4SW%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C_%EC%98%A4%EC%86%8C%EB%A6%AC%20(0.6).hwp)                                                              |      [**중간보고서 발표 자료**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%5BOSSP-2%5D%20%EC%98%A4%ED%94%88%EC%86%8C%EC%8A%A4SW%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%20%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C_1%ED%8C%80_%EC%98%A4%EC%86%8C%EB%A6%AC_%EB%B0%9C%ED%91%9C%EC%9E%90%EB%A3%8C-2.pptx)                                                                                 |
 | [**이슈 관리**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/issues)       |                                                                              |                                                                                  |
 | [**회의록**](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-FE-01/blob/main/docs/%ED%9A%8C%EC%9D%98%EB%A1%9D.md)       |                                                                              |                                                                                  |
 
