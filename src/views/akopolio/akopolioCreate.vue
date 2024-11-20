@@ -462,11 +462,12 @@ label {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  width: 100%;
 }
 
 .image-preview-card {
   width: 100%;
-  max-width: 300px;
+  max-width: 312px;
   position: relative;
   overflow: hidden;
 }

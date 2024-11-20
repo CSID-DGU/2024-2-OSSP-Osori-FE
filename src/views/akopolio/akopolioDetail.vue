@@ -67,6 +67,15 @@
       <p>{{ portfolio && portfolio.pmi ? portfolio.pmi.interesting : '내용이 없습니다.' }}</p>
     </div>
 
+    <div class="image-preview-container" v-if="images.length">
+      <h2>활동 이미지</h2>
+      <div class="image-card" v-for="(image, index) in images" :key="index">
+        <div class="image-preview-card">
+          <img :src="image.presignedUrl" :alt="'Image ' + (index + 1)" class="image-preview" />
+        </div>
+      </div>
+    </div>
+
     <MainFooter />
   </div>
 </template>
@@ -84,22 +93,19 @@ export default {
   },
   setup() {
     const portfolio = ref(null); // 포트폴리오 데이터 저장
-    const route = useRoute(); // route 사용을 위해 가져옴
-    const router = useRouter(); // router 기능 가져옴
+    const images = ref([]); // 업로드된 이미지 또는 미리보기 저장
+    const route = useRoute(); // route 사용
+    const router = useRouter(); // router 사용
     const portfolioId = route.params.id; // route에서 id 값 가져오기
 
-    onMounted(() => {
-      fetchPortfolioById(portfolioId);
-    });
-
+    // 포트폴리오 데이터 가져오기
     const fetchPortfolioById = async (id) => {
       try {
-        // TODO: 백엔드 API에서 포트폴리오 데이터 가져오기
+        // TODO: 백엔드 연동 후 아래를 실제 데이터로 교체
         // const response = await fetch(`API_URL/portfolios/${id}`);
         // portfolio.value = await response.json();
-        
+
         portfolio.value = {
-          // 예시 데이터 (백엔드 연동 후 삭제할 것)
           title: '융합프로그래밍',
           createdDate: '2024-11-01',
           tags: ['전공'],
@@ -114,20 +120,27 @@ export default {
             minus: '부정적인 면',
             interesting: '흥미로운 점',
           },
+          images: [
+            { presignedUrl: 'https://via.placeholder.com/150', name: 'image1.jpg' },
+            { presignedUrl: 'https://via.placeholder.com/150', name: 'image2.jpg' },
+          ],
         };
+        images.value = portfolio.value.images || [];
       } catch (error) {
         console.error('Error fetching portfolio:', error);
       }
     };
 
+    // 수정 페이지로 이동
     const editPortfolio = () => {
-      router.push(`/akopolio/edit/${portfolioId}`); // router 사용하여 경로 이동
+      router.push(`/akopolio/edit/${portfolioId}`);
     };
 
+    // 포트폴리오 삭제
     const handleDeletePortfolio = async () => {
       if (confirm('정말 삭제하시겠습니까?')) {
         try {
-          // TODO: 백엔드 API에 삭제 요청
+          // TODO: 백엔드 API 호출
           // await fetch(`API_URL/portfolios/${portfolioId}`, { method: 'DELETE' });
           alert('삭제되었습니다.');
           router.push('/akopolio/main');
@@ -136,10 +149,16 @@ export default {
           alert('삭제 중 오류가 발생했습니다.');
         }
       }
-    };
+    }; 
+
+    // 컴포넌트 마운트 시 데이터 가져오기
+    onMounted(() => {
+      fetchPortfolioById(portfolioId);
+    });
 
     return {
       portfolio,
+      images,
       editPortfolio,
       handleDeletePortfolio,
     };
@@ -198,7 +217,8 @@ export default {
 }
 
 .experience-container,
-.pmi-container {
+.pmi-container,
+.image-preview-container {
   background-color: #fff3e6;
   padding: 20px;
   border-radius: 10px;
@@ -242,14 +262,14 @@ export default {
 }
 
 h3 {
-  font-size: 16px;
+  font-size: 15px;
   color: #ff7f00;
   margin: 0;
   white-space: nowrap;
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 15px;
   color: #ff7f00;
   margin-bottom: 10px;
 }
@@ -258,5 +278,26 @@ p {
   margin: 5px 0;
   font-size: 14px;
   word-break: break-word;
+}
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.image-preview-card {
+  width: 100%;
+  max-width: 312px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; 
 }
 </style>
