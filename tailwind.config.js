@@ -4,7 +4,10 @@ module.exports = {
   content: [
     './index.html',
     './src/**/*.{vue,js,ts,jsx,tsx}',
-    './src/views/**/*.vue'
+    './src/views/**/*.vue',
+    './public/index.html', // HTML 파일
+    './node_modules/@material-tailwind/vue/components/**/*.{vue,js,ts,jsx,tsx}', // Material Tailwind Vue용 경로
+    './node_modules/@material-tailwind/vue/theme/components/**/*.{vue,js,ts,jsx,tsx}' // Material Tailwind Vue 테마 경로
   ],
   theme: {
     extend: {
