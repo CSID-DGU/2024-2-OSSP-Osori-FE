@@ -4,8 +4,8 @@ import AuthLayout from '@/components/layout/AuthLayout.vue' // 중첩 라우팅�
 import PortfolioLayout from '@/components/layout/PortfolioLayout.vue' // 중첩 라우팅의 부모 레이아웃
 import store from '@/store'
 import FeedLayout from '@/components/layout/FeedLayout.vue'
-import akopolioCreate from '@/views/akopolio/akopolioCreate.vue'
-import akopolioMain from '@/views/akopolio/akopolioMain.vue'
+import akopolioCreate from '@/views/akopolio/create/akopolioCreate.vue'
+import akopolioMain from '@/views/akopolio/main/akopolioMain.vue'
 
 
 // 자동 임포트 함수 (src/views 내의 모든 .vue 파일을 임포트)
