@@ -1,3 +1,4 @@
+import axios from 'axios'; 
 import PaginationNav from '../paginationNav.vue';
 import MainHeader from '../../../components/layout/Header.vue';
 import MainFooter from '../../../components/layout/Footer.vue';
@@ -23,13 +24,22 @@ export default {
         '학생회', '기타'
       ],
       isDropdownOpen: false,
-      portfolioList: [
-        // 백엔드 API로 받아오는 데이터로 대체 필요
-        { id: 1, title: '융합프로그래밍', createdDate: '2024-11-01', tags: ['전공'] },
-        { id: 2, title: '오픈소스소프트웨어 실습', createdDate: '2024-10-15', tags: ['전공', '프로젝트'] },
-        { id: 3, title: '성남시 IT 서비스 스터디', createdDate: '2024-09-10', tags: ['스터디'] },
-        // 여기에 더 많은 포트폴리오 데이터가 추가될 수 있음
-      ]
+      portfolioList: [], // 초기 포트폴리오는 빈 배열로 설정
+      defaultPortfolioList: [
+        {
+          id: 1,
+          title: '예시 포트폴리오 1',
+          createdDate: '2023-01-01',
+          tags: ['전공', '프로젝트'],
+        },
+        {
+          id: 2,
+          title: '예시 포트폴리오 2',
+          createdDate: '2023-02-15',
+          tags: ['스터디', '연구'],
+        },
+        // 추가 예시 데이터
+      ],
     };
   },
   computed: {
@@ -51,13 +61,19 @@ export default {
       }
 
       // 날짜 필터 적용
-      if (this.startDate && this.endDate) {
+      if (this.startDate || this.endDate) {
         filteredList = filteredList.filter(item => {
           const itemDate = new Date(item.createdDate);
-          return (
-            itemDate >= new Date(this.startDate) &&
-            itemDate <= new Date(this.endDate)
-          );
+          if (this.startDate && !this.endDate) {
+            return itemDate >= new Date(this.startDate);
+          } else if (!this.startDate && this.endDate) {
+            return itemDate <= new Date(this.endDate);
+          } else {
+            return (
+              itemDate >= new Date(this.startDate) &&
+              itemDate <= new Date(this.endDate)
+            );
+          }
         });
       }
 
@@ -68,18 +84,8 @@ export default {
     },
 
     totalPages() {
-      const totalFilteredItems = this.portfolioList.filter(item => {
-        return (
-          (!this.searchQuery || item.title.includes(this.searchQuery)) &&
-          (this.selectedTags.length === 0 || 
-            this.selectedTags.every(tag => item.tags.includes(tag))) &&
-          (!this.startDate || !this.endDate ||
-            (new Date(item.createdDate) >= new Date(this.startDate) &&
-             new Date(item.createdDate) <= new Date(this.endDate)))
-        );
-      }).length;
-      return Math.ceil(totalFilteredItems / this.itemsPerPage);
-    }
+      return Math.ceil(this.portfolioList.length / this.itemsPerPage);
+    },
   },
   methods: {
     toggleDropdown() {
@@ -93,11 +99,11 @@ export default {
       } else {
         this.selectedTags.push(tag);
       }
-      this.applyFilters(); // 태그 변경 시 필터 적용
+      this.applyFilters();
     },
 
     applyFilters() {
-      this.currentPage = 1; // 필터 적용 시 첫 페이지로 초기화
+      this.currentPage = 1;
     },
 
     handlePageChanged(newPage) {
@@ -117,17 +123,21 @@ export default {
     },
 
     goToDetailPage(id) {
-      this.$router.push(`/akopolio/detail/${id}`); // ID를 포함하여 상세 페이지로 이동
+      this.$router.push(`/akopolio/detail/${id}`);
     },
 
-    // API에서 포트폴리오 데이터 받아오는 함수 (백엔드 연결 필요)
-    // async fetchPortfolios() {
-    //   try {
-    //     const response = await axios.get('/api/portfolios');
-    //     this.portfolioList = response.data;
-    //   } catch (error) {
-    //     console.error('Error fetching portfolios:', error);
-    //   }
-    // }
+    async fetchPortfolios() {
+      try {
+        const response = await axios.get(`${process.env.VUE_APP_BE_API_URL}/api/portfolios`);
+        this.portfolioList = response.data.length ? response.data : this.defaultPortfolioList; // 데이터가 없으면 예시 데이터 사용
+      } catch (error) {
+        console.error('Error fetching portfolios:', error);
+        this.portfolioList = this.defaultPortfolioList; // 오류 시 예시 데이터 사용
+      }
+    },
+  },
+
+  mounted() {
+    this.fetchPortfolios();
   }
 };
