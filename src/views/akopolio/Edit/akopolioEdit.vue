@@ -64,56 +64,41 @@
       </div>
     </div>
 
-
-
-
-
-
     <div class="image-upload-container">
       <h2>활동 이미지 업로드</h2>
       <h3>최대 5장까지 가능해요!&nbsp;&nbsp;<span>{{ images.length }} / 5</span></h3>
       <label for="file-upload" class="custom-file-upload">
-
-
-      <i class="fas fa-upload"></i> 파일 선택
+        <i class="fas fa-upload"></i> 파일 선택
       </label>
       <input type="file" id="file-upload" multiple @change="handleFileChange" accept="image/*" />
 
       <div class="image-preview-container" v-if="images.length">
         <div class="image-card" v-for="(image, index) in images" :key="index">
           <div class="image-preview-card">
-            <img :src="image.previewUrl" :alt="image.name" class="image-preview" />
+            <img :src="image.previewUrl" :alt="`Uploaded Image ${index + 1}`" class="image-preview" />
             <button @click="removeImage(index)" class="delete-image-btn">X</button>
           </div>
         </div>
       </div>
+    </div>
 
-  </div>
-
-
-
-
-
-
-
-
-
-
-    <!-- 저장 버튼 -->
-    <button @click="saveData" class="save-button">저장하기</button>
-    <MainFooter />
-  </div>
+    <div class="button-container">
+        <button @click="saveData" class="save-button">저장하기</button>
+      </div>
+      <MainFooter />
+   </div> 
 </template>
 
 <script src="./edit.js"></script>
 
 <style scoped>
+@import '../../../assets/fonts/fonts.css';
 .container {
   width: 395px;
   max-width: 500px;
   margin: 4rem auto;
   padding: 20px;  
-  background-color: #ffe8d1;
+  background-color: #fae8da;
   min-height: calc(100vh - 120px); /* 헤더와 푸터를 고려한 페이지 높이 조정 */
 }
 
@@ -131,6 +116,7 @@
 
 .activity-name-container {
   margin-bottom: 20px; 
+
 }
 
 
@@ -140,7 +126,7 @@ textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-  background-color: #fff3e6;
+  background-color: white;
   border-radius: 5px;
   resize: none;
   font-size: 13px;
@@ -149,17 +135,15 @@ textarea {
 .image-upload-container,
 .star-box,
 .pmi-box {
-  background-color: #fff3e6;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .activity-info{
-  background-color: #fff3e6;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -178,19 +162,18 @@ button {
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
+  border: 1px solid #eec092;
 }
 
 button.active {
-  background-color: #F6B87A;
-  color: white;
+  background-color: #f6b87a;
 }
 
 /* 분야 설정 박스 */
 .category-box {
-  background-color: #fff3e6;
+  background-color: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .category-label {
@@ -201,40 +184,80 @@ button.active {
 .tag-badge {
   display: inline-block;
   margin-left: 10px;
-  background-color: #F6B87A;
-  color: white;
+  background-color: #f6b87a;
+  color: black;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 13px;
 }
 
-/* 저장 버튼 */
+.button-container {
+  display: flex;
+  justify-content: center;       
+}
+
 .save-button {
-  width: 100%;
-  padding: 15px;
+  width: 160px;
+  margin-top: 20px;
+  padding-left: 16px;  
+  padding-right: 16px; 
+  padding-top: 8px;    
+  padding-bottom: 8px; 
   background-color: #F6B87A;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  ;
+  color: black;
+  font-size: 0.875rem;  
+  font-weight: 500;  
+  border-radius: 9999px; 
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .save-button:hover {
-  background-color: #f4c08c;
+  background-color: #e5a769;
 }
 
-h3 {
-  font-size: 15px; 
-  color: #FF7F00;
+.experience-container h3,
+.pmi-container h3 {
+  font-size: 15px;
+  color: #ff7f00;
+  margin-bottom: 10px;
   margin-top: 10px;
+  white-space: nowrap;
+  padding: 0;
+}
+
+h3{
+  font-size: 15px;
+  color: #ff7f00;
+  margin: 0;
+  white-space: nowrap;
+  padding: 0;
+
 }
 
 h2 {
-  margin: 0;
-  font-size: 15px;  
+  font-size: 16px;
+  color: #ff7f00;
+  margin-bottom: 10px;
+  padding: 0;
 }
+
+.category-box h2{
+  margin: 0;
+}
+
+p {
+  margin:0;
+  font-size: 14px;
+  word-break: break-word;
+  padding: 0;
+}
+
+.experience-container p,
+.pmi-container p {
+  margin-bottom: 15px;
+}
+
 
 label {
   font-size: 15px;  
@@ -285,18 +308,19 @@ input[type="file"] {
 
 /* 커스텀 버튼 스타일 */
 .custom-file-upload {
-  background-color: white; /* 배경색 */
-  color: #f3ab62; /* 글자색 */
-  padding: 10px 128px; /* 버튼 크기 */
-  font-size: 13px; /* 글자 크기 */
+  background-color: #faf5f0; 
+  color: #f3ab62;
+  padding: 10px 128px; 
+  font-size: 13px;
   border-radius: 5px; 
   cursor: pointer; 
+  margin-top: 10px;
+  transition: background-color 0.3s ease; 
   margin-bottom: 10px;
-  transition: background-color 0.3s ease; /* 마우스 오버 시 부드럽게 색상 변화 */
 }
 
 .custom-file-upload:hover {
-  background-color: #f6e3d2; /* 마우스를 올렸을 때 배경색 변경 */
+  background-color: #f5eadf; 
 }
 
 

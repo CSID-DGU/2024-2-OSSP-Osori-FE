@@ -1,8 +1,8 @@
 import MainHeader from '../../../components/layout/Header.vue';
 import MainFooter from '../../../components/layout/Footer.vue';
-import { ref, computed, onMounted } from 'vue'; // onMounted 추가
-import { useRoute } from 'vue-router'; // useRoute 추가
-
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
+import axios from 'axios';
 
 export default {
   components: {
@@ -11,7 +11,7 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const portfolioId = route.params.id; // URL에서 포트폴리오 ID 가져오기
+    const portfolioId = route.params.id;
     const activityName = ref('');
     const activityDate = ref('');
     const selectedTags = ref([]);
@@ -20,8 +20,9 @@ export default {
       '대외활동', '서포터즈', '기자단', '강연/행사', '스터디', '부트캠프', '프로젝트',
       '연구', '학생회', '기타',
     ]);
-    const images = ref([]); // 기존 이미지 배열
-    const newImages = ref([]); // 새로 추가된 이미지 파일
+    const images = ref([
+      { previewUrl: "https://via.placeholder.com/150" } // 예시 이미지
+    ]);
     const star = ref({
       situation: '',
       task: '',
@@ -35,7 +36,7 @@ export default {
     });
     const isDropdownOpen = ref(false);
 
-     // 드롭다운 토글
+    // 드롭다운 토글
     const toggleDropdown = () => {
       isDropdownOpen.value = !isDropdownOpen.value;
     };
@@ -74,80 +75,99 @@ export default {
         selectedTags.value = data.selectedTags || [];
         star.value = data.star || { situation: '', task: '', action: '', result: '' };
         pmi.value = data.pmi || { plus: '', minus: '', interesting: '' };
-        images.value = data.images || []; 
+        images.value = data.images || [];
       } catch (error) {
         console.error('Error fetching portfolio:', error);
         alert('포트폴리오를 불러오는 중 오류가 발생했습니다.');
       }
     };
 
-     // 이미지 삭제
-     const deleteImage = async (imageUrl) => {
-      try {
-        const response = await fetch(
-          `${process.env.VUE_APP_BE_API_URL}/api/images`, // 예시: 백엔드에서 이미지 삭제 엔드포인트
-          {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ imageUrl }),
-          }
-        );
-    
-        if (!response.ok) {
-          throw new Error(`Failed to delete image: ${response.statusText}`);
-        }
-    
-        images.value = images.value.filter((image) => image !== imageUrl);
-        alert('이미지가 삭제되었습니다.');
-      } catch (error) {
-        console.error('Error deleting image:', error);
-        alert('이미지 삭제 중 오류가 발생했습니다.');
+    const handleFileChange = (event) => {
+      const selectedFiles = Array.from(event.target.files);
+      if (images.value.length + selectedFiles.length > 5) {
+        alert('최대 5개의 이미지만 업로드할 수 있습니다.');
+        return;
       }
-    };
     
-
-    // 새 이미지 추가
-    const addImage = async (file) => {
-      try {
-        // 프리사인드 URL 요청
-        const response = await fetch(
-          `${process.env.VUE_APP_BE_API_URL}/api/upload`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ fileName: file.name }),
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(`Failed to get presigned URL: ${response.statusText}`);
-        }
-
-        const { uploadUrl, fileUrl } = await response.json();
-
-        // 이미지 업로드
-        await fetch(uploadUrl, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': file.type,
-          },
-          body: file,
+      const newImagesPromises = selectedFiles.map((file) => {
+        const previewUrl = URL.createObjectURL(file);
+        const imageElement = new Image();
+        imageElement.src = previewUrl;
+    
+        return new Promise((resolve) => {
+          imageElement.onload = () => {
+            const aspectRatio = imageElement.width / imageElement.height;
+            let containerWidth, containerHeight;
+    
+            if (aspectRatio > 1) {
+              containerWidth = '300px';
+              containerHeight = `${300 / aspectRatio}px`;
+            } else {
+              containerWidth = `${300 * aspectRatio}px`;
+              containerHeight = '300px';
+            }
+    
+            resolve({
+              file,
+              name: file.name,
+              size: file.size,
+              previewUrl,
+              containerWidth,
+              containerHeight,
+            });
+          };
         });
-
-        // 업로드된 이미지 URL 추가
-        images.value.push(fileUrl);
-        alert('이미지가 성공적으로 추가되었습니다.');
-      } catch (error) {
-        console.error('Error adding image:', error);
-        alert('이미지 추가 중 오류가 발생했습니다.');
+      });
+    
+      Promise.all(newImagesPromises).then((newImages) => {
+        const uniqueNewImages = newImages.filter(
+          (newImage) =>
+            !images.value.some(
+              (existingImage) => existingImage.previewUrl === newImage.previewUrl
+            )
+        );
+    
+        if (uniqueNewImages.length === 0) {
+          alert('이미 선택된 이미지입니다.');
+          return;
+        }
+    
+        images.value = [...images.value, ...uniqueNewImages];
+      });
+    };
+    
+    const removeImage = (index) => {
+      URL.revokeObjectURL(images.value[index].previewUrl);
+      images.value.splice(index, 1);
+    };
+    
+    const uploadImages = async () => {
+      const uploadedUrls = [];
+      for (const image of images.value) {
+        try {
+          const { data } = await axios.post(
+            `${process.env.VUE_APP_BE_API_URL}/api/get-presigned-url`,
+            {
+              fileName: image.name,
+              fileType: image.file.type,
+            }
+          );
+    
+          await axios.put(data.url, image.file, {
+            headers: { 'Content-Type': image.file.type },
+          });
+    
+          const uploadedUrl = data.url.split('?')[0];
+          uploadedUrls.push(uploadedUrl);
+        } catch (error) {
+          console.error('Error uploading image:', error);
+          alert('이미지 업로드 중 오류가 발생했습니다.');
+        }
       }
     };
+    
 
-
+    // 저장 버튼 클릭 시 서버에 반영
     const saveData = async () => {
       if (!isFormComplete.value) {
         alert('모든 필드를 입력해주세요.');
@@ -155,11 +175,11 @@ export default {
       }
 
       try {
-        // 백엔드 API 호출
+        // 수정된 포트폴리오 데이터와 이미지 URL을 서버에 전송
         const response = await fetch(
-          `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`, // 백엔드 URL
+          `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`,
           {
-            method: 'PUT', // 수정이므로 PUT 메서드 사용
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
             },
@@ -169,7 +189,7 @@ export default {
               selectedTags: selectedTags.value,
               star: star.value,
               pmi: pmi.value,
-              images: images.value,
+              images: images.value.map(image => image.name), // 서버에 전달할 이미지 파일 이름만 전달
             }),
           }
         );
@@ -195,10 +215,10 @@ export default {
       );
     });
 
-      // 컴포넌트 마운트 시 데이터 가져오기
-      onMounted(() => {
-        fetchPortfolioById();
-      });
+    // 컴포넌트 마운트 시 데이터 가져오기
+    onMounted(() => {
+      fetchPortfolioById();
+    });
 
     return {
       activityName,
@@ -209,12 +229,12 @@ export default {
       star,
       pmi,
       images,
-      newImages,
       toggleDropdown,
       toggleTag,
       autoResize,
-      deleteImage,
-      addImage,
+      handleFileChange, 
+      removeImage,      
+      uploadImages,     
       saveData,
       isFormComplete
     };
