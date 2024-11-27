@@ -88,7 +88,6 @@
 <script src="./detail.js"></script>
 
 <style scoped>
-@import '../../../assets/fonts/fonts.css';
 .akopolio-detail {
   width: 395px;
   margin: 4rem auto;
@@ -97,6 +96,7 @@
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .detail-header {
@@ -193,6 +193,7 @@
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 13px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .experience-container h3,
@@ -211,7 +212,7 @@ h3{
   margin: 0;
   white-space: nowrap;
   padding: 0;
-
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
@@ -219,7 +220,7 @@ h2 {
   color: #ff7f00;
   margin-bottom: 10px;
   padding: 0;
-
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 p {
@@ -227,6 +228,7 @@ p {
   font-size: 14px;
   word-break: break-word;
   padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .experience-container p,
