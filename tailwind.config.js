@@ -11,6 +11,7 @@ module.exports = {
     './node_modules/@material-tailwind/vue/theme/components/**/*.{vue,js,ts,jsx,tsx}'
   ],
   safelist: [
+    { pattern: /.*/ },
     // 동적 클래스
     'text-[#17A1FA]',
     'text-[#B3B3B3]',
