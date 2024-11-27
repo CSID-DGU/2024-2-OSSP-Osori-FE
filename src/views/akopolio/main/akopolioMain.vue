@@ -81,6 +81,7 @@
         alt="Akoming Logo"
       />
     </button>
+
     <MainFooter />
   </div>
 </template>
@@ -88,7 +89,6 @@
 <script src="./main.js"></script>
 
 <style scoped>
-@import '../../../assets/fonts/fonts.css';
 
 .akopolio-page {
   width: 395px;
@@ -98,6 +98,7 @@
   background-color: #fae8da;
   min-height: calc(100vh - 120px);
   position: relative;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h3 {
@@ -105,16 +106,19 @@ h3 {
   color: black;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
   margin: 0;
   font-size: 15px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .no-data {
   text-align: center; 
   padding: 50px 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .no-data h2 {
@@ -150,7 +154,7 @@ input[type='date'] {
 button {
   display: inline-block;
   margin: 3px;
-  padding: 8px;
+  padding: 5px 10px;
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
@@ -234,6 +238,7 @@ button.active {
   text-align: right;
   align-self: flex-end; 
   margin: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .portfolio-tags {
@@ -249,6 +254,7 @@ button.active {
   border-radius: 20px;
   font-size: 13px;
   margin-top: 5px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .header {

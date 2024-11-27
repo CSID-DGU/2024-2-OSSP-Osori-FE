@@ -92,7 +92,6 @@
 <script src="./edit.js"></script>
 
 <style scoped>
-@import '../../../assets/fonts/fonts.css';
 .container {
   width: 395px;
   max-width: 500px;
@@ -100,6 +99,7 @@
   padding: 20px;  
   background-color: #fae8da;
   min-height: calc(100vh - 120px); /* 헤더와 푸터를 고려한 페이지 높이 조정 */
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .header {
@@ -158,7 +158,7 @@ textarea {
 button {
   display: inline-block;
   margin: 3px;
-  padding: 8px;
+  padding: 5px 10px;
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
@@ -232,7 +232,7 @@ h3{
   margin: 0;
   white-space: nowrap;
   padding: 0;
-
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
@@ -240,6 +240,7 @@ h2 {
   color: #ff7f00;
   margin-bottom: 10px;
   padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .category-box h2{
