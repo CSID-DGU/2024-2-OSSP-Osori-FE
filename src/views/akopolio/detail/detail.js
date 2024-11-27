@@ -18,33 +18,20 @@ export default {
     // 포트폴리오 데이터 가져오기
     const fetchPortfolioById = async (id) => {
       try {
-        // TODO: 백엔드 연동 후 아래를 실제 데이터로 교체
-        // const response = await fetch(`API_URL/portfolios/${id}`);
-        // portfolio.value = await response.json();
+        // 백엔드 API 연동
+        const response = await fetch(
+          `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${id}`
+        );
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch portfolio: ${response.statusText}`);
+        }
 
-        portfolio.value = {
-          title: '융합프로그래밍',
-          createdDate: '2024-11-01',
-          tags: ['전공'],
-          star: {
-            situation: '상황 예시',
-            task: '과제 예시',
-            action: '행동 예시',
-            result: '결과 예시',
-          },
-          pmi: {
-            plus: '긍정적인 면',
-            minus: '부정적인 면',
-            interesting: '흥미로운 점',
-          },
-          images: [
-            { presignedUrl: 'https://via.placeholder.com/150', name: 'image1.jpg' },
-            { presignedUrl: 'https://via.placeholder.com/150', name: 'image2.jpg' },
-          ],
-        };
+        portfolio.value = await response.json();
         images.value = portfolio.value.images || [];
       } catch (error) {
         console.error('Error fetching portfolio:', error);
+        alert('포트폴리오를 가져오는 중 오류가 발생했습니다.');
       }
     };
 
@@ -57,8 +44,16 @@ export default {
     const handleDeletePortfolio = async () => {
       if (confirm('정말 삭제하시겠습니까?')) {
         try {
-          // TODO: 백엔드 API 호출
-          // await fetch(`API_URL/portfolios/${portfolioId}`, { method: 'DELETE' });
+          // 백엔드 API 연동
+          const response = await fetch(
+            `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`,
+            { method: 'DELETE' }
+          );
+          
+          if (!response.ok) {
+            throw new Error(`Failed to delete portfolio: ${response.statusText}`);
+          }
+
           alert('삭제되었습니다.');
           router.push('/akopolio/main');
         } catch (error) {
@@ -66,7 +61,7 @@ export default {
           alert('삭제 중 오류가 발생했습니다.');
         }
       }
-    }; 
+    };
 
     // 컴포넌트 마운트 시 데이터 가져오기
     onMounted(() => {
@@ -81,3 +76,7 @@ export default {
     };
   },
 };
+
+
+
+
