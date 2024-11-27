@@ -289,9 +289,6 @@ label {
   color: white; 
 }
 
-
-
-
 /* 기본 input[type="file"] 숨기기 */
 input[type="file"] {
   display: none;

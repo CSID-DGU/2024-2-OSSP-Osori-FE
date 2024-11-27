@@ -84,7 +84,7 @@
 
 <style scoped>
 .akopolio-detail {
-  width: 375px;
+  width: 395px;
   margin: 4rem auto;
   padding: 20px;
   background-color: #ffe8d1;

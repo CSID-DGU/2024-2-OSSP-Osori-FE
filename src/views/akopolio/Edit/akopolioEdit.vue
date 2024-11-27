@@ -64,6 +64,41 @@
       </div>
     </div>
 
+
+
+
+
+
+    <div class="image-upload-container">
+      <h2>활동 이미지 업로드</h2>
+      <h3>최대 5장까지 가능해요!&nbsp;&nbsp;<span>{{ images.length }} / 5</span></h3>
+      <label for="file-upload" class="custom-file-upload">
+
+
+      <i class="fas fa-upload"></i> 파일 선택
+      </label>
+      <input type="file" id="file-upload" multiple @change="handleFileChange" accept="image/*" />
+
+      <div class="image-preview-container" v-if="images.length">
+        <div class="image-card" v-for="(image, index) in images" :key="index">
+          <div class="image-preview-card">
+            <img :src="image.previewUrl" :alt="image.name" class="image-preview" />
+            <button @click="removeImage(index)" class="delete-image-btn">X</button>
+          </div>
+        </div>
+      </div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
     <!-- 저장 버튼 -->
     <button @click="saveData" class="save-button">저장하기</button>
     <MainFooter />
@@ -86,6 +121,7 @@
   text-align: center;
 }
 
+.image-upload-container,
 .activity-info,
 .category-box,
 .experience-container,
@@ -110,6 +146,7 @@ textarea {
   font-size: 13px;
 }
 
+.image-upload-container,
 .star-box,
 .pmi-box {
   background-color: #fff3e6;
@@ -203,14 +240,65 @@ label {
   font-size: 15px;  
 }
 
-.tooltip {
+.delete-image-btn {
   position: absolute;
-  background-color: rgba(51, 51, 51, 0.9);
-  color: white;
-  padding: 8px;
-  border-radius: 5px;
-  z-index: 1000; 
-  white-space: nowrap; 
+  top: 5px;
+  right: 5px;
+  color: black;
+  border: none;
+  background: none; /* 배경색 제거 */
+  font-size: 16px; /* X 아이콘이 더 잘 보이도록 크기 조정 */
+  cursor: pointer;
+  transition: color 0.3s; /* 색상 전환 애니메이션 추가 */
 }
+
+
+.delete-image-btn:hover {
+  color: white; 
+}
+
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.image-preview-card {
+  width: 100%;
+  max-width: 312px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지가 컨테이너 내에서 비율을 유지하면서 크기 조정 */
+}
+
+/* 기본 input[type="file"] 숨기기 */
+input[type="file"] {
+  display: none;
+}
+
+/* 커스텀 버튼 스타일 */
+.custom-file-upload {
+  background-color: white; /* 배경색 */
+  color: #f3ab62; /* 글자색 */
+  padding: 10px 128px; /* 버튼 크기 */
+  font-size: 13px; /* 글자 크기 */
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease; /* 마우스 오버 시 부드럽게 색상 변화 */
+}
+
+.custom-file-upload:hover {
+  background-color: #f6e3d2; /* 마우스를 올렸을 때 배경색 변경 */
+}
+
+
 </style>
 
