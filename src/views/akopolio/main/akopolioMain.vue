@@ -54,13 +54,13 @@
       >
         <div class="portfolio-content">
           <h3 class="portfolio-title">{{ item.title }}</h3>
-          <p class="created-date">작성일: {{ item.createdDate }}</p>
+          <div class="portfolio-tags">
+            <span v-for="tag in item.tags" :key="tag" class="portfolio-tag">
+              {{ tag }}
+            </span>
+          </div>
         </div>
-        <div class="portfolio-tags">
-          <span v-for="tag in item.tags" :key="tag" class="portfolio-tag">
-            {{ tag }}
-          </span>
-        </div>
+        <p class="created-date">활동일: {{ item.createdDate }}</p>
       </div>
     </div>
 
@@ -81,6 +81,7 @@
         alt="Akoming Logo"
       />
     </button>
+
     <MainFooter />
   </div>
 </template>
@@ -88,35 +89,51 @@
 <script src="./main.js"></script>
 
 <style scoped>
+
 .akopolio-page {
   width: 395px;
   max-width: 500px;
   margin: 4rem auto;
   padding: 20px;
-  background-color: #ffe8d1;
+  background-color: #fae8da;
   min-height: calc(100vh - 120px);
   position: relative;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h3 {
   font-size: 15px;
-  color: #ff7f00;
+  color: black;
   margin-top: 10px;
+  margin-bottom: 10px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
   margin: 0;
   font-size: 15px;
+  font-family: 'NanumSquareRound', sans-serif;
+}
+
+.no-data {
+  text-align: center; 
+  padding: 50px 0;
+  font-family: 'NanumSquareRound', sans-serif;
+}
+
+.no-data h2 {
+  font-size: 0.7rem; 
+  color: #777; 
 }
 
 input[type='text'],
 input[type='date'] {
-  background-color: #ffe8d1;
+  background-color: white;
   border: 1px solid #eec092;
   border-radius: 10px;
   padding: 5px;
   width: 100%;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .date-picker input[type='date'] {
@@ -137,31 +154,29 @@ input[type='date'] {
 button {
   display: inline-block;
   margin: 3px;
-  padding: 8px;
+  padding: 5px 10px;
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
+  border: 1px solid #eec092;
 }
 
 button.active {
   background-color: #f6b87a;
-  color: white;
 }
 
 .filter-container {
-  background-color: #fff3e6;
+  background-color: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
 }
 .category-box {
-  background-color: #fff3e6;
+  background-color: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-top: 0px;
   margin-bottom: 40px;
   width: 100%;
@@ -176,7 +191,7 @@ button.active {
   display: inline-block;
   margin-left: 10px;
   background-color: #f6b87a;
-  color: white;
+  color: black;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 13px;
@@ -192,18 +207,17 @@ button.active {
   background-color: white;
   border: 1px solid #f0f0f0;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   padding: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s;
+  position: relative; 
   
 }
 
 .portfolio-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
   cursor: pointer;
 }
 
@@ -214,14 +228,17 @@ button.active {
 }
 
 .portfolio-title {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
   margin: 0;
 }
 
 .created-date {
-  font-size: 14px;
+  font-size: 13px;
   color: #666;
+  text-align: right;
+  align-self: flex-end; 
+  margin: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .portfolio-tags {
@@ -232,10 +249,12 @@ button.active {
 
 .portfolio-tag {
   background-color: #ffc68d;
-  color: white;
+  color: black;
   padding: 5px 10px;
   border-radius: 20px;
-  font-size: 14px;
+  font-size: 13px;
+  margin-top: 5px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .header {
@@ -261,18 +280,18 @@ button.active {
 
 .reset-btn {
   margin-left: 10px; /* 오른쪽 여백 */
-  background-color: #ff8c42;
-  color: white;
+  background-color: #f4b28c;
+  color: black;
   border: none;
   padding: 6px 11px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 13px;
   border-radius: 8px;
 }
 
 .reset-btn:hover {
-  background-color: #ffa768;
+  background-color: #f2a579;
 }
 
 .floating-btn {
@@ -287,8 +306,12 @@ button.active {
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.floating-btn:hover {
+  cursor: pointer;
+  background-color: #eaa279;
 }
 
 

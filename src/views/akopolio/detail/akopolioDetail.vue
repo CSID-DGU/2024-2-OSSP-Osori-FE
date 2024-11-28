@@ -5,23 +5,26 @@
       <div class="header-content">
         <div class="action-buttons">
           <button class="edit-button" @click="editPortfolio">수정하기</button>
-          <button class="delete-button" @click="handleDeletePortfolio">삭제하기</button>
+          <button class="delete-button" @click="handleDeletePortfolio">
+            삭제하기
+            <img src="@/assets/images/trash.svg" alt="Delete File" class="delete-file-icon" />
+          </button>
         </div>
       </div>
     </div>
 
     <!-- 포트폴리오 정보 표시 -->
     <div class="activity-info">
-      <div class="row">
-        <h3>활동명</h3>
+      <div class="row activity-box">
+        <h2>활동명</h2>
         <p>{{ portfolio ? portfolio.title : '' }}</p>
       </div>
-      <div class="row">
-        <h3>활동일</h3>
-        <p>{{ portfolio ? portfolio.createdDate : '' }}</p>
-      </div>
-      <div class="row">
-        <h3>분야 설정</h3>
+    <div class="row activity-box activity-date">
+      <h2>활동일</h2>
+      <p>{{ portfolio ? portfolio.createdDate : '' }}</p>
+    </div>
+      <div class="row activity-box">
+        <h2>분야 설정</h2>
         <div class="tags">
           <span v-for="(tag, index) in (portfolio ? portfolio.tags : [])" :key="index" class="tag-badge">
             {{ tag }}
@@ -67,11 +70,13 @@
       <p>{{ portfolio && portfolio.pmi ? portfolio.pmi.interesting : '내용이 없습니다.' }}</p>
     </div>
 
-    <div class="image-preview-container" v-if="images.length">
+    <div class="image-upload-container">
       <h2>활동 이미지</h2>
-      <div class="image-card" v-for="(image, index) in images" :key="index">
-        <div class="image-preview-card">
-          <img :src="image.presignedUrl" :alt="'Image ' + (index + 1)" class="image-preview" />
+      <div class="image-preview-container" v-if="images.length">
+        <div class="image-card" v-for="(image, index) in images" :key="index">
+          <div class="image-preview-card">
+            <img :src="image" :alt="`Uploaded Image ${index + 1}`" class="image-preview" />
+          </div>
         </div>
       </div>
     </div>
@@ -84,13 +89,14 @@
 
 <style scoped>
 .akopolio-detail {
-  width: 375px;
+  width: 395px;
   margin: 4rem auto;
   padding: 20px;
-  background-color: #ffe8d1;
+  background-color: #fae8da;
   min-height: calc(100vh - 120px);
   display: flex;
   flex-direction: column;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .detail-header {
@@ -109,91 +115,125 @@
 
 .action-buttons {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin-left: auto;
 }
 
 .edit-button,
 .delete-button {
-  padding: 6px 10px;
+  display: flex;
+  padding: 5px 10px;
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  font-size: 11px;
+  font-size: 10px;
+  gap: 4px;
 }
 
 .edit-button {
-  background-color: #f6b87a;
-  color: white;
+  background-color: white;
+  color: black;
 }
 
 .delete-button {
-  background-color: #ff4d4d;
-  color: white;
+  background-color: white;
+  color: red;
 }
 
+.image-upload-container,
 .experience-container,
-.pmi-container,
-.image-preview-container {
-  background-color: #fff3e6;
+.pmi-container {
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
 .activity-info {
-  background-color: #fff3e6;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.activity-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  width: 100%; 
 }
 
 .row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start; 
   align-items: center;
   gap: 10px;
-  white-space: nowrap;
+  width: 100%; 
 }
+
 
 .tags {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
+  padding: 0;
 }
 
 .tag-badge {
+  display: inline-block;
   background-color: #f6b87a;
-  color: white;
+  color: black;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 13px;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
-h3 {
+.experience-container h3,
+.pmi-container h3 {
+  font-size: 15px;
+  color: #ff7f00;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  white-space: nowrap;
+  padding: 0;
+}
+
+h3{
   font-size: 15px;
   color: #ff7f00;
   margin: 0;
   white-space: nowrap;
+  padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
-  font-size: 15px;
+  font-size: 16px;
   color: #ff7f00;
   margin-bottom: 10px;
+  padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 p {
-  margin: 5px 0;
+  margin:0;
   font-size: 14px;
   word-break: break-word;
+  padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
+}
+
+.experience-container p,
+.pmi-container p {
+  margin-bottom: 15px;
 }
 
 .image-preview-container {
@@ -201,7 +241,6 @@ p {
   flex-wrap: wrap;
   gap: 10px;
   width: 100%;
-  margin-bottom: 20px;
 }
 
 .image-preview-card {

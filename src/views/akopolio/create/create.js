@@ -124,33 +124,33 @@ export default {
       for (const image of this.images) {
         try {
           // 1. 프리사인드 URL 요청
-          /*
-          const { data } = await axios.post('/api/get-presigned-url', {
-            fileName: image.name,
-            fileType: image.type
-          });
-          */
+          
+          const { data } = await axios.post(
+            `${process.env.VUE_APP_BE_API_URL}/api/get-presigned-url`, 
+            {
+              fileName: image.name,
+              fileType: image.type,
+            }
+          );          
 
           // 2. 프리사인드 URL을 이용해 이미지 업로드
-          /*
-          await axios.put(data.url, image, {
-            headers: { 'Content-Type': image.type }
+          
+          await axios.put(data.url, image.file, {
+            headers: { 'Content-Type': image.file.type },
           });
-          */
+          
 
           // 3. 업로드된 이미지의 URL을 저장 (프리사인드 URL에서 파일 URL을 추출)
-          /*
+          
           const uploadedUrl = data.url.split('?')[0];
           uploadedUrls.push(uploadedUrl);
-          */
-          
-          console.log('Image ready to upload:', image.name);
+  
         } catch (error) {
           console.error('Error uploading image:', error);
           alert('이미지 업로드 중 오류가 발생했습니다.');
         }
       }
-      
+  
       this.uploadedImageUrls = uploadedUrls;
     },
 
@@ -176,22 +176,21 @@ export default {
       };
 
       try {
-        // 이 부분에서 실제 백엔드로 데이터를 전송할 예정
-        // await axios.post('/api/portfolios', newPortfolio);
+        await axios.post(
+          `${process.env.VUE_APP_BE_API_URL}/api/portfolios`, 
+          newPortfolio
+        );
 
-        // 현재는 백엔드 연동 부분을 주석 처리해두었으므로, 임시 메시지만 표시
-        console.log('저장할 데이터:', newPortfolio); // 콘솔에 데이터 확인
-        alert('(테스트) 활동이 저장되었습니다!'); // 임시 알림 메시지
+        alert('활동이 성공적으로 저장되었습니다!');
 
-        // 실제 백엔드와 연동 시, 저장 후 리디렉션 설정
-        // this.$router.push('/akopolio/main'); 
-
-        this.resetForm(); // 데이터 저장 후 입력 폼 초기화
+        // 저장 후 페이지 이동 (예: 메인 페이지)
+        this.$router.push('/akopolio/main');
       } catch (error) {
         console.error('Error saving portfolio:', error);
         alert('저장 중 오류가 발생했습니다.');
       }
     },
+  
     resetForm() {
       this.activityName = '';
       this.activityDate = '';

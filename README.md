@@ -28,9 +28,9 @@
 
 ## 🔗 Backend Repository
 
-프로젝트의 백엔드 코드와 API 서버는 아래 레포지토리에서 확인하실 수 있습니다:
+⬇️ 프로젝트의 백엔드 레포지토리는 아래에서 확인하실 수 있습니다 ⬇️
 
-[![Backend Repository](https://img.shields.io/badge/Backend-Repository-orange?style=for-the-badge&logo=github)](https://github.com/saokiritoni/2024-2-OSSProj-Osori-BE-01/tree/main)
+[![Backend Repository](https://img.shields.io/badge/Backend-Repository-orange?style=for-the-badge&logo=github)](https://github.com/CSID-DGU/2024-2-OSSProj-Osori-BE-01)
 
 
 <br>
