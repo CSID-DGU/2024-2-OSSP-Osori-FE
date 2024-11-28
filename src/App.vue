@@ -3,10 +3,13 @@
     <!-- <router-link to="/">Home</router-link> | -->
     <!-- <router-link to="/about">About</router-link> -->
   </nav>
+
   <router-view />
 </template>
 
 <script>
+import './assets/styles/GlobalStyles' // injectGlobal 스타일 적용
+
 import '@/assets/styles/main.css'
 import '@/assets/styles/global.css'
 import MainHeader from '@/components/layout/Header.vue'
