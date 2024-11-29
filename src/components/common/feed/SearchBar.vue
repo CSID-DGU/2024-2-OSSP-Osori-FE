@@ -9,7 +9,6 @@
       <img src="../../../assets/images/plusBtn2.svg" class="search-icon" @click="searchFriend" />
     </div>
 
-    <!-- 검색 결과 리스트 -->
     <div class="search-results" v-if="searched && searchResults.length > 0">
       <div v-for="user in searchResults" :key="user.id" class="user-item">
         <span>{{ user.email }}</span>
@@ -23,7 +22,6 @@
       </div>
     </div>
 
-    <!-- 검색 결과가 없을 경우 -->
     <div v-if="searched && searchResults.length === 0" class="no-results">
       검색 결과가 없습니다.
     </div>
@@ -32,27 +30,14 @@
 
 <script setup>
 import { ref } from 'vue'
-import axios from 'axios' // axios import
 
-// 임시 데이터
 const email = ref('')
-const allUsers = [
-  { id: 1, nickname: '홍길동', email: 'hong', isFollowing: false },
-  { id: 2, nickname: '김철수', email: 'kim', isFollowing: true },
-  { id: 3, nickname: '박영희', email: 'park@dgu.ac.kr', isFollowing: false },
-  { id: 4, nickname: '이민호', email: 'lee@example.com', isFollowing: false },
-  { id: 5, nickname: '최지우', email: 'choi@example.com', isFollowing: true },
-  { id: 6, nickname: '장동건', email: 'jang@example.com', isFollowing: false },
-  { id: 7, nickname: '송혜교', email: 'pong@example.com', isFollowing: true },
-  { id: 8, nickname: '박보검', email: 'parkbo@dgu.ac.kr', isFollowing: true }
-]
 const searchResults = ref([])
 const searched = ref(false)
 
 const searchFriend = async () => {
-  searched.value = false // 검색 시작 전에 결과를 비워두기 위해 false로 설정
+  searched.value = false 
 
-  // 이메일 입력이 없으면 결과를 초기화하고 반환
   if (!email.value) {
     searchResults.value = []
     searched.value = true
@@ -60,14 +45,27 @@ const searchFriend = async () => {
   }
 
   try {
-    // 이메일을 서버로 보내는 POST 요청
-    const response = await axios.post('/api/follows', { email: email.value })
-    alert("팔로우 되었습니다")
-    console.log('응답:', response.data)
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/follow`, 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: email.value }), 
+        credentials: 'include' 
+      }
+    )
 
-    // 응답 결과에 따라 검색을 진행 (예시로 서버 응답으로 검색 결과 사용)
-    searchResults.value = allUsers.filter(user => user.email === email.value)
-    searched.value = true
+    if (response.ok) {
+      const data = await response.json() 
+      searchResults.value = data.users
+      searched.value = true
+    } else {
+      alert("검색 결과가 없습니다.")
+      searchResults.value = []
+      searched.value = true
+    }
   } catch (error) {
     alert("API 오류")
     console.error('API 요청 오류:', error)
@@ -76,7 +74,25 @@ const searchFriend = async () => {
 }
 
 const followUser = async (user) => {
-  user.isFollowing = true
+  try {
+    const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/follow`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ userId: user.id }), 
+      credentials: 'include'
+    })
+
+    if (response.ok) {
+      user.isFollowing = true
+    } else {
+      alert('팔로우 실패')
+    }
+  } catch (error) {
+    console.error('팔로우 요청 오류:', error)
+    alert('팔로우 요청에 실패했습니다.')
+  }
 }
 </script>
 

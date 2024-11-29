@@ -12,27 +12,54 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-const followerCount = ref(0) // API에서 받아오는 팔로워 수
-const followingCount = ref(0) // API에서 받아오는 팔로잉 수
+const followerCount = ref(0) 
+const followingCount = ref(0)  
 
-// 현재 날짜를 포맷팅
 const formattedDate = computed(() => {
   const date = new Date();
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 +1
+  const month = String(date.getMonth() + 1).padStart(2, '0'); 
   const day = String(date.getDate()).padStart(2, '0');
   
   return `${year} . ${month} . ${day}`;
 });
 
+const API_URL = `${process.env.VUE_APP_BE_API_URL}/api`;
+
+const fetchFollowCounts = async () => {
+  try {
+    const followerResponse = await fetch(`${API_URL}/followers`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const followerData = await followerResponse.json();
+    followerCount.value = Array.isArray(followerData) ? followerData.length : 0;
+
+    const followingResponse = await fetch(`${API_URL}/following`, {
+      method: 'GET',
+      credentials: 'include',
+    });
+    const followingData = await followingResponse.json();
+    followingCount.value = Array.isArray(followingData) ? followingData.length : 0;
+  } catch (error) {
+    console.error('팔로워 및 팔로잉 수 가져오기 실패:', error);
+    followerCount.value = 0;
+    followingCount.value = 0;
+  }
+};
+
 const router = useRouter()
 
 const goToFollowPage = () => {
-  router.push('/feed/ako-stamp-follow') // 팔로우 관리 페이지로 이동
+  router.push('/feed/ako-stamp-follow') 
 }
+
+onMounted(() => {
+  fetchFollowCounts(); 
+});
 </script>
 
 <style scoped>
@@ -49,7 +76,7 @@ const goToFollowPage = () => {
 .date-info {
   flex: 1;
   text-align: left;
-  color: #FF7F00; /* 날짜 색상 */
+  color: #FF7F00; 
   font-family: 'NaR';
   font-size: 0.9rem;
   padding-left: 5px;
