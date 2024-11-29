@@ -64,97 +64,32 @@
       </div>
     </div>
 
-    <!-- 저장 버튼 -->
-    <button @click="saveData" class="save-button">저장하기</button>
-    <MainFooter />
-  </div>
+    <div class="image-upload-container">
+      <h2>활동 이미지 업로드</h2>
+      <h3>최대 5장까지 가능해요!&nbsp;&nbsp;<span>{{ images.length }} / 5</span></h3>
+      <label for="file-upload" class="custom-file-upload">
+        <i class="fas fa-upload"></i> 파일 선택
+      </label>
+      <input type="file" id="file-upload" multiple @change="handleFileChange" accept="image/*" />
+
+      <div class="image-preview-container" v-if="images.length">
+        <div class="image-card" v-for="(image, index) in images" :key="index">
+          <div class="image-preview-card">
+            <img :src="image.previewUrl" :alt="`Uploaded Image ${index + 1}`" class="image-preview" />
+            <button @click="removeImage(index)" class="delete-image-btn">X</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-container">
+        <button @click="saveData" class="save-button">저장하기</button>
+      </div>
+      <MainFooter />
+   </div> 
 </template>
 
-<script>
-import MainHeader from '../../components/layout/Header.vue';
-import MainFooter from '../../components/layout/Footer.vue';
-import { ref, computed } from 'vue';
-
-export default {
-  components: {
-    MainHeader,
-    MainFooter
-  },
-  setup() {
-    const activityName = ref('융합프로그래밍');
-    const activityDate = ref('2024-11-01');
-    const selectedTags = ref(['전공']);
-    const tags = ref([
-      '전공', '교양', '교내동아리', '교외동아리', '학회', '봉사활동', '인턴', '아르바이트',
-      '대외활동', '서포터즈', '기자단', '강연/행사', '스터디', '부트캠프', '프로젝트',
-      '연구', '학생회', '기타'
-    ]);
-    const star = ref({ situation: '활동을 시작한 이유는...', task: '참여한 활동은...', action: '제가 맡은 역할은...', result: '결과는 이렇게 되었습니다.' });
-    const pmi = ref({ plus: '오늘의 좋은 점은...', minus: '아쉬웠던 점은...', interesting: '재미있었던 점은...' });
-    const isDropdownOpen = ref(false);
-
-    const toggleDropdown = () => {
-      isDropdownOpen.value = !isDropdownOpen.value;
-    };
-
-    const toggleTag = (tag) => {
-      const index = selectedTags.value.indexOf(tag);
-      if (index > -1) {
-        selectedTags.value.splice(index, 1);
-      } else {
-        selectedTags.value.push(tag);
-      }
-    };
-
-    const autoResize = (event) => {
-      const textarea = event.target;
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    };
-
-    const saveData = () => {
-      if (!isFormComplete.value) {
-        alert('모든 필드를 입력해주세요.');
-        return;
-      }
-
-      // 저장 로직
-      console.log('저장된 데이터:', {
-        activityName: activityName.value,
-        activityDate: activityDate.value,
-        selectedTags: selectedTags.value,
-        star: star.value,
-        pmi: pmi.value
-      });
-    };
-
-    const isFormComplete = computed(() => {
-      return (
-        activityName.value &&
-        activityDate.value &&
-        selectedTags.value.length > 0 &&
-        Object.values(star.value).every((field) => field) &&
-        Object.values(pmi.value).every((field) => field)
-      );
-    });
-
-    return {
-      activityName,
-      activityDate,
-      tags,
-      selectedTags,
-      isDropdownOpen,
-      star,
-      pmi,
-      toggleDropdown,
-      toggleTag,
-      autoResize,
-      saveData,
-      isFormComplete
-    };
-  }
-};
-</script>
+<script src="./edit.js"></script>
 
 <style scoped>
 .container {
@@ -162,14 +97,16 @@ export default {
   max-width: 500px;
   margin: 4rem auto;
   padding: 20px;  
-  background-color: #ffe8d1;
+  background-color: #fae8da;
   min-height: calc(100vh - 120px); /* 헤더와 푸터를 고려한 페이지 높이 조정 */
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 .header {
   text-align: center;
 }
 
+.image-upload-container,
 .activity-info,
 .category-box,
 .experience-container,
@@ -179,6 +116,7 @@ export default {
 
 .activity-name-container {
   margin-bottom: 20px; 
+
 }
 
 
@@ -188,25 +126,24 @@ textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
-  background-color: #fff3e6;
+  background-color: white;
   border-radius: 5px;
   resize: none;
   font-size: 13px;
 }
 
+.image-upload-container,
 .star-box,
 .pmi-box {
-  background-color: #fff3e6;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .activity-info{
-  background-color: #fff3e6;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
@@ -221,23 +158,22 @@ textarea {
 button {
   display: inline-block;
   margin: 3px;
-  padding: 8px;
+  padding: 5px 10px;
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
+  border: 1px solid #eec092;
 }
 
 button.active {
-  background-color: #F6B87A;
-  color: white;
+  background-color: #f6b87a;
 }
 
 /* 분야 설정 박스 */
 .category-box {
-  background-color: #fff3e6;
+  background-color: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .category-label {
@@ -248,53 +184,146 @@ button.active {
 .tag-badge {
   display: inline-block;
   margin-left: 10px;
-  background-color: #F6B87A;
-  color: white;
+  background-color: #f6b87a;
+  color: black;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 13px;
 }
 
-/* 저장 버튼 */
+.button-container {
+  display: flex;
+  justify-content: center;       
+}
+
 .save-button {
-  width: 100%;
-  padding: 15px;
+  width: 160px;
+  margin-top: 20px;
+  padding-left: 16px;  
+  padding-right: 16px; 
+  padding-top: 8px;    
+  padding-bottom: 8px; 
   background-color: #F6B87A;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  cursor: pointer;
-  ;
+  color: black;
+  font-size: 0.875rem;  
+  font-weight: 500;  
+  border-radius: 9999px; 
+  transition: background-color 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .save-button:hover {
-  background-color: #f4c08c;
+  background-color: #e5a769;
 }
 
-h3 {
-  font-size: 15px; 
-  color: #FF7F00;
+.experience-container h3,
+.pmi-container h3 {
+  font-size: 15px;
+  color: #ff7f00;
+  margin-bottom: 10px;
   margin-top: 10px;
+  white-space: nowrap;
+  padding: 0;
+}
+
+h3{
+  font-size: 15px;
+  color: #ff7f00;
+  margin: 0;
+  white-space: nowrap;
+  padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
-  margin: 0;
-  font-size: 15px;  
+  font-size: 16px;
+  color: #ff7f00;
+  margin-bottom: 10px;
+  padding: 0;
+  font-family: 'NanumSquareRound', sans-serif;
 }
+
+.category-box h2{
+  margin: 0;
+}
+
+p {
+  margin:0;
+  font-size: 14px;
+  word-break: break-word;
+  padding: 0;
+}
+
+.experience-container p,
+.pmi-container p {
+  margin-bottom: 15px;
+}
+
 
 label {
   font-size: 15px;  
 }
 
-.tooltip {
+.delete-image-btn {
   position: absolute;
-  background-color: rgba(51, 51, 51, 0.9);
-  color: white;
-  padding: 8px;
-  border-radius: 5px;
-  z-index: 1000; 
-  white-space: nowrap; 
+  top: 5px;
+  right: 5px;
+  color: black;
+  border: none;
+  background: none; /* 배경색 제거 */
+  font-size: 16px; /* X 아이콘이 더 잘 보이도록 크기 조정 */
+  cursor: pointer;
+  transition: color 0.3s; /* 색상 전환 애니메이션 추가 */
 }
+
+
+.delete-image-btn:hover {
+  color: white; 
+}
+
+
+.image-preview-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+}
+
+.image-preview-card {
+  width: 100%;
+  max-width: 312px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* 이미지가 컨테이너 내에서 비율을 유지하면서 크기 조정 */
+}
+
+/* 기본 input[type="file"] 숨기기 */
+input[type="file"] {
+  display: none;
+}
+
+/* 커스텀 버튼 스타일 */
+.custom-file-upload {
+  background-color: #faf5f0; 
+  color: #f3ab62;
+  padding: 10px 128px; 
+  font-size: 13px;
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-top: 10px;
+  transition: background-color 0.3s ease; 
+  margin-bottom: 10px;
+}
+
+.custom-file-upload:hover {
+  background-color: #f5eadf; 
+}
+
+
 </style>
 

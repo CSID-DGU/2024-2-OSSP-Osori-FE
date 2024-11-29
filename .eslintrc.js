@@ -16,6 +16,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-unused-vars': 'warn' // 사용하지 않는 변수 경고 해제
+    'no-unused-vars': 'warn', // 사용하지 않는 변수 경고 해제
+    'vue/comment-directive': 'off'
   }
 }
