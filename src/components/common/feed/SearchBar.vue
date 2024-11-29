@@ -6,7 +6,7 @@
         v-model="email"
         placeholder="친구의 이메일을 입력하세요"
       />
-      <img src="../../../assets/images/search.svg" class="search-icon" @click="searchFriend" />
+      <img src="../../../assets/images/plusBtn2.svg" class="search-icon" @click="searchFriend" />
     </div>
 
     <!-- 검색 결과 리스트 -->
@@ -32,6 +32,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import axios from 'axios' // axios import
 
 // 임시 데이터
 const email = ref('')
@@ -58,11 +59,21 @@ const searchFriend = async () => {
     return
   }
 
-  // 이메일이 있을 경우 해당 이메일을 가진 사용자만 필터링 (완전 일치 검색)
-  searchResults.value = allUsers.filter(user => user.email === email.value)
-  searched.value = true // 검색 완료 후 결과 표시
-}
+  try {
+    // 이메일을 서버로 보내는 POST 요청
+    const response = await axios.post('/api/follows', { email: email.value })
+    alert("팔로우 되었습니다")
+    console.log('응답:', response.data)
 
+    // 응답 결과에 따라 검색을 진행 (예시로 서버 응답으로 검색 결과 사용)
+    searchResults.value = allUsers.filter(user => user.email === email.value)
+    searched.value = true
+  } catch (error) {
+    alert("API 오류")
+    console.error('API 요청 오류:', error)
+    searched.value = true
+  }
+}
 
 const followUser = async (user) => {
   user.isFollowing = true
@@ -110,8 +121,8 @@ const followUser = async (user) => {
 }
 
 .search-icon {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
 }
 

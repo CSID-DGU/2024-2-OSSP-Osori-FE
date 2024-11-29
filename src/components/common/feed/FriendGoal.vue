@@ -72,5 +72,6 @@ const toggleCommentSection = () => {
 
 .btn button:hover {
   background: none;
+  outline: none;
 }
 </style>

@@ -58,8 +58,8 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import Footer from '@/components/layout/Footer.vue';
+import './FeedPageStyle.css';
 
 const followerCount = ref(0);
 const followingCount = ref(0);
@@ -88,63 +88,22 @@ function fetchFollowingCount() {
 
 function blockFollower(id) {
   const index = followers.value.findIndex(follower => follower.followingId === id);
-  if (index !== -1) {
-    followers.value.splice(index, 1);
-    followerCount.value--;
-  }
+  if (index !== -1) followers.value.splice(index, 1);
+  followerCount.value = followers.value.length;
 }
 
 function unfollow(id) {
-  followings.value = followings.value.filter(following => following.followingId !== id);
-  followingCount.value--;
+  const index = followings.value.findIndex(following => following.followingId === id);
+  if (index !== -1) followings.value.splice(index, 1);
+  followingCount.value = followings.value.length;
 }
-
-const router = useRouter();
-const goBack = () => {
-  router.back(); 
-};
 
 onMounted(() => {
   fetchFollowerCount();
   fetchFollowingCount();
 });
+
+const goBack = () => {
+  window.history.back()
+}
 </script>
-
-<style scoped>
-.unfollow-button {
-  font-size: 12.5px;
-  width: 70px;
-  height: 28px;
-  margin-left: 8px;
-  font-family: 'NaR';
-  border-radius: 20px;
-  color: white;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  background: #FF7F00;
-  cursor: pointer; 
-  transition: background-color 0.3s;
-}
-
-.unfollow-button:hover,
-.followerDelete-btn:hover {
-  background-color: #E0E0E0; 
-}
-
-.followerDelete-btn {
-  font-size: 15px;
-  width: 70px;
-  height: 28px;
-  margin-left: 8px;
-  font-family: 'NaR';
-  border-radius: 20px;
-  color: white;
-  font-style: normal;
-  font-weight: 300;
-  line-height: normal;
-  background: #FF7F00;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-</style>

@@ -88,6 +88,8 @@ const deleteGoal = () => {
   display: flex;
   gap: 10px;
   align-items: center;
+  background: none;
+  outline: none;
 }
 
 .goal-icons button:hover {
