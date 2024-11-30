@@ -141,12 +141,13 @@ export default {
       images.value.splice(index, 1);
     };
     
+    const prefix = 'images';
     const uploadImages = async () => {
       const uploadedUrls = [];
       for (const image of images.value) {
         try {
           const { data } = await axios.post(
-            `${process.env.VUE_APP_BE_API_URL}/api/get-presigned-url`,
+            `${process.env.VUE_APP_BE_API_URL}/file/${prefix}/presigned-url`,
             {
               fileName: image.name,
               fileType: image.file.type,
