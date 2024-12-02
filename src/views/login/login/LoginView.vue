@@ -204,6 +204,12 @@ export default {
   color: #ff6b6b;
 }
 
+.form-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
 /* 버튼 */
 .submit-button {
   width: 100%;
