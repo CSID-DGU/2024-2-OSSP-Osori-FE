@@ -55,7 +55,7 @@ const navItems = ref([
     label: '피드',
     icon: new URL('@/assets/Icons/akoming/bottom/feedicon.svg', import.meta.url)
       .href,
-    route: '/feed/ako-stamp-write'
+    route: '/feed/main'
   },
   {
     label: '마이페이지',

@@ -1,4 +1,3 @@
-<!-- 로그인하고 id값 불러오는 것과 등록 테스트 해야함 -->
 <template>
   <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
     <div
@@ -16,26 +15,15 @@
         <img
           src="@/assets/images/back.svg"
           alt="이전"
-          style="
-            width: 24px;
-            height: 24px;
-            margin-top: 10px;
-            margin-bottom: 20px;
-            cursor: pointer;
-          "
+          @click="goBack"
+          style="width: 24px; height: 24px; margin-top: 10px; margin-bottom: 20px; cursor: pointer;"
         />
 
         <div class="bg-white rounded-2xl" style="height: 600px">
           <div class="mb-6 text-center p-4 flex items-center justify-between">
             <p
               class="mb-2 text-[#FF7F00] text-left mt-4 text-lg text-gray-600 padding font-NaR"
-              style="
-                font-size: 30px;
-                color: #ff7f00;
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
-              "
+              style="font-size: 30px; color: #ff7f00; font-style: normal; font-weight: 400; line-height: normal;"
             >
               <span class="text-[25px]"> {{ currentDate[0] }} </span><br />
               {{ currentDate[1] }}<br />
@@ -43,9 +31,7 @@
             </p>
 
             <p class="text-2xl text-right text-gray-800 font-NaL">
-              <span class="text-[#00000] font-bold font-NaL">{{
-                nickname
-              }}</span>
+              <span class="text-[#00000] font-bold font-NaL">{{ nickname }}</span>
               님,<br />
               오늘도 성장해요!
             </p>
@@ -59,24 +45,11 @@
                 maxlength="50"
                 rows="4"
                 class="px-4 text-center mt-14 bg-white font-NaL border-none text-sm focus:outline-none transition duration-200 resize-none"
-                style="
-                  width: 260px;
-                  padding: 0 10px;
-                  background: linear-gradient(
-                    to bottom,
-                    transparent 19px,
-                    rgba(169, 169, 169, 0.5) 19px,
-                    rgba(169, 169, 169, 0.5) 20px,
-                    transparent 20px
-                  );
-                  background-size: 100% 20px;
-                "
+                style="width: 260px; padding: 0 10px; background: linear-gradient(to bottom, transparent 19px, rgba(169, 169, 169, 0.5) 19px, rgba(169, 169, 169, 0.5) 20px, transparent 20px); background-size: 100% 20px;"
               ></textarea>
             </div>
 
-            <p
-              class="text-[#B3B3B3] mt-1 font-NaL text-sm text-right px-5 pb-12"
-            >
+            <p class="text-[#B3B3B3] mt-1 font-NaL text-sm text-right px-5 pb-12">
               {{ userText.length }}/50
             </p>
           </div>
@@ -98,8 +71,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import axios from 'axios'
+import { ref, computed, onMounted } from 'vue'
 import Footer from '@/components/layout/Footer.vue'
 
 const currentDate = computed(() => {
@@ -110,29 +82,73 @@ const currentDate = computed(() => {
   return [year, month, day]
 })
 
-const nickname = ref('닉네임')
+const nickname = ref('')
 const userText = ref('')
 
-const userId = 1
+const fetchUserData = async () => {
+  try {
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/users/profile`,
+      {
+        method: 'GET',
+        credentials: 'include', 
+      }
+    )
+
+    if (response.ok) {
+      const data = await response.json()
+      nickname.value = data.nickname
+    } else {
+      console.error('사용자 정보 불러오기 실패:', response.status, response.statusText)
+      if (response.status === 401) {
+        alert('인증에 실패했습니다. 다시 로그인해주세요.')
+        window.location.href = '/login'
+      } else {
+        alert('사용자 정보 가져오기 실패. 다시 시도해주세요.')
+      }
+    }
+  } catch (error) {
+    console.error('사용자 정보 가져오기 오류:', error)
+    alert('사용자 정보 가져오기 오류가 발생했습니다.')
+  }
+}
 
 const registerGoal = async () => {
   if (userText.value.trim() !== '') {
     try {
-      const response = await axios.post(
+      const response = await fetch(
         `${process.env.VUE_APP_BE_API_URL}/api/goals`,
         {
-          userId: userId,
-          content: userText.value
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ content: userText.value }),
+          credentials: 'include',
         }
       )
-      alert(`목표가 등록되었습니다: ${response.data.content}`)
-      userText.value = ''
+
+      if (response.ok) {
+        const data = await response.json()
+        alert(`목표가 등록되었습니다: ${data.content}`)
+        userText.value = ''
+      } else {
+        alert('목표 등록에 실패했습니다.')
+      }
     } catch (error) {
       console.error('목표 등록 오류:', error)
-      alert('목표 등록에 실패했습니다. 다시 시도해주세요.')
+      alert('목표 등록 오류가 발생했습니다. 다시 시도해주세요.')
     }
   } else {
     alert('문구를 입력해주세요.')
   }
 }
+
+const goBack = () => {
+  window.history.back()
+}
+
+onMounted(() => {
+  fetchUserData()
+})
 </script>
