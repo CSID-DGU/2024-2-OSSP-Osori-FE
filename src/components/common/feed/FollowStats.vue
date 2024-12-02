@@ -30,25 +30,29 @@ const formattedDate = computed(() => {
 
 const fetchFollowCounts = async () => {
   try {
-    const followerResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/followers`, {
+    const followerResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/follows/followers`, {
       method: 'GET',
       credentials: 'include',
     });
     const followerData = await followerResponse.json();
-    followerCount.value = Array.isArray(followerData) ? followerData.length : 0;
+    followerCount.value = followerData.count || 0; 
+    console.log('팔로워 데이터:', followerData);
 
-    const followingResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/following`, {
+    const followingResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/follows/following`, {
       method: 'GET',
       credentials: 'include',
     });
     const followingData = await followingResponse.json();
-    followingCount.value = Array.isArray(followingData) ? followingData.length : 0;
+    followingCount.value = followingData.count || 0;
+    console.log('팔로잉 데이터:', followingData);
   } catch (error) {
     console.error('팔로워 및 팔로잉 수 가져오기 실패:', error);
     followerCount.value = 0;
     followingCount.value = 0;
   }
 };
+
+
 
 const router = useRouter()
 
