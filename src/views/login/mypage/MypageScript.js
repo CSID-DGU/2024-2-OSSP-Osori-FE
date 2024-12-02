@@ -43,7 +43,7 @@ export async function handleLogout() {
   } catch (error) {
     alert('로그아웃 오류.')
     console.error('로그아웃 오류:', error)
-    this.$router.push('/auth/signup')
+    this.$router.push('/auth/login')
   }
 }
 
