@@ -27,18 +27,17 @@ const formattedDate = computed(() => {
   return `${year} . ${month} . ${day}`;
 });
 
-const API_URL = `${process.env.VUE_APP_BE_API_URL}/api`;
 
 const fetchFollowCounts = async () => {
   try {
-    const followerResponse = await fetch(`${API_URL}/followers`, {
+    const followerResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/followers`, {
       method: 'GET',
       credentials: 'include',
     });
     const followerData = await followerResponse.json();
     followerCount.value = Array.isArray(followerData) ? followerData.length : 0;
 
-    const followingResponse = await fetch(`${API_URL}/following`, {
+    const followingResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/following`, {
       method: 'GET',
       credentials: 'include',
     });

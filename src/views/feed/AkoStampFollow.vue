@@ -59,11 +59,10 @@ const followings = ref([]);
 const showFollowers = ref(true);
 const showFollowings = ref(false);
 
-const API_URL = `${process.env.VUE_APP_BE_API_URL}/api`;
 
 async function fetchFollowerCount() {
   try {
-    const response = await fetch(`${API_URL}/followers`, {
+    const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/followers`, {
       method: 'GET',
       credentials: 'include'
     });
@@ -78,7 +77,7 @@ async function fetchFollowerCount() {
 
 async function fetchFollowingCount() {
   try {
-    const response = await fetch(`${API_URL}/following`, {
+    const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/following`, {
       method: 'GET',
       credentials: 'include'
     });
@@ -93,7 +92,7 @@ async function fetchFollowingCount() {
 
 async function blockFollower(id) {
   try {
-    await fetch(`${API_URL}/follows/block/${id}`, {
+    await fetch(`${process.env.VUE_APP_BE_API_URL}/api/follows/block/${id}`, {
       method: 'DELETE',
       credentials: 'include'
     });
@@ -106,7 +105,7 @@ async function blockFollower(id) {
 
 async function unfollow(id) {
   try {
-    await fetch(`${API_URL}/follows/${id}`, {
+    await fetch(`${process.env.VUE_APP_BE_API_URL}/api/follows/${id}`, {
       method: 'DELETE',
       credentials: 'include'
     });
