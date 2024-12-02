@@ -1,19 +1,4 @@
 <script setup>
-import {
-  PageContainer,
-  InnerContainer,
-  MainContent,
-  SectionTitle,
-  MonthTitle,
-  CalendarContainer,
-  CalendarGrid,
-  CalendarDay,
-  CalendarWeek,
-  DayButton,
-  SchedulePopup,
-  LinkButton
-} from './CalendarMainStyled.js'
-
 import { ref, onMounted } from 'vue'
 import {
   DAY_LIST,
@@ -37,6 +22,7 @@ import {
 } from './CalendarMainScript.js'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
+import './CalendarMainStyled.css'
 
 onMounted(() => {
   currentDate.value = new Date()
