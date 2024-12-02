@@ -1,14 +1,16 @@
 <template>
-  <PageContainer>
-    <MobileContainer>
+  <div class="page-container">
+    <div class="mobile-container" style="margin-top: 20px">
       <MainHeader />
 
       <!-- 본문 내용 -->
-      <MainContent>
-        <h1 class="title">오늘도 우리 아코는 한 걸음씩!</h1>
+      <div class="main-content">
+        <h1 class="title" style="font-family: 'UhBeeSe_hyun', sans-serif">
+          오늘도 우리 아코는 한 걸음씩!
+        </h1>
 
         <!-- 스탬프 영역 -->
-        <StampContainer>
+        <div class="stamp-container">
           <svg viewBox="0 0 390 520" class="path">
             <path
               d="M 60 25 L 195 25 Q 330 25, 330 107.5 Q 330 190, 195 190 L 60 190 A 75 75 0 0 0 60 340 L 270 340"
@@ -32,15 +34,19 @@
               alt="stamp"
             />
           </div>
-        </StampContainer>
+        </div>
 
         <!-- 할 일 표시 -->
-        <TaskContainer>
+        <div class="task-container">
           <div class="task-row">
             <div
               v-for="(task, index) in tasks.slice(0, 2)"
               :key="index"
               class="task"
+              :style="{
+                '--task-color': task.completed ? '#FF7F00' : '#B3B3B3',
+                '--task-filter': task.completed ? 'none' : 'grayscale(100%)'
+              }"
             >
               <span>{{ task.name }}</span>
               <img :src="getTaskIcon(task.name)" />
@@ -51,15 +57,19 @@
               v-for="(task, index) in tasks.slice(2)"
               :key="index"
               class="task"
+              :style="{
+                '--task-color': task.completed ? '#FF7F00' : '#B3B3B3',
+                '--task-filter': task.completed ? 'none' : 'grayscale(100%)'
+              }"
             >
               <span>{{ task.name }}</span>
               <img :src="getTaskIcon(task.name)" />
             </div>
           </div>
-        </TaskContainer>
+        </div>
 
         <!-- 아코 이미지 -->
-        <AkoImageContainer>
+        <div class="ako-image-container">
           <div class="ako-status">
             <img
               src="@/assets/Icons/akoming/mainpage/minielephanticon.svg"
@@ -68,23 +78,15 @@
             <p>토실토실 아코가 자라는 중</p>
           </div>
           <img :src="akoImage" alt="아코 이미지" class="ako-image" />
-        </AkoImageContainer>
-      </MainContent>
+        </div>
+      </div>
 
       <MainFooter />
-    </MobileContainer>
-  </PageContainer>
+    </div>
+  </div>
 </template>
 
 <script setup>
-import {
-  PageContainer,
-  MobileContainer,
-  MainContent,
-  StampContainer,
-  TaskContainer,
-  AkoImageContainer
-} from './MainpageStyled.js'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import MainHeader from '@/components/layout/Header.vue'
@@ -105,14 +107,14 @@ const tasks = ref([
 // 각 퀘스트의 상태를 받아와서 tasks에 업데이트하는 함수
 const fetchQuestStatus = async () => {
   try {
-    const userId = 'user-id' // 실제 사용자 ID로 설정해야 함
+    const userId = 'user-id'
     const response = await axios.get(`/api/quests/${userId}`)
     const { quest1, quest2, quest3, quest4 } = response.data
 
-    tasks.value[0].completed = quest1 // 아코밍 출석
-    tasks.value[1].completed = quest2 // 아코자국
-    tasks.value[2].completed = quest3 // 댓글 남기기
-    tasks.value[3].completed = quest4 // 아코폴리오
+    tasks.value[0].completed = quest1
+    tasks.value[1].completed = quest2
+    tasks.value[2].completed = quest3
+    tasks.value[3].completed = quest4
   } catch (error) {
     console.error('퀘스트 상태를 가져오는 중 오류 발생:', error)
   }
@@ -132,18 +134,18 @@ const stamps = ref([
 // 각 스탬프의 상태를 받아와서 stamps에 업데이트하는 함수
 const fetchStampsStatus = async () => {
   try {
-    const userId = 'user-id' // 실제 사용자 ID로 설정해야 함
+    const userId = 'user-id'
     const response = await axios.get(`/api/quests/${userId}`)
     const { stamp1, stamp2, stamp3, stamp4, stamp5, stamp6, stamp7 } =
       response.data
 
-    stamps.value[0].completed = stamp1 // 스탬프 A
-    stamps.value[1].completed = stamp2 // 스탬프 K
-    stamps.value[2].completed = stamp3 // 스탬프 O
-    stamps.value[3].completed = stamp4 // 스탬프 M
-    stamps.value[4].completed = stamp5 // 스탬프 I
-    stamps.value[5].completed = stamp6 // 스탬프 N
-    stamps.value[6].completed = stamp7 // 스탬프 G
+    stamps.value[0].completed = stamp1
+    stamps.value[1].completed = stamp2
+    stamps.value[2].completed = stamp3
+    stamps.value[3].completed = stamp4
+    stamps.value[4].completed = stamp5
+    stamps.value[5].completed = stamp6
+    stamps.value[6].completed = stamp7
   } catch (error) {
     console.error('스탬프 상태를 가져오는 중 오류 발생:', error)
   }
@@ -170,11 +172,11 @@ const setElephantIconByLevel = async () => {
       akoImage.value = elephantIcons[level - 1]
     } else {
       console.warn('유효한 level 값이 아닙니다:', level)
-      akoImage.value = elephantIcons[0] // 기본 이미지로 설정
+      akoImage.value = elephantIcons[0]
     }
   } catch (error) {
     console.error('아코 이미지를 가져오는 중 오류 발생:', error)
-    akoImage.value = elephantIcons[0] // 오류 시 기본 이미지로 설정
+    akoImage.value = elephantIcons[0]
   }
 }
 
@@ -205,7 +207,9 @@ const getTaskIcon = (taskName) => {
 // onMounted에서 호출하여 초기 데이터 로드
 onMounted(() => {
   fetchQuestStatus()
-  fetchStampsStatus() // 스탬프 상태도 불러오기
+  fetchStampsStatus()
   setElephantIconByLevel()
 })
 </script>
+
+<style scoped src="./MainpageStyled.css"></style>
