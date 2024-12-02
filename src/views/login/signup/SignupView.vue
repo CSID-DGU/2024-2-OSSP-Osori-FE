@@ -1,7 +1,10 @@
 <template>
   <div class="page-container">
     <!-- 모바일 영역 -->
-    <div class="mobile-container">
+    <div
+      class="mobile-container"
+      style="font-family: 'NanumSquareRound', sans-serif"
+    >
       <!-- 상단바 -->
       <header class="header">
         <div class="header-content">
@@ -14,7 +17,9 @@
 
       <!-- 본문 내용 -->
       <main class="main-content">
-        <h1 class="title">회원가입</h1>
+        <h1 class="title" style="font-family: 'NanumSquareRound', sans-serif">
+          회원가입
+        </h1>
         <form @submit.prevent="onSubmit" class="form">
           <!-- 이메일 입력란 및 인증하기 버튼 -->
           <div class="form-group">
@@ -282,5 +287,18 @@ input.invalid {
 .submit-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+.form-inline {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center; /* 높이를 맞추기 위해 추가 */
+}
+
+input#email {
+  height: 2.5rem; /* 버튼 높이와 동일하게 설정 */
+}
+
+.verification-button {
+  height: 2.5rem; /* 입력란 높이와 동일하게 설정 */
 }
 </style>
