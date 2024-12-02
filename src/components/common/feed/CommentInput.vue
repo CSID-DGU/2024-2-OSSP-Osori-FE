@@ -23,9 +23,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+//goalId 불러오는 로직 수정
 const selectedEmoji = ref('')
 const comment = ref('')
-const goalId = '123'
+const goalId = '1'
 
 const emojiMap = {
   '😊': 0,

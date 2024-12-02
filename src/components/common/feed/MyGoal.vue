@@ -24,43 +24,59 @@ import { ref, onMounted } from 'vue'
 import CommentInput from './CommentInput.vue'
 import CommentList from './CommentList.vue'
 
-// 목표 관련 상태 변수
 const nickname = ref('')
 const goalContent = ref('')
 const showCommentSection = ref(false)
-const goalId = ref('') // 목표 ID
+const goalId = ref('')
 
-// 목표를 불러오는 함수
 const fetchGoalData = async () => {
   try {
-    // 세션의 userId를 이용하여 목표를 조회
-    const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/goals`, {
+    const userResponse = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/users/profile`,
+      {
+        method: 'GET',
+        credentials: 'include', 
+      }
+    )
+
+    if (userResponse.ok) {
+      const userData = await userResponse.json()
+      nickname.value = userData.nickname
+    } else {
+      console.error('사용자 정보 불러오기 실패:', userResponse.status, userResponse.statusText)
+      if (userResponse.status === 401) {
+        alert('인증에 실패했습니다. 다시 로그인해주세요.')
+        window.location.href = '/login'
+      } else {
+        alert('사용자 정보 가져오기 실패. 다시 시도해주세요.')
+      }
+    }
+
+    const goalResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/goals`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include', // 쿠키 인증을 포함
+      credentials: 'include',
     })
 
-    if (response.ok) {
-      const data = await response.json()
-      // 첫 번째 목표를 가져왔다고 가정하고 데이터를 설정
-      if (data.length > 0) {
-        const goal = data[0] // 첫 번째 목표 가져오기 (여러 목표일 경우 필요에 따라 수정)
-        nickname.value = goal.nickname
+    if (goalResponse.ok) {
+      const goalData = await goalResponse.json()
+
+      if (goalData.length > 0) {
+        const goal = goalData[0]
         goalContent.value = goal.content
-        goalId.value = goal.id
+        goalId.value = goal.goalId
       }
     } else {
       alert('목표를 가져오는 데 실패했습니다.')
     }
   } catch (error) {
-    console.error('목표 불러오기 오류:', error)
-    alert('목표를 불러오는 중 오류가 발생했습니다.')
+    console.error('목표 및 사용자 정보 불러오기 오류:', error)
+    alert('목표 및 사용자 정보 가져오기 오류가 발생했습니다.')
   }
 }
 
-// 목표 수정 함수
 const editGoal = async () => {
   const updatedContent = prompt('목표를 수정하세요', goalContent.value)
   if (updatedContent && updatedContent !== goalContent.value) {
@@ -72,7 +88,7 @@ const editGoal = async () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include', // 쿠키 인증을 포함
+          credentials: 'include',
           body: JSON.stringify({
             content: updatedContent,
           }),
@@ -92,8 +108,12 @@ const editGoal = async () => {
   }
 }
 
-// 목표 삭제 함수
 const deleteGoal = async () => {
+  if (!goalId.value) {
+    alert('삭제할 목표가 없습니다.')
+    return
+  }
+
   const confirmDelete = confirm('목표를 삭제하시겠습니까?')
   if (confirmDelete) {
     try {
@@ -104,13 +124,13 @@ const deleteGoal = async () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          credentials: 'include', // 쿠키 인증을 포함
+          credentials: 'include',
         }
       )
 
       if (response.ok) {
         alert('목표가 삭제되었습니다.')
-        goalContent.value = '' // 삭제 후 내용 비우기
+        goalContent.value = ''
         nickname.value = ''
         goalId.value = ''
       } else {
@@ -123,12 +143,10 @@ const deleteGoal = async () => {
   }
 }
 
-// 목표 데이터 불러오기
 onMounted(() => {
   fetchGoalData()
 })
 
-// 댓글 섹션 토글
 const toggleCommentSection = () => {
   showCommentSection.value = !showCommentSection.value
 }
