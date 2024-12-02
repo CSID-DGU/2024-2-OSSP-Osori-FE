@@ -15,7 +15,7 @@
         <img
           src="@/assets/images/back.svg"
           alt="이전"
-          @click="goBack" 
+          @click="goBack"
           style="width: 24px; height: 24px; margin-top: 10px; margin-bottom: 20px; cursor: pointer;"
         />
 
@@ -72,10 +72,8 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
 import Footer from '@/components/layout/Footer.vue'
 
-// 날짜 계산하기
 const currentDate = computed(() => {
   const now = new Date()
   const year = now.getFullYear()
@@ -87,76 +85,69 @@ const currentDate = computed(() => {
 const nickname = ref('')
 const userText = ref('')
 
-// 사용자 정보 가져오기
 const fetchUserData = async () => {
   try {
-    const token = localStorage.getItem('authToken') // 저장된 토큰을 가져옵니다.
-    if (!token) {
-      alert('로그인이 필요합니다.')
-      return
-    }
-
-    const response = await axios.get(
-      `${process.env.VUE_APP_BE_API_URL}/api/user/me`, // 인증된 사용자 정보를 가져옵니다.
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/users/profile`,
       {
-        headers: {
-          Authorization: `Bearer ${token}` // 토큰을 Authorization 헤더에 추가
-        }
+        method: 'GET',
+        credentials: 'include', 
       }
     )
-    nickname.value = response.data.nickname
+
+    if (response.ok) {
+      const data = await response.json()
+      nickname.value = data.nickname
+    } else {
+      console.error('사용자 정보 불러오기 실패:', response.status, response.statusText)
+      if (response.status === 401) {
+        alert('인증에 실패했습니다. 다시 로그인해주세요.')
+        window.location.href = '/login'
+      } else {
+        alert('사용자 정보 가져오기 실패. 다시 시도해주세요.')
+      }
+    }
   } catch (error) {
     console.error('사용자 정보 가져오기 오류:', error)
-    if (error.response && error.response.status === 401) {
-      alert('인증에 실패했습니다. 다시 로그인해주세요.')
-    } else {
-      alert('사용자 정보 가져오기 실패. 다시 시도해주세요.')
-    }
+    alert('사용자 정보 가져오기 오류가 발생했습니다.')
   }
 }
 
-// 목표 등록하기
 const registerGoal = async () => {
   if (userText.value.trim() !== '') {
     try {
-      const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/goals`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: userText.value // 전송할 데이터
-        }),
-        credentials: 'include'
-      })
+      const response = await fetch(
+        `${process.env.VUE_APP_BE_API_URL}/api/goals`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ content: userText.value }),
+          credentials: 'include',
+        }
+      )
 
-      if (!response.ok) {
-        throw new Error('목표 등록 실패')
+      if (response.ok) {
+        const data = await response.json()
+        alert(`목표가 등록되었습니다: ${data.content}`)
+        userText.value = ''
+      } else {
+        alert('목표 등록에 실패했습니다.')
       }
-
-      const data = await response.json()
-
-      alert(`목표가 등록되었습니다: ${data.content}`)
-      userText.value = ''
     } catch (error) {
       console.error('목표 등록 오류:', error)
-      if (error.message === '목표 등록 실패') {
-        alert('목표 등록에 실패했습니다. 다시 시도해주세요.')
-      } else {
-        alert('목표 등록 오류가 발생했습니다. 다시 시도해주세요.')
-      }
+      alert('목표 등록 오류가 발생했습니다. 다시 시도해주세요.')
     }
   } else {
     alert('문구를 입력해주세요.')
   }
 }
 
-// 이전 페이지로 돌아가는 함수
 const goBack = () => {
   window.history.back()
 }
 
-// 컴포넌트가 마운트되었을 때 사용자 정보 가져오기
 onMounted(() => {
   fetchUserData()
 })

@@ -21,14 +21,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+import { ref, onMounted } from 'vue'
 
-const selectedEmoji = ref('') // 이모지 선택 상태
-const comment = ref('') // 댓글 내용
-const goalId = '123' // 목표 ID (수정 필요: 부모 컴포넌트에서 전달)
+const selectedEmoji = ref('')
+const comment = ref('')
+const goalId = '123'
 
-// 이모지를 숫자로 매핑하는 객체
 const emojiMap = {
   '😊': 0,
   '👍': 1,
@@ -37,7 +35,6 @@ const emojiMap = {
   '😍': 4
 }
 
-// 댓글 제출 함수
 const submitComment = async () => {
   if (!comment.value.trim()) {
     alert('댓글을 입력하세요.')
@@ -45,44 +42,39 @@ const submitComment = async () => {
   }
 
   try {
-    const token = localStorage.getItem('authToken') // 저장된 토큰 가져오기
-    if (!token) {
-      alert('로그인이 필요합니다.')
-      return
-    }
-
-    // 이모지를 숫자로 변환
-    const emojiNumber = emojiMap[selectedEmoji.value] ?? -1; // 선택된 이모지가 없으면 -1로 처리
+    const emojiNumber = emojiMap[selectedEmoji.value] ?? -1
 
     const payload = {
-      emoji: emojiNumber, // 숫자로 된 이모지 값
+      emoji: emojiNumber,
       content: comment.value,
     }
 
-    // 요청 전에 콘솔로 값 확인
-    console.log("요청할 Payload:", payload);
+    console.log("요청할 Payload:", payload)
 
-    const response = await axios.post(
-      `/api/goals/${goalId}/comments`,
-      payload,
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/goals/${goalId}/comments`,
       {
+        method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`, // 인증 헤더 추가
+          'Content-Type': 'application/json',
         },
+        credentials: 'include',
+        body: JSON.stringify(payload), 
       }
     )
 
-    if (response.status === 201) {
+    if (response.ok) {
       alert('댓글이 성공적으로 추가되었습니다!')
       selectedEmoji.value = ''
       comment.value = ''
+    } else {
+      alert('댓글 추가 중 문제가 발생했습니다. 다시 시도해주세요.')
     }
   } catch (error) {
     console.error('댓글 전송 중 오류:', error)
     alert('댓글 추가 중 문제가 발생했습니다. 다시 시도해주세요.')
   }
 }
-
 </script>
 
 <style scoped>
