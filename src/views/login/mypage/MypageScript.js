@@ -1,4 +1,5 @@
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 // user 객체를 reactive로 설정
 export const user = reactive({
@@ -15,15 +16,13 @@ export const confirmPassword = ref('')
 export const currentPassword = ref('')
 export const passwordVerified = ref(false)
 
-// 로그아웃 함수
-export async function handleLogout() {
+export async function handleLogout(router) {
   try {
-    // 로그아웃 요청
     const response = await fetch(
       `${process.env.VUE_APP_BE_API_URL}/api/users/logout`,
       {
         method: 'POST',
-        credentials: 'include' // 세션을 포함하여 로그아웃 요청
+        credentials: 'include' // 세션 포함
       }
     )
 
@@ -34,16 +33,15 @@ export async function handleLogout() {
       document.cookie =
         'JSESSIONID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 
-      // 로그아웃 후 리디렉트
-      window.location.href = '/auth/login'
+      // 로그아웃 후 로그인 페이지로 리다이렉트
+      router.push('/auth/login')
     } else {
-      alert('로그아웃 실패.')
       console.error('로그아웃 실패:', response.status, response.statusText)
+      router.push('/auth/login') // 오류 발생 시에도 리다이렉트
     }
   } catch (error) {
-    alert('로그아웃 오류.')
     console.error('로그아웃 오류:', error)
-    this.$router.push('/auth/login')
+    router.push('/auth/login') // 오류 발생 시에도 리다이렉트
   }
 }
 

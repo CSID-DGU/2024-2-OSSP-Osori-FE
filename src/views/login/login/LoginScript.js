@@ -49,7 +49,7 @@ export default {
 
           alert('로그인 성공!')
           // 로그인 성공 후 MyPage로 리다이렉트
-          this.$router.push('/mypage')
+          this.$router.push('/main')
         }
       } catch (error) {
         // 로그인 실패 처리

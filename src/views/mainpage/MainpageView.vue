@@ -1,11 +1,13 @@
 <template>
   <div class="page-container">
-    <div class="mobile-container">
+    <div class="mobile-container" style="margin-top: 20px">
       <MainHeader />
 
       <!-- 본문 내용 -->
       <div class="main-content">
-        <h1 class="title">오늘도 우리 아코는 한 걸음씩!</h1>
+        <h1 class="title" style="font-family: 'UhBeeSe_hyun', sans-serif">
+          오늘도 우리 아코는 한 걸음씩!
+        </h1>
 
         <!-- 스탬프 영역 -->
         <div class="stamp-container">
@@ -210,4 +212,4 @@ onMounted(() => {
 })
 </script>
 
-<style src="./MainpageStyled.css"></style>
+<style scoped src="./MainpageStyled.css"></style>

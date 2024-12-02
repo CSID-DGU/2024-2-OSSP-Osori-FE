@@ -10,7 +10,7 @@
       <!-- 로그아웃 버튼 -->
       <div class="absolute top-4 right-4">
         <button
-          @click="handleLogout"
+          @click="logout"
           class="px-4 py-2 bg-[#F6B87A] text-black text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300"
           style="margin-top: 60px"
         >
@@ -242,6 +242,7 @@
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router' // Vue Router 가져오기
 import axios from 'axios'
 
 // MyPageScript.js에서 필요한 데이터와 함수 가져오기
@@ -251,16 +252,22 @@ import {
   confirmPassword,
   currentPassword,
   passwordVerified,
-  handleLogout,
+  handleLogout, // 로그아웃 함수
   fetchUser,
   verifyCurrentPassword,
   updatePassword,
   updateProfile
 } from './MypageScript.js'
 
+const router = useRouter() // Vue Router 인스턴스 가져오기
 const goals = ref([]) // 목표 데이터
 const isExpanded = ref(false) // 더보기 상태 관리
 const maxVisibleGoals = 3 // 기본 표시할 목표 수
+
+// 로그아웃 버튼 클릭 시 호출
+const logout = () => {
+  handleLogout(router) // router를 handleLogout 함수에 전달
+}
 
 // 목표 기록 가져오기
 const fetchGoals = async () => {
