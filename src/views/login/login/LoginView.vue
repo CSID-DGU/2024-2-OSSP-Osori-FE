@@ -1,101 +1,6 @@
-<template>
-  <div
-    class="min-h-screen bg-[#FFF9F2] font-nanum-square-round flex justify-center"
-  >
-    <!-- 모바일 영역 -->
-    <div
-      class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen flex flex-col relative"
-    >
-      <!-- 로고 로딩 화면 -->
-      <LogoLoading
-        v-if="showLoading"
-        @fade-complete="showLoading = false"
-        class="absolute top-0 left-0 w-full h-full"
-      />
-
-      <!-- 로그인 페이지 -->
-      <div v-else>
-        <!-- 상단바 -->
-        <header
-          class="bg-white py-2 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
-        >
-          <div class="flex items-center justify-between">
-            <img src="@/assets/images/Akoming.svg" alt="로고" class="h-12" />
-            <button
-              @click="$router.push('/auth/signup')"
-              class="text-[#F6B87A] hover:bg-[#F6B87A] hover:bg-opacity-10 px-2 py-1 rounded-full transition-colors duration-300 text-sm font-nanum-square-round"
-            >
-              회원가입
-            </button>
-          </div>
-        </header>
-
-        <!-- 본문 내용 -->
-        <main
-          style="margin-top: 160px"
-          class="flex flex-col justify-center flex-grow px-12 pt-16 pb-8 font-nanum-square-round"
-        >
-          <h1 class="mb-2 text-2xl font-bold text-center font-nanum">로그인</h1>
-          <form @submit.prevent="onSubmit" class="my-8 space-y-4">
-            <!-- 이메일 입력란 -->
-            <div class="space-y-1">
-              <label for="email" class="block text-sm font-medium text-gray-700"
-                >이메일</label
-              >
-              <input
-                type="email"
-                id="email"
-                v-model="email"
-                placeholder="이메일 입력"
-                @input="validateEmail"
-                :class="{ 'border-red-500': !isEmailValid && email !== '' }"
-                required
-                class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
-              />
-              <p
-                v-if="!isEmailValid && email !== ''"
-                class="mt-1 text-xs text-red-500"
-              >
-                반드시 @dgu.ac.kr 이메일을 사용해야 합니다.
-              </p>
-            </div>
-
-            <!-- 비밀번호 입력란 -->
-            <div class="space-y-1">
-              <label
-                for="password"
-                class="block text-sm font-medium text-gray-700"
-                >비밀번호</label
-              >
-              <input
-                type="password"
-                id="password"
-                v-model="password"
-                placeholder="비밀번호 입력"
-                required
-                class="w-full px-3 py-2 bg-[#DDD7D3] border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#F6B87A] focus:border-transparent transition duration-200"
-              />
-            </div>
-
-            <!-- 로그인 버튼 -->
-            <div class="flex justify-center pt-4">
-              <button
-                type="submit"
-                class="w-full max-w-xs px-4 h-10 bg-[#F6B87A] text-white text-sm font-medium rounded-full hover:bg-[#e5a769] transition-colors duration-300 disabled:bg-gray-300 disabled:cursor-not-allowed"
-              >
-                로그인
-              </button>
-            </div>
-          </form>
-        </main>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import LogoLoading from '@/components/LogoLoading.vue'
-import LoginScript from './LoginScript.js' // LoginScript.js 불러오기
+import LoginScript from './LoginScript.js'
 
 export default {
   components: {
@@ -110,22 +15,217 @@ export default {
     }
   },
   methods: {
-    ...LoginScript.methods, // LoginScript.js의 methods 불러오기
+    ...LoginScript.methods,
     validateEmail() {
       this.isEmailValid = this.email.endsWith('@dgu.ac.kr')
     },
     onSubmit() {
-      this.validateEmail() // 이메일 유효성 검사
-      LoginScript.methods.onSubmit.call(this) // LoginScript.js의 onSubmit 호출
+      this.validateEmail()
+      LoginScript.methods.onSubmit.call(this)
     }
   }
 }
 </script>
 
-<style>
-@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff');
+<template>
+  <div class="page-container">
+    <div class="mobile-container">
+      <!-- 로고 로딩 화면 -->
+      <LogoLoading
+        v-if="showLoading"
+        @fade-complete="showLoading = false"
+        class="absolute top-0 left-0 w-full h-full"
+      />
 
-.font-nanum-square-round {
+      <!-- 로그인 페이지 -->
+      <div v-else>
+        <header class="header">
+          <div class="header-content">
+            <img src="@/assets/images/Akoming.svg" alt="로고" class="logo" />
+            <button @click="$router.push('/auth/signup')" class="signup-button">
+              회원가입
+            </button>
+          </div>
+        </header>
+
+        <main class="main-content">
+          <h1 class="title">로그인</h1>
+          <form @submit.prevent="onSubmit" class="form">
+            <div class="form-group">
+              <label for="email">이메일</label>
+              <input
+                type="email"
+                id="email"
+                v-model="email"
+                placeholder="이메일 입력"
+                @input="validateEmail"
+                :class="{ invalid: !isEmailValid && email !== '' }"
+                required
+              />
+              <p v-if="!isEmailValid && email !== ''" class="error-message">
+                반드시 @dgu.ac.kr 이메일을 사용해야 합니다.
+              </p>
+            </div>
+
+            <div class="form-group">
+              <label for="password">비밀번호</label>
+              <input
+                type="password"
+                id="password"
+                v-model="password"
+                placeholder="비밀번호 입력"
+                required
+              />
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="submit-button">로그인</button>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+/* 외부 컨테이너 */
+.page-container {
+  min-height: 100vh;
+  background-color: #fff9f2;
   font-family: 'NanumSquareRound', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+/* 모바일 컨테이너 */
+.mobile-container {
+  width: 395px;
+  min-width: 340px;
+  background-color: #fae8da;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* 헤더 */
+.header {
+  background-color: #ffffff;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 395px;
+  min-width: 340px;
+  z-index: 10;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 3rem;
+}
+
+.signup-button {
+  color: #f6b87a;
+  background-color: transparent;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+}
+
+.signup-button:hover {
+  background-color: rgba(246, 184, 122, 0.1);
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+  margin-top: 160px;
+  flex-grow: 1;
+  padding: 4rem 3rem 2rem;
+}
+
+.title {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 폼 */
+.form {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a4a4a;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background-color: #ddd7d3;
+  border: 1px solid #e5e5e5;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 2px #f6b87a;
+}
+
+.form-group input.invalid {
+  border-color: #ff6b6b;
+}
+
+.error-message {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #ff6b6b;
+}
+
+/* 버튼 */
+.submit-button {
+  width: 100%;
+  max-width: 10rem;
+  padding: 0.5rem 1rem;
+  height: 2.5rem;
+  background-color: #f6b87a;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #e5a769;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 </style>
