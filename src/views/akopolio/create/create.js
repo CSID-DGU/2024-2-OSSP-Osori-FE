@@ -119,6 +119,7 @@ export default {
         this.images.splice(index, 1);
       },
     async uploadImages() {
+      const prefix = 'images';
       const uploadedUrls = [];
       
       for (const image of this.images) {
@@ -126,7 +127,7 @@ export default {
           // 1. 프리사인드 URL 요청
           
           const { data } = await axios.post(
-            `${process.env.VUE_APP_BE_API_URL}/api/get-presigned-url`, 
+            `${process.env.VUE_APP_BE_API_URL}/file/${prefix}/presigned-url`,
             {
               fileName: image.name,
               fileType: image.type,

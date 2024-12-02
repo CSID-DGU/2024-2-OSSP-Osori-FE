@@ -1,3 +1,6 @@
+/* src/assets/styles/FeedPageStyle.css */
+
+/* 예시 스타일 */
 .min-h-screen {
   background-color: #fff9f2;
   font-family: 'Nanum Square Round', sans-serif;
@@ -91,4 +94,42 @@ h1 {
   font-size: 0.875rem;
   color: #666666;
   margin-bottom: 0.5rem;
+}
+
+/* Button Styles */
+.unfollow-button {
+  font-size: 12.5px;
+  width: 70px;
+  height: 28px;
+  margin-left: 8px;
+  font-family: 'NaR';
+  border-radius: 20px;
+  color: white;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  background: #FF7F00;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.unfollow-button:hover,
+.followerDelete-btn:hover {
+  background-color: #E0E0E0;
+}
+
+.followerDelete-btn {
+  font-size: 15px;
+  width: 70px;
+  height: 28px;
+  margin-left: 8px;
+  font-family: 'NaR';
+  border-radius: 20px;
+  color: white;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  background: #FF7F00;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
