@@ -7,7 +7,8 @@
           <input
             type="text"
             v-model="searchQuery"
-            placeholder="아코폴리오 활동명을 입력하세요"
+            @input="applyFilters" 
+            placeholder="활동명을 입력하세요 (두 글자 이상)"
           />
           <button class="reset-btn" @click="resetFilters">초기화</button>
         </div>
@@ -53,14 +54,14 @@
         @click="goToDetailPage(item.id)" 
       >
         <div class="portfolio-content">
-          <h3 class="portfolio-title">{{ item.title }}</h3>
+          <h3 class="portfolio-title">{{ item.name }}</h3>
           <div class="portfolio-tags">
             <span v-for="tag in item.tags" :key="tag" class="portfolio-tag">
               {{ tag }}
             </span>
           </div>
         </div>
-        <p class="created-date">활동일: {{ item.createdDate }}</p>
+        <p class="created-date">활동일: {{ item.startDate }}</p>
       </div>
     </div>
 
@@ -81,6 +82,7 @@
         alt="Akoming Logo"
       />
     </button>
+
 
     <MainFooter />
   </div>
@@ -295,9 +297,9 @@ button.active {
 }
 
 .floating-btn {
-  position: absolute; /* 부모 요소에 상대적으로 고정 */
-  bottom: 4%; /* 부모 요소의 높이를 기준으로 */
-  right: 5%; /* 부모 요소의 너비를 기준으로 */
+  position: fixed;
+  bottom: 8%; 
+  right: calc(50% - 180px);
   background-color: #f4b28c;
   color: white;
   border-radius: 50%;
@@ -307,7 +309,9 @@ button.active {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 100; /* 다른 요소들 위에 표시되도록 */
 }
+
 
 .floating-btn:hover {
   cursor: pointer;
