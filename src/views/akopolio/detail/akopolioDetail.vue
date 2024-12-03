@@ -72,7 +72,7 @@
 
     <div class="image-upload-container">
       <h2>활동 이미지</h2>
-      <div class="image-preview-container" v-if="images.length">
+      <div class="image-preview-container" v-if="images && images.length > 0">
         <div class="image-card" v-for="(image, index) in images" :key="index">
           <div class="image-preview-card">
             <img :src="image" :alt="`Uploaded Image ${index + 1}`" class="image-preview" />
