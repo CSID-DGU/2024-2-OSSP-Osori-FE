@@ -187,28 +187,46 @@ export default {
     
     const uploadImages = async () => {
       const uploadedUrls = [];
-      for (const image of images.value) {
-        try {
-          const { data } = await axios.post(
-            `${process.env.VUE_APP_BE_API_URL}/file/IMAGE/presigned-url`,
-            {
-              fileName: image.name,
-              fileType: image.file.type,
-            }
-          );
     
-          await axios.put(data.url, image.file, {
-            headers: { 'Content-Type': image.file.type },
+      try {
+        console.log("Starting image upload...");
+    
+        for (const image of images.value) {
+          const apiUrl = `${process.env.VUE_APP_BE_API_URL}/file/IMAGE/presigned-url`;
+          console.log('Requesting presigned URL from:', apiUrl);
+    
+          // 프리사인드 URL 요청
+          const response = await axios.post(apiUrl, {
+            imageName: image.file.name,  // 파일 이름
           });
     
-          const uploadedUrl = data.url.split('?')[0];
+          const presignedUrl = response.data; // 데이터가 문자열 URL이라고 가정
+    
+          console.log("Received presigned URL:", presignedUrl);
+    
+          // S3에 파일 업로드
+          await axios.put(presignedUrl, image.file, {
+            headers: {
+              "Content-Type": image.file.type, // 파일 MIME 타입 설정
+            },
+          });
+    
+          console.log("Image uploaded successfully!");
+    
+          // 업로드된 이미지 URL 저장
+          const uploadedUrl = presignedUrl.split("?")[0]; // URL에서 쿼리 파라미터 제거
           uploadedUrls.push(uploadedUrl);
-        } catch (error) {
-          console.error('Error uploading image:', error);
-          alert('이미지 업로드 중 오류가 발생했습니다.');
+          console.log("Uploaded image URL:", uploadedUrl);
         }
+    
+        console.log("Uploaded image URLs:", uploadedUrls);
+        // 여기서 이미지를 서버에 저장할 수 있습니다.
+    
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        alert("이미지 업로드 중 오류가 발생했습니다.");
       }
-    };
+    };    
 
     // 저장 버튼 클릭 시 서버에 반영
     const saveData = async (id) => {
