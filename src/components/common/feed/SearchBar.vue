@@ -42,6 +42,7 @@ const followUser = async () => {
 
     if (response.ok) {
       alert("팔로우가 완료되었습니다.")
+      window.location.reload() 
       email.value = '' 
     } else if (response.status === 404) {
       alert("사용자를 찾을 수 없습니다.")
