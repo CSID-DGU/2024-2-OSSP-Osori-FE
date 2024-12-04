@@ -54,7 +54,37 @@
 ## 🏗 설계 및 구현
 
 - ### 📂 프로젝트 구조
-  - 프로젝트의 주요 디렉토리 구조와 설명을 포함합니다.
+
+```
+📦 프로젝트 루트
+ ┣ 📂src              
+ ┃ ┣ 📂assets         
+ ┃ ┃ ┣ 📂data        
+ ┃ ┃ ┣ 📂fonts       
+ ┃ ┃ ┣ 📂Icons        
+ ┃ ┃ ┃ ┗ 📂akoming   
+ ┃ ┃ ┣ 📂images       
+ ┃ ┃ ┗ 📂styles       
+ ┃ ┣ 📂components     # 공용 컴포넌트 모음
+ ┃ ┃ ┣ 📂common       
+ ┃ ┃ ┗ 📂layout       
+ ┃ ┣ 📂router         # Vue Router 설정 파일
+ ┃ ┣ 📂store          # Vuex 상태 관리 모듈
+ ┃ ┣ 📂views          
+ ┃ ┃ ┣ 📂akopolio     # 아코폴리오 관련 페이지
+ ┃ ┃ ┣ 📂calendar     # 학사 일정 캘린더 관련 페이지
+ ┃ ┃ ┣ 📂feed         # 피드 관련 페이지
+ ┃ ┃ ┣ 📂login        # 로그인, 회원가입, 마이페이지 관련 페이지
+ ┃ ┃ ┣ 📂mainpage     # 메인 페이지 관련 파일
+ ┃ ┃ ┗ 📜NotFound.vue # 404 에러 페이지
+ ┣ 📂public           # 빌드되지 않는 정적 파일
+ ┣ 📂docs             # 문서 폴더
+ ┃ ┗ 📜README.md     
+ ┣ 📜App.vue          # Vue 앱의 루트 컴포넌트
+ ┣ 📜main.js          # Vue 앱 초기화 파일        
+```
+
+ 
 
 - ### 🧩 다이어그램
    아키텍처 다이어그램, 서비스 흐름, 데이터 흐름 등을 그림으로 표현합니다.
