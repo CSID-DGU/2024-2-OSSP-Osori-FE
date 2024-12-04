@@ -1,21 +1,27 @@
 <template>
   <div class="pagination">
-    <button @click="changePage(currentPage - 1)" :disabled="currentPage === 1">
+    <div 
+      class="page-item" 
+      @click="changePage(currentPage - 1)" 
+      :class="{ disabled: currentPage === 1 }">
       &lt;
-    </button>
+    </div>
 
-    <!-- 페이지 번호 표시 -->
-    <button 
+    <div 
+      class="page-item" 
       v-for="page in visiblePages" 
       :key="page" 
-      @click="changePage(page)"
-      :class="{ 'active': page === currentPage }">
+      @click="changePage(page)" 
+      :class="{ active: page === currentPage }">
       {{ page }}
-    </button>
+    </div>
 
-    <button @click="changePage(currentPage + 1)" :disabled="currentPage === totalPages">
+    <div 
+      class="page-item" 
+      @click="changePage(currentPage + 1)" 
+      :class="{ disabled: currentPage === totalPages }">
       &gt;
-    </button>
+    </div>
   </div>
 </template>
 
@@ -28,11 +34,10 @@ export default {
   computed: {
     visiblePages() {
       const pages = [];
-      const maxVisible = 5; // 최대 표시할 페이지 수
+      const maxVisible = 5; 
       let startPage = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
       let endPage = Math.min(this.totalPages, startPage + maxVisible - 1);
 
-      // 끝 페이지가 부족할 때 시작 페이지 조정
       if (endPage - startPage < maxVisible - 1) {
         startPage = Math.max(1, endPage - maxVisible + 1);
       }
@@ -60,21 +65,25 @@ export default {
   margin-top: 20px;
 }
 
-button {
+.page-item {
   margin: 0 5px;
   padding: 5px;
-  cursor: pointer;
-  background: none;
-  border: none;
   font-size: 16px;
+  cursor: pointer;
+  user-select: none;
 }
 
-button.active{
+.page-item.active {
   font-weight: bold;
 }
 
-button:disabled {
+.page-item.disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
+
+.page-item:not(.disabled):hover {
+  background-color: none;
+}
+
 </style>
