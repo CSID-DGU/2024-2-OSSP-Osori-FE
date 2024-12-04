@@ -70,7 +70,8 @@
 
 
 - ### 📑 API 명세서
-  - 각 API의 설명, 요청 및 응답 예시를 포함합니다.
+ &nbsp;&nbsp;&nbsp;&nbsp;![1](https://github.com/user-attachments/assets/21191f05-1f77-4c98-878c-f3b5ddaa6f99)
+
 
 <br>
 
@@ -105,9 +106,15 @@
 
 ## ▶ 실행 방법
 
-1. **환경 설정**: 프로젝트 실행을 위한 필수 환경 변수 및 설정 정보를 포함합니다.
-2. **의존성 설치**: 프로젝트의 종속성을 설치하는 단계입니다.
+1. **환경 설정**: Node.js, npm, vue-cli를 설치합니다.
+     ```bash
+     npm install -g @vue/cli
+2. **의존성 설치**:<br>
+   ```bash
+   npm install 
 3. **프로젝트 실행**: 실행 명령어로 프로젝트를 시작합니다.
+   ```bash
+   npm install 
 
 <br>
 
