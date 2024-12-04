@@ -51,16 +51,19 @@ export default {
 
     console.log("Portfolio ID:", portfolioId);
 
-    // 포트폴리오 데이터 가져오기
-    const fetchPortfolioById = async (portfolioId) => {
-      try {
-        const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`;
-        console.log('Fetching portfolio from URL:', apiUrl); // API URL 출력
+        // 포트폴리오 데이터 가져오기
+        const fetchPortfolioById = async (portfolioId) => {
+          try {
+            const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`
+            console.log('Fetching portfolio from URL:', apiUrl) // API URL 출력
 
-        // Fetch 요청
-        const response = await fetch(apiUrl);
-        console.log('Response status:', response.status); // 상태 코드 확인
-
+            // Fetch 요청
+            const response = await fetch(apiUrl, {
+              method: 'GET',
+              credentials: 'include'
+            })
+            console.log('Response status:', response.status) // 상태 코드 확인
+            
         if (!response.ok) {
           console.error(`Response status: ${response.status}, ${response.statusText}`);
           // 예외 처리를 통해 사용자에게 상세한 에러 메시지 제공
@@ -109,8 +112,11 @@ export default {
           // 백엔드 API 연동
           const response = await fetch(
             `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`,
-            { method: 'DELETE' }
-          );
+            {
+              method: 'DELETE',
+              credentials: 'include'
+            }
+          )
 
           if (!response.ok) {
             throw new Error(`Failed to delete portfolio: ${response.statusText}`);
