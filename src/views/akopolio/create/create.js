@@ -33,7 +33,8 @@ export default {
       tooltipVisible: false,
       images: [], // 선택된 이미지 파일 배열
       uploadedImageUrls: [], // 업로드된 이미지의 URL 저장
-      portfolios: []
+      portfolios: [],
+      uploadError: false,
     };
   },
   computed: {
@@ -155,46 +156,50 @@ export default {
     async uploadImages() {
       const uploadedUrls = [];
     
+      this.uploadError = false;
+
+      console.log("Starting image upload...");
+
       for (const image of this.images) {
         try {
           const apiUrl = `${process.env.VUE_APP_BE_API_URL}/file/IMAGE/presigned-url`;
-    
-          // 환경 변수 및 API URL 확인
-          console.log('VUE_APP_BE_API_URL:', process.env.VUE_APP_BE_API_URL);
-          console.log('API URL:', apiUrl);
-    
+          console.log('Requesting presigned URL from:', apiUrl);
+
           // 프리사인드 URL 요청
-          const { data } = await axios.post(apiUrl, {
-            imageName: image.name,  // 파일 이름
-            imageType: image.type,  // 파일 MIME 타입
-            imageSize: image.size   // 파일 크기
+          const response = await axios.post(apiUrl, {
+            imageName: image.file.name,  // 파일 이름
           });
     
-          console.log('Received presigned URL:', data);
+          // 백엔드가 반환한 프리사인드 URL
+          const presignedUrl = response.data; // 데이터가 문자열 URL이라고 가정
     
-          // 응답 받은 URL을 통해 S3에 이미지 업로드
-          const presignedUrl = data; // 실제 프리사인드 URL
+          console.log("Received presigned URL:", presignedUrl);
+    
+          // S3에 파일 업로드
           await axios.put(presignedUrl, image.file, {
             headers: {
-              'Content-Type': image.file.type, // 파일 MIME 타입 설정
+              "Content-Type": image.file.type, // 파일 MIME 타입 설정
             },
           });
+
+          console.log("Image uploaded successfully!");
     
-          // 업로드된 이미지 URL 저장
-          const uploadedUrl = presignedUrl.split('?')[0];  // URL에서 쿼리 파라미터 제거 (필요한 경우)
+          // 업로드된 이미지 URL 저장 (프리사인드 URL의 base URL만 추출)
+          const uploadedUrl = presignedUrl.split("?")[0]; // URL에서 쿼리 파라미터 제거
           uploadedUrls.push(uploadedUrl);
+          console.log("Uploaded image URL:", uploadedUrl);
     
         } catch (error) {
-          console.error('Error uploading image:', error);
-          alert('이미지 업로드 중 오류가 발생했습니다.');
+          console.error("Error uploading image:", error);
+          this.uploadError = true;
+          alert("이미지 업로드 중 오류가 발생했습니다.");
           return;
         }
       }
     
       this.uploadedImageUrls = uploadedUrls;
-      console.log('Uploaded image URLs:', this.uploadedImageUrls);
-    }
-    ,    
+      console.log("Uploaded image URLs:", this.uploadedImageUrls);
+    },    
     
     
     async saveData() {
@@ -208,6 +213,11 @@ export default {
         await this.uploadImages();
       }
 
+      // 이미지 업로드 중 오류가 발생한 경우 saveData 종료
+      if (this.uploadError) {
+        return;  // 오류 발생 시 저장을 진행하지 않음
+      }
+            
       // 백엔드 연동을 위한 데이터 객체
       const newPortfolio = {
         name: this.activityName,               // 활동명
