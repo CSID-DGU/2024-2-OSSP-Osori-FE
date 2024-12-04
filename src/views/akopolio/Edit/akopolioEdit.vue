@@ -75,7 +75,12 @@
       <div class="image-preview-container" v-if="images.length">
         <div class="image-card" v-for="(image, index) in images" :key="index">
           <div class="image-preview-card">
-            <img :src="image.previewUrl" :alt="`Uploaded Image ${index + 1}`" class="image-preview" />
+            <img 
+              v-if="image.previewUrl" 
+              :src="image.previewUrl" 
+              :alt="`Uploaded Image ${index + 1}`" 
+              class="image-preview"
+            />
             <button @click="removeImage(index)" class="delete-image-btn">X</button>
           </div>
         </div>
