@@ -4,11 +4,11 @@
     <div class="detail-header">
       <div class="header-content">
         <div class="action-buttons">
-          <button class="edit-button" @click="editPortfolio">수정하기</button>
-          <button class="delete-button" @click="handleDeletePortfolio">
+          <div class="edit-button" @click="editPortfolio">수정하기</div>
+          <div class="delete-button" @click="handleDeletePortfolio">
             삭제하기
             <img src="@/assets/images/trash.svg" alt="Delete File" class="delete-file-icon" />
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -122,22 +122,27 @@
 .edit-button,
 .delete-button {
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px 10px;
   border-radius: 10px;
-  border: none;
   cursor: pointer;
   font-size: 10px;
   gap: 4px;
+  background-color: white; 
 }
 
 .edit-button {
-  background-color: white;
   color: black;
 }
 
 .delete-button {
-  background-color: white;
   color: red;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #f2eeee;
 }
 
 .image-upload-container,

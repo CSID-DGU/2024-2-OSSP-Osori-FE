@@ -29,14 +29,15 @@
         </label>
 
         <div v-show="isDropdownOpen" class="tag-container">
-          <button
-            v-for="tag in tags"
-            :key="tag"
-            @click="toggleTag(tag)"
-            :class="{ active: selectedTags.includes(tag) }"
-          >
-            {{ tag }}
-          </button>
+          <div
+              v-for="tag in tags"
+              :key="tag"
+              @click="toggleTag(tag)"
+              :class="{ active: selectedTags.includes(tag) }"
+              class="tag-item"
+            >
+              {{ tag }}
+            </div>
         </div>
       </div>
     </div>
@@ -105,14 +106,14 @@
         <div class="image-card" v-for="(image, index) in images" :key="index">
           <div class="image-preview-card">
             <img :src="image.previewUrl" :alt="image.name" class="image-preview" />
-            <button @click="removeImage(index)" class="delete-image-btn">X</button>
+            <div @click="removeImage(index)" class="delete-image-btn">X</div>
           </div>
         </div>
       </div>
     </div>  
     
     <div class="button-container">
-        <button @click="saveData" class="save-button">저장하기</button>
+      <div @click="saveData" class="save-button">저장하기</div>
       </div>
       <MainFooter />
    </div> 
@@ -183,7 +184,7 @@ textarea {
   font-size: 12px;
 }
 
-button {
+.tag-item {
   display: inline-block;
   margin: 3px;
   padding: 5px 10px;
@@ -191,10 +192,16 @@ button {
   background-color: white;
   transition: background-color 0.3s;
   border: 1px solid #eec092;
+  cursor: pointer;
 }
 
-button.active {
+.tag-item.active {
   background-color: #f6b87a;
+}
+
+.tag-item:hover {
+  background-color: #f6b87a; 
+  cursor: pointer;
 }
 
 /* 분야 설정 박스 */
@@ -236,12 +243,14 @@ button.active {
   font-size: 0.875rem;  
   font-weight: 500;  
   border-radius: 9999px; 
+  text-align: center;
   transition: background-color 0.3s ease;
   margin-bottom: 20px;
 }
 
 .save-button:hover {
   background-color: #e5a769;
+  cursor: pointer;
 }
 
 h3 {
