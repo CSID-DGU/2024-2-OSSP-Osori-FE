@@ -23,10 +23,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-//goalId 불러오는 로직 수정
+// goalId 불러오는 로직 수정
 const selectedEmoji = ref('')
 const comment = ref('')
-const goalId = '1'
+const goalId = '27'
 
 const emojiMap = {
   '😊': 0,
@@ -60,11 +60,14 @@ const submitComment = async () => {
           'Content-Type': 'application/json',
         },
         credentials: 'include',
-        body: JSON.stringify(payload), 
+        body: JSON.stringify(payload),
       }
     )
 
     if (response.ok) {
+      const data = await response.json()
+      console.log("API 응답 데이터:", data) 
+      window.location.reload() 
       alert('댓글이 성공적으로 추가되었습니다!')
       selectedEmoji.value = ''
       comment.value = ''
@@ -77,6 +80,7 @@ const submitComment = async () => {
   }
 }
 </script>
+
 
 <style scoped>
 .comment-input {

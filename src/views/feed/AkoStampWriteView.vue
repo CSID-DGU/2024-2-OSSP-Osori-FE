@@ -98,6 +98,7 @@ const fetchUserData = async () => {
     if (response.ok) {
       const data = await response.json()
       nickname.value = data.nickname
+
     } else {
       console.error('사용자 정보 불러오기 실패:', response.status, response.statusText)
       if (response.status === 401) {
@@ -131,6 +132,7 @@ const registerGoal = async () => {
       if (response.ok) {
         const data = await response.json()
         alert(`목표가 등록되었습니다: ${data.content}`)
+        window.history.back();
         userText.value = ''
       } else {
         alert('목표 등록에 실패했습니다.')

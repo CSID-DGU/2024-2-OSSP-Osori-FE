@@ -1,14 +1,20 @@
 <template>
-  <div class="my-goal">
+  <div v-if="goalContent" class="my-goal">
     <div class="goal-content">
       <span class="name">{{ nickname }}</span>
       <span class="content">{{ goalContent }}</span>
       <div class="goal-icons">
-        <button @click="toggleCommentSection"><img src='../../../assets/images/comment.svg'></button>
-        <div class='line'></div>
-        <button @click="editGoal"><img src='../../../assets/images/write.svg'></button>
-        <div class='line'></div>
-        <button @click="deleteGoal"><img src='../../../assets/images/delete.svg'></button>
+        <button @click="toggleCommentSection">
+          <img src="../../../assets/images/comment.svg" alt="comment" />
+        </button>
+        <div class="line"></div>
+        <button @click="editGoal">
+          <img src="../../../assets/images/write.svg" alt="edit" />
+        </button>
+        <div class="line"></div>
+        <button @click="deleteGoal">
+          <img src="../../../assets/images/delete.svg" alt="delete" />
+        </button>
       </div>
     </div>
 
@@ -20,137 +26,138 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import CommentInput from './CommentInput.vue'
-import CommentList from './CommentList.vue'
+import { ref, onMounted } from "vue";
+import CommentInput from "./CommentInput.vue";
+import CommentList from "./CommentList.vue";
 
-const nickname = ref('')
-const goalContent = ref('')
-const showCommentSection = ref(false)
-const goalId = ref('')
+const nickname = ref("");
+const goalContent = ref("");
+const showCommentSection = ref(false);
+const goalId = ref("");
 
 const fetchGoalData = async () => {
   try {
     const userResponse = await fetch(
       `${process.env.VUE_APP_BE_API_URL}/api/users/profile`,
       {
-        method: 'GET',
-        credentials: 'include', 
+        method: "GET",
+        credentials: "include",
       }
-    )
+    );
 
     if (userResponse.ok) {
-      const userData = await userResponse.json()
-      nickname.value = userData.nickname
+      const userData = await userResponse.json();
+      nickname.value = userData.nickname;
     } else {
-      console.error('사용자 정보 불러오기 실패:', userResponse.status, userResponse.statusText)
-      if (userResponse.status === 401) {
-        alert('인증에 실패했습니다. 다시 로그인해주세요.')
-        window.location.href = '/login'
-      } else {
-        alert('사용자 정보 가져오기 실패. 다시 시도해주세요.')
-      }
+      handleFetchError(userResponse);
     }
 
     const goalResponse = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/goals`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
-    })
+      credentials: "include",
+    });
 
     if (goalResponse.ok) {
-      const goalData = await goalResponse.json()
-
+      const goalData = await goalResponse.json();
       if (goalData.length > 0) {
-        const goal = goalData[0]
-        goalContent.value = goal.content
-        goalId.value = goal.goalId
+        const goal = goalData[0];
+        goalContent.value = goal.content;
+        goalId.value = goal.goalId;
       }
     } else {
-      alert('목표를 가져오는 데 실패했습니다.')
+      alert("목표를 가져오는 데 실패했습니다.");
     }
   } catch (error) {
-    console.error('목표 및 사용자 정보 불러오기 오류:', error)
-    alert('목표 및 사용자 정보 가져오기 오류가 발생했습니다.')
+    console.error("목표 및 사용자 정보 불러오기 오류:", error);
+    alert("목표 및 사용자 정보 가져오기 오류가 발생했습니다.");
   }
-}
+};
 
 const editGoal = async () => {
-  const updatedContent = prompt('목표를 수정하세요', goalContent.value)
+  const updatedContent = prompt("목표를 수정하세요", goalContent.value);
   if (updatedContent && updatedContent !== goalContent.value) {
     try {
       const response = await fetch(
         `${process.env.VUE_APP_BE_API_URL}/api/goals/${goalId.value}`,
         {
-          method: 'PATCH',
+          method: "PATCH",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          credentials: 'include',
-          body: JSON.stringify({
-            content: updatedContent,
-          }),
+          credentials: "include",
+          body: JSON.stringify({ content: updatedContent }),
         }
-      )
+      );
 
       if (response.ok) {
-        goalContent.value = updatedContent
-        alert('목표가 수정되었습니다.')
+        goalContent.value = updatedContent;
+        alert("목표가 수정되었습니다.");
       } else {
-        alert('목표 수정 중 문제가 발생했습니다.')
+        alert("목표 수정 중 문제가 발생했습니다.");
       }
     } catch (error) {
-      console.error('목표 수정 오류:', error)
-      alert('목표 수정 중 오류가 발생했습니다.')
+      console.error("목표 수정 오류:", error);
+      alert("목표 수정 중 오류가 발생했습니다.");
     }
   }
-}
+};
 
 const deleteGoal = async () => {
   if (!goalId.value) {
-    alert('삭제할 목표가 없습니다.')
-    return
+    alert("삭제할 목표가 없습니다.");
+    return;
   }
 
-  const confirmDelete = confirm('목표를 삭제하시겠습니까?')
+  const confirmDelete = confirm("목표를 삭제하시겠습니까?");
   if (confirmDelete) {
     try {
       const response = await fetch(
         `${process.env.VUE_APP_BE_API_URL}/api/goals/${goalId.value}`,
         {
-          method: 'DELETE',
+          method: "DELETE",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          credentials: 'include',
+          credentials: "include",
         }
-      )
+      );
 
       if (response.ok) {
-        alert('목표가 삭제되었습니다.')
-        goalContent.value = ''
-        nickname.value = ''
-        goalId.value = ''
+        alert("목표가 삭제되었습니다.");
+        goalContent.value = "";
+        goalId.value = "";
       } else {
-        alert('목표 삭제 중 문제가 발생했습니다.')
+        alert("목표 삭제 중 문제가 발생했습니다.");
       }
     } catch (error) {
-      console.error('목표 삭제 오류:', error)
-      alert('목표 삭제 중 오류가 발생했습니다.')
+      console.error("목표 삭제 오류:", error);
+      alert("목표 삭제 중 오류가 발생했습니다.");
     }
   }
-}
-
-onMounted(() => {
-  fetchGoalData()
-})
+};
 
 const toggleCommentSection = () => {
-  showCommentSection.value = !showCommentSection.value
-}
+  showCommentSection.value = !showCommentSection.value;
+};
+
+const handleFetchError = (response) => {
+  console.error("사용자 정보 불러오기 실패:", response.status, response.statusText);
+  if (response.status === 401) {
+    alert("인증에 실패했습니다. 다시 로그인해주세요.");
+    window.location.href = "/login";
+  } else {
+    alert("사용자 정보 가져오기 실패. 다시 시도해주세요.");
+  }
+};
+
+onMounted(() => {
+  fetchGoalData();
+});
 </script>
+
 
 <style scoped>
 .my-goal {
