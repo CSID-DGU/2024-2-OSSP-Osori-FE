@@ -49,7 +49,12 @@
               }"
             >
               <span>{{ task.name }}</span>
-              <img :src="getTaskIcon(task.name)" />
+              <img
+                :src="getTaskIcon(task.name)"
+                :style="{
+                  filter: task.completed ? 'none' : 'grayscale(100%)'
+                }"
+              />
             </div>
           </div>
           <div class="task-row">
@@ -63,7 +68,12 @@
               }"
             >
               <span>{{ task.name }}</span>
-              <img :src="getTaskIcon(task.name)" />
+              <img
+                :src="getTaskIcon(task.name)"
+                :style="{
+                  filter: task.completed ? 'none' : 'grayscale(100%)'
+                }"
+              />
             </div>
           </div>
         </div>
@@ -88,7 +98,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
 import attendanceIcon from '@/assets/Icons/akoming/todo/attendance.svg'
@@ -104,22 +113,6 @@ const tasks = ref([
   { name: '아코폴리오', completed: false }
 ])
 
-// 각 퀘스트의 상태를 받아와서 tasks에 업데이트하는 함수
-const fetchQuestStatus = async () => {
-  try {
-    const userId = 'user-id'
-    const response = await axios.get(`/api/quests/${userId}`)
-    const { quest1, quest2, quest3, quest4 } = response.data
-
-    tasks.value[0].completed = quest1
-    tasks.value[1].completed = quest2
-    tasks.value[2].completed = quest3
-    tasks.value[3].completed = quest4
-  } catch (error) {
-    console.error('퀘스트 상태를 가져오는 중 오류 발생:', error)
-  }
-}
-
 // 스탬프 상태 정의
 const stamps = ref([
   { label: 'A', completed: false, position: { top: '-18px', left: '12px' } },
@@ -131,52 +124,38 @@ const stamps = ref([
   { label: 'G', completed: false, position: { top: '297px', left: '237px' } }
 ])
 
-// 각 스탬프의 상태를 받아와서 stamps에 업데이트하는 함수
-const fetchStampsStatus = async () => {
+// 기본 아코 이미지 설정
+const akoImage = ref(require('@/assets/Icons/akoming/mainpage/ako-01.svg'))
+
+// 퀘스트와 스탬프 상태를 업데이트하는 함수
+const fetchQuestStatus = async () => {
   try {
-    const userId = 'user-id'
-    const response = await axios.get(`/api/quests/${userId}`)
-    const { stamp1, stamp2, stamp3, stamp4, stamp5, stamp6, stamp7 } =
-      response.data
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/quests/status`,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    if (!response.ok) throw new Error('Failed to fetch quest status')
 
-    stamps.value[0].completed = stamp1
-    stamps.value[1].completed = stamp2
-    stamps.value[2].completed = stamp3
-    stamps.value[3].completed = stamp4
-    stamps.value[4].completed = stamp5
-    stamps.value[5].completed = stamp6
-    stamps.value[6].completed = stamp7
+    const { questStatus, stampCount } = await response.json()
+
+    // 퀘스트 상태 업데이트
+    tasks.value[0].completed = questStatus.attended
+    tasks.value[1].completed = questStatus.goalWritten
+    tasks.value[2].completed = questStatus.commentedOnFriendGoal
+    tasks.value[3].completed = questStatus.portfolioWritten
+
+    // 스탬프 상태 업데이트
+    stamps.value.forEach((stamp, index) => {
+      stamp.completed = index < stampCount
+    })
   } catch (error) {
-    console.error('스탬프 상태를 가져오는 중 오류 발생:', error)
-  }
-}
-
-// 아코 이미지 경로 저장할 변수
-const elephantIcons = [
-  '@/assets/Icons/akoming/mainpage/ako-01.svg',
-  '@/assets/Icons/akoming/mainpage/ako-02.svg',
-  '@/assets/Icons/akoming/mainpage/ako-03.svg',
-  '@/assets/Icons/akoming/mainpage/ako-04.svg',
-  '@/assets/Icons/akoming/mainpage/ako-05.svg',
-  '@/assets/Icons/akoming/mainpage/ako-06.svg'
-]
-const akoImage = ref(elephantIcons[0])
-
-// Level에 따른 아코 이미지 설정 함수
-const setElephantIconByLevel = async () => {
-  try {
-    const response = await axios.get('/api/goals')
-    const level = response.data.level
-
-    if (level >= 1 && level <= 6) {
-      akoImage.value = elephantIcons[level - 1]
-    } else {
-      console.warn('유효한 level 값이 아닙니다:', level)
-      akoImage.value = elephantIcons[0]
-    }
-  } catch (error) {
-    console.error('아코 이미지를 가져오는 중 오류 발생:', error)
-    akoImage.value = elephantIcons[0]
+    console.error('퀘스트 상태를 가져오는 중 오류 발생:', error)
   }
 }
 
@@ -207,8 +186,6 @@ const getTaskIcon = (taskName) => {
 // onMounted에서 호출하여 초기 데이터 로드
 onMounted(() => {
   fetchQuestStatus()
-  fetchStampsStatus()
-  setElephantIconByLevel()
 })
 </script>
 
