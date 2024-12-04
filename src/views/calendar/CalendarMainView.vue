@@ -101,12 +101,16 @@ onMounted(() => {
           class="schedule-popup"
           v-if="isScheduleOpen && selectedEvents.length > 0"
         >
-          <h2>학사 일정</h2>
-          <div v-for="event in selectedEvents" :key="event.title">
-            <p>{{ event.title }}</p>
-            <p>{{ formatDateRange(event.startDate, event.endDate) }}</p>
+          <div class="popup-header">
+            <h2>학사 일정</h2>
+            <button class="close-button" @click="closeSchedule">×</button>
           </div>
-          <button @click="closeSchedule">닫기</button>
+          <div class="popup-content">
+            <div v-for="event in selectedEvents" :key="event.title">
+              <p>{{ event.title }}</p>
+              <p>{{ formatDateRange(event.startDate, event.endDate) }}</p>
+            </div>
+          </div>
         </div>
 
         <div>
@@ -225,7 +229,7 @@ onMounted(() => {
 
 .schedule-popup {
   position: fixed;
-  bottom: 0;
+  bottom: -100%; /* 시작 위치: 화면 아래 */
   left: 0;
   right: 0;
   background-color: #ffffff;
@@ -235,6 +239,9 @@ onMounted(() => {
   max-height: 60vh;
   width: 395px;
   margin: 0 auto;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  animation: slide-up 0.3s ease-out forwards; /* 부드러운 위로 이동 애니메이션 */
+  z-index: 1000;
 }
 
 .link-button {
@@ -267,5 +274,47 @@ onMounted(() => {
   border-radius: 50%;
   margin: 0 auto;
   margin-top: 4px;
+}
+
+@keyframes slide-up {
+  from {
+    bottom: -100%; /* 초기 상태 */
+  }
+  to {
+    bottom: 0; /* 최종 상태 */
+  }
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.popup-header h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #b3b3b3;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.close-button:hover {
+  color: #ff7f00;
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>
