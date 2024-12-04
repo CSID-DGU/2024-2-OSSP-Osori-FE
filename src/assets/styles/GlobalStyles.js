@@ -12,6 +12,10 @@ injectGlobal`
     margin: 0;
   }
 
+  body::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨기기 */
+}
+
   .main-container {
     width: 395px;
     min-width: 340px;
