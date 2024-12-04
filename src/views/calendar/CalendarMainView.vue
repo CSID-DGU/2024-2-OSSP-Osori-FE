@@ -85,7 +85,8 @@ onMounted(() => {
               class="day-button"
               :class="{
                 selected: day === selectedDay,
-                'sunday-saturday': isSundayOrSaturday(day)
+                'sunday-saturday': isSundayOrSaturday(day),
+                'has-event': hasEvent(day)
               }"
               v-for="day in week"
               :key="day"
@@ -100,7 +101,12 @@ onMounted(() => {
           class="schedule-popup"
           v-if="isScheduleOpen && selectedEvents.length > 0"
         >
-          <!-- 학사 일정 내용 -->
+          <h2>학사 일정</h2>
+          <div v-for="event in selectedEvents" :key="event.title">
+            <p>{{ event.title }}</p>
+            <p>{{ formatDateRange(event.startDate, event.endDate) }}</p>
+          </div>
+          <button @click="closeSchedule">닫기</button>
         </div>
 
         <div>
@@ -251,5 +257,15 @@ onMounted(() => {
 
 .link-button:hover {
   background-color: #f1cdb1;
+}
+.day-button.has-event::after {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #b3b3b3;
+  border-radius: 50%;
+  margin: 0 auto;
+  margin-top: 4px;
 }
 </style>
