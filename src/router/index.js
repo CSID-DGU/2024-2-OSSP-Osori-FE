@@ -136,18 +136,40 @@ const router = createRouter({
   routes
 })
 
-//라우터 가드 설정(세션 기반 쿠기, 나중에 수정 필요)
-// meta: { requiresAuth: true } // 인증이 필요한 페이지
-// 라우터 가드 설정
-// router.beforeEach((to, from, next) => {
-//   const isAuthenticated = store.getters['auth/isAuthenticated'] // 인증 여부 확인
-//   if (to.matched.some((record) => record.path.startsWith('/auth'))) {
-//     next() // /auth 경로는 인증 없이 접근 가능
-//   } else if (!isAuthenticated) {
-//     next('/auth/login') // 인증되지 않은 경우 로그인 페이지로 리다이렉트
-//   } else {
-//     next() // 인증된 경우 해당 경로로 이동
-//   }
-// })
+//라우터 가드 설정
+// 글로벌 가드 추가
+router.beforeEach(async (to, from, next) => {
+  const isAuthPage = to.matched.some((record) =>
+    record.path.startsWith('/auth')
+  )
+
+  try {
+    // 세션 상태 확인 API 호출
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/quests/status`,
+      {
+        method: 'GET',
+        credentials: 'include' // 세션 쿠키 포함
+      }
+    )
+
+    if (response.ok) {
+      if (isAuthPage) {
+        next('/main') // 이미 인증된 상태라면 메인 페이지로 이동
+      } else {
+        next() // 정상적으로 페이지 이동
+      }
+    } else {
+      if (isAuthPage) {
+        next() // 인증 경로로는 접근 가능
+      } else {
+        next('/auth/login') // 인증되지 않았으면 로그인 페이지로 이동
+      }
+    }
+  } catch (error) {
+    console.error('Error during authentication check:', error)
+    next('/auth/login') // 오류 발생 시 로그인 페이지로 이동
+  }
+})
 
 export default router
