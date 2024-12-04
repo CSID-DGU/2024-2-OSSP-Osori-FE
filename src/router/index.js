@@ -7,7 +7,6 @@ import FeedLayout from '@/components/layout/FeedLayout.vue'
 import akopolioCreate from '@/views/akopolio/create/akopolioCreate.vue'
 import akopolioMain from '@/views/akopolio/main/akopolioMain.vue'
 
-
 // 자동 임포트 함수 (src/views 내의 모든 .vue 파일을 임포트)
 function importAllViews() {
   const viewFiles = require.context('@/views', true, /\.vue$/)
@@ -81,8 +80,7 @@ const routes = [
         path: 'edit/:id',
         name: 'akopolioEdit',
         component: importedViews['akopolioEdit'] // 자동 임포트 적용
-      },
-
+      }
     ]
   },
   {
@@ -140,4 +138,16 @@ const router = createRouter({
 
 //라우터 가드 설정(세션 기반 쿠기, 나중에 수정 필요)
 // meta: { requiresAuth: true } // 인증이 필요한 페이지
+// 라우터 가드 설정
+// router.beforeEach((to, from, next) => {
+//   const isAuthenticated = store.getters['auth/isAuthenticated'] // 인증 여부 확인
+//   if (to.matched.some((record) => record.path.startsWith('/auth'))) {
+//     next() // /auth 경로는 인증 없이 접근 가능
+//   } else if (!isAuthenticated) {
+//     next('/auth/login') // 인증되지 않은 경우 로그인 페이지로 리다이렉트
+//   } else {
+//     next() // 인증된 경우 해당 경로로 이동
+//   }
+// })
+
 export default router
