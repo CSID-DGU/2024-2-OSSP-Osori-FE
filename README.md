@@ -69,7 +69,7 @@
   ![osori](https://github.com/user-attachments/assets/d90a2ae9-aac0-4ba0-92bf-fd08abee8d4b)
 
 
-- ### 📑 API 명세서
+- ### 📑 API 명세서 일부
  &nbsp;&nbsp;&nbsp;&nbsp;![1](https://github.com/user-attachments/assets/21191f05-1f77-4c98-878c-f3b5ddaa6f99)
 
 
