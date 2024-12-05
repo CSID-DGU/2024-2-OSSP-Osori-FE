@@ -45,6 +45,7 @@ export default {
     };
   },
   computed: {
+
     filteredPortfolioList() {
       let filteredList = this.portfolioList;
 

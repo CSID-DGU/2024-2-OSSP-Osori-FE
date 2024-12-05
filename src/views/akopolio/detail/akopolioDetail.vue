@@ -4,11 +4,11 @@
     <div class="detail-header">
       <div class="header-content">
         <div class="action-buttons">
-          <button class="edit-button" @click="editPortfolio">수정하기</button>
-          <button class="delete-button" @click="handleDeletePortfolio">
+          <div class="edit-button" @click="editPortfolio">수정하기</div>
+          <div class="delete-button" @click="handleDeletePortfolio">
             삭제하기
             <img src="@/assets/images/trash.svg" alt="Delete File" class="delete-file-icon" />
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -17,11 +17,11 @@
     <div class="activity-info">
       <div class="row activity-box">
         <h2>활동명</h2>
-        <p>{{ portfolio ? portfolio.title : '' }}</p>
+        <p>{{ portfolio ? portfolio.name : '' }}</p>
       </div>
     <div class="row activity-box activity-date">
       <h2>활동일</h2>
-      <p>{{ portfolio ? portfolio.createdDate : '' }}</p>
+      <p>{{ portfolio ? portfolio.startDate : '' }}</p>
     </div>
       <div class="row activity-box">
         <h2>분야 설정</h2>
@@ -36,22 +36,22 @@
     <!-- STAR 모델 정보 표시 -->
     <div class="experience-container">
       <h2>경험 (STAR)</h2>
-      <div v-if="portfolio && portfolio.star">
+      <div v-if="portfolio && portfolio.experience">
         <div class="star-section">
           <h3>Situation</h3>
-          <p>{{ portfolio.star.situation || '상황 정보가 없습니다.' }}</p>
+          <p>{{ portfolio.experience.situation || '상황 정보가 없습니다.' }}</p>
         </div>
         <div class="star-section">
           <h3>Task</h3>
-          <p>{{ portfolio.star.task || '내용이 없습니다.' }}</p>
+          <p>{{ portfolio.experience.task || '내용이 없습니다.' }}</p>
         </div>
         <div class="star-section">
           <h3>Action</h3>
-          <p>{{ portfolio.star.action || '내용이 없습니다.' }}</p>
+          <p>{{ portfolio.experience.action || '내용이 없습니다.' }}</p>
         </div>
         <div class="star-section">
           <h3>Result</h3>
-          <p>{{ portfolio.star.result || '내용이 없습니다.' }}</p>
+          <p>{{ portfolio.experience.result || '내용이 없습니다.' }}</p>
         </div>
       </div>
       <div v-else>
@@ -122,22 +122,27 @@
 .edit-button,
 .delete-button {
   display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 5px 10px;
   border-radius: 10px;
-  border: none;
   cursor: pointer;
   font-size: 10px;
   gap: 4px;
+  background-color: white; 
 }
 
 .edit-button {
-  background-color: white;
   color: black;
 }
 
 .delete-button {
-  background-color: white;
   color: red;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #f2eeee;
 }
 
 .image-upload-container,

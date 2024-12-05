@@ -7,7 +7,6 @@ import FeedLayout from '@/components/layout/FeedLayout.vue'
 import akopolioCreate from '@/views/akopolio/create/akopolioCreate.vue'
 import akopolioMain from '@/views/akopolio/main/akopolioMain.vue'
 
-
 // 자동 임포트 함수 (src/views 내의 모든 .vue 파일을 임포트)
 function importAllViews() {
   const viewFiles = require.context('@/views', true, /\.vue$/)
@@ -81,8 +80,7 @@ const routes = [
         path: 'edit/:id',
         name: 'akopolioEdit',
         component: importedViews['akopolioEdit'] // 자동 임포트 적용
-      },
-
+      }
     ]
   },
   {
@@ -138,6 +136,40 @@ const router = createRouter({
   routes
 })
 
-//라우터 가드 설정(세션 기반 쿠기, 나중에 수정 필요)
-// meta: { requiresAuth: true } // 인증이 필요한 페이지
+//라우터 가드 설정
+// 글로벌 가드 추가
+router.beforeEach(async (to, from, next) => {
+  const isAuthPage = to.matched.some((record) =>
+    record.path.startsWith('/auth')
+  )
+
+  try {
+    // 세션 상태 확인 API 호출
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/quests/status`,
+      {
+        method: 'GET',
+        credentials: 'include' // 세션 쿠키 포함
+      }
+    )
+
+    if (response.ok) {
+      if (isAuthPage) {
+        next('/main') // 이미 인증된 상태라면 메인 페이지로 이동
+      } else {
+        next() // 정상적으로 페이지 이동
+      }
+    } else {
+      if (isAuthPage) {
+        next() // 인증 경로로는 접근 가능
+      } else {
+        next('/auth/login') // 인증되지 않았으면 로그인 페이지로 이동
+      }
+    }
+  } catch (error) {
+    console.error('Error during authentication check:', error)
+    next('/auth/login') // 오류 발생 시 로그인 페이지로 이동
+  }
+})
+
 export default router

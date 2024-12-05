@@ -10,7 +10,7 @@
             @input="applyFilters" 
             placeholder="활동명을 입력하세요 (두 글자 이상)"
           />
-          <button class="reset-btn" @click="resetFilters">초기화</button>
+          <div class="reset-btn" @click="resetFilters">초기화</div>
         </div>
         <div class="date-picker">
           <input type="date" v-model="startDate" @input="applyFilters" />
@@ -33,14 +33,14 @@
         </label>
 
         <div v-show="isDropdownOpen" class="tag-container">
-          <button
+          <div
             v-for="tag in tags"
             :key="tag"
             @click="toggleTag(tag)"
             :class="{ active: selectedTags.includes(tag) }"
           >
             {{ tag }}
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -75,13 +75,13 @@
       @change-page="handlePageChanged"
     />
 
-    <button class="floating-btn" @click="goToCreatePage">
+    <div class="floating-btn" @click="goToCreatePage">
       <img
         class="logo"
         :src="require('@/assets/images/AddFile.svg')"
         alt="Akoming Logo"
       />
-    </button>
+    </div>
 
 
     <MainFooter />
@@ -153,7 +153,7 @@ input[type='date'] {
   font-size: 12px;
 }
 
-button {
+.tag-container div {
   display: inline-block;
   margin: 3px;
   padding: 5px 10px;
@@ -161,10 +161,16 @@ button {
   background-color: white;
   transition: background-color 0.3s;
   border: 1px solid #eec092;
+  cursor: pointer;
 }
 
-button.active {
+.tag-container div.active {
   background-color: #f6b87a;
+}
+
+.tag-container div:hover {
+  background-color: #f6b87a; 
+  cursor: pointer;
 }
 
 .filter-container {
@@ -284,12 +290,11 @@ button.active {
   margin-left: 10px; /* 오른쪽 여백 */
   background-color: #f4b28c;
   color: black;
-  border: none;
   padding: 6px 11px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 13px;
-  border-radius: 8px;
+  text-align: center;
 }
 
 .reset-btn:hover {

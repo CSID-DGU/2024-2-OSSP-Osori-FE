@@ -51,16 +51,19 @@ export default {
 
     console.log("Portfolio ID:", portfolioId);
 
-    // 포트폴리오 데이터 가져오기
-    const fetchPortfolioById = async (portfolioId) => {
-      try {
-        const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`;
-        console.log('Fetching portfolio from URL:', apiUrl); // API URL 출력
+        // 포트폴리오 데이터 가져오기
+        const fetchPortfolioById = async (portfolioId) => {
+          try {
+            const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`
+            console.log('Fetching portfolio from URL:', apiUrl) // API URL 출력
 
-        // Fetch 요청
-        const response = await fetch(apiUrl);
-        console.log('Response status:', response.status); // 상태 코드 확인
-
+            // Fetch 요청
+            const response = await fetch(apiUrl, {
+              method: 'GET',
+              credentials: 'include'
+            })
+            console.log('Response status:', response.status) // 상태 코드 확인
+            
         if (!response.ok) {
           console.error(`Response status: ${response.status}, ${response.statusText}`);
           // 예외 처리를 통해 사용자에게 상세한 에러 메시지 제공
@@ -78,21 +81,20 @@ export default {
         // 응답 데이터 확인
         console.log('Received portfolio data:', data);
 
-        // 포트폴리오 데이터를 구조에 맞게 저장
         portfolio.value = {
-          baseInfo: data.baseInfo || {}, // 기본 정보 저장
-          experience: data.experience || {}, // 경험 정보 저장
-          pmi: data.pmi || {}, // PMI 정보 저장
-          photoUrls: data.photoUrls || [], // 사진 URL 배열 저장
+          name: data.baseInfo.name,          // 활동명
+          startDate: data.baseInfo.startDate, // 활동일
+          tags: data.baseInfo.tags || [],     // 태그 
+          experience: data.experience || { situation: '', task: '', action: '', result: '' }, 
+          pmi: data.pmi || { plus: '', minus: '', interesting: '' },
+          photoUrls: data.photoUrls || [],    // 이미지 
         };
 
-        // 이미지 데이터 따로 저장
-        images.value = portfolio.value.photoUrls;
-
+        images.value = data.photoUrls || [];
       } catch (error) {
         console.error('Error fetching portfolio:', error);
         alert('포트폴리오를 가져오는 중 오류가 발생했습니다.');
-        portfolio.value = null; // 오류 발생 시 초기화
+        portfolio.value = null;
         images.value = [];
       }
     };
@@ -109,8 +111,11 @@ export default {
           // 백엔드 API 연동
           const response = await fetch(
             `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`,
-            { method: 'DELETE' }
-          );
+            {
+              method: 'DELETE',
+              credentials: 'include'
+            }
+          )
 
           if (!response.ok) {
             throw new Error(`Failed to delete portfolio: ${response.statusText}`);

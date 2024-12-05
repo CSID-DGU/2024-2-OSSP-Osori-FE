@@ -84,13 +84,17 @@ export default {
       textarea.style.height = `${textarea.scrollHeight}px`;
     };
 
-    const fetchPortfolioById = async (id) => {
+    // 포트폴리오 데이터 가져오기
+    const fetchPortfolioById = async (portfolioId) => {
       try {
-        const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${id}`;
-        console.log('Fetching portfolio from URL:', apiUrl);
+        const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${portfolioId}`;
+        console.log('Fetching portfolio from URL:', apiUrl); // API URL 출력
 
-        const response = await fetch(apiUrl);
-        console.log('Response status:', response.status);
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          credentials: 'include',
+        });
+        console.log('Response status:', response.status); // 상태 코드 확인
 
         if (!response.ok) {
           console.error(`Response status: ${response.status}, ${response.statusText}`);
@@ -100,6 +104,7 @@ export default {
         const data = await response.json();
         console.log('Received portfolio data:', data);
 
+        // 포트폴리오 데이터 할당
         portfolio.value = {
           baseInfo: data.baseInfo || {},
           experience: data.experience || { situation: '', task: '', action: '', result: '' },
@@ -107,7 +112,22 @@ export default {
           photoUrls: data.photoUrls || [],
         };
 
-        images.value = portfolio.value.photoUrls || [];
+        // 각 변수에 포트폴리오 데이터 할당
+        activityName.value = portfolio.value.baseInfo.name || ''; // 활동명
+        activityDate.value = portfolio.value.baseInfo.startDate || ''; // 활동일 (startDate로 변경)
+        star.value = portfolio.value.experience || { situation: '', task: '', action: '', result: '' }; // STAR 모델
+        pmi.value = portfolio.value.pmi || { plus: '', minus: '', interesting: '' }; // PMI 모델
+        images.value = portfolio.value.photoUrls.map((imageUrl) => {
+          return {
+            previewUrl: imageUrl, // 서버에서 제공하는 URL을 미리보기 URL로 사용
+            name: imageUrl.split('/').pop(), // 파일 이름을 추출
+            size: 0, // 기존 이미지는 파일 크기 필요 없음
+            containerWidth: '300px', // 기본 크기 설정
+            containerHeight: '300px', // 기본 크기 설정
+          };
+        });
+        selectedTags.value = portfolio.value.baseInfo.tags || [];
+        
       } catch (error) {
         console.error('Error fetching portfolio:', error);
         alert('포트폴리오를 가져오는 중 오류가 발생했습니다.');
@@ -124,7 +144,7 @@ export default {
       }
 
       const newImagesPromises = selectedFiles.map((file) => {
-        const previewUrl = URL.createObjectURL(file);
+        const previewUrl = URL.createObjectURL(file);  // 새로 추가된 이미지는 미리보기 URL 생성
         const imageElement = new Image();
         imageElement.src = previewUrl;
 
@@ -171,7 +191,9 @@ export default {
     };
 
     const removeImage = (index) => {
-      URL.revokeObjectURL(images.value[index].previewUrl);
+      if (images.value[index].previewUrl) {
+        URL.revokeObjectURL(images.value[index].previewUrl);  // 생성한 URL을 해제
+      }
       images.value.splice(index, 1);
     };
 
@@ -219,6 +241,7 @@ export default {
         return;
       }
 
+
       try {
         const response = await axios.put(
           `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${id}`,
@@ -237,7 +260,7 @@ export default {
               minus: pmi.value.minus,
               interesting: pmi.value.interesting,
             },
-            photoUrls: images.value.map(image => image.name),
+            photoUrls: images.value.map(image => image.url),
           },
           {
             headers: {
@@ -273,6 +296,7 @@ export default {
       selectedTags.value = [];
       await fetchUserData();
       await fetchPortfolioById(portfolioId);
+
     });
 
     return {

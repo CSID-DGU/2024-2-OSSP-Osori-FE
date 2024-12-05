@@ -29,14 +29,14 @@
         </label>
 
         <div v-show="isDropdownOpen" class="tag-container">
-          <button
-            v-for="tag in tags"
-            :key="tag"
-            @click="toggleTag(tag)"
-            :class="{ active: selectedTags.includes(tag) }"
-          >
-            {{ tag }}
-          </button>
+          <div 
+              v-for="tag in tags" 
+              :key="tag" 
+              @click="toggleTag(tag)" 
+              :class="{ active: selectedTags.includes(tag), 'tag-div': true }"
+            >
+              {{ tag }}
+            </div>
         </div>
       </div>
     </div>
@@ -75,16 +75,21 @@
       <div class="image-preview-container" v-if="images.length">
         <div class="image-card" v-for="(image, index) in images" :key="index">
           <div class="image-preview-card">
-            <img :src="image.previewUrl" :alt="`Uploaded Image ${index + 1}`" class="image-preview" />
-            <button @click="removeImage(index)" class="delete-image-btn">X</button>
+            <img 
+              v-if="image.previewUrl" 
+              :src="image.previewUrl" 
+              :alt="`Uploaded Image ${index + 1}`" 
+              class="image-preview"
+            />
+            <div @click="removeImage(index)" class="delete-image-btn">X</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="button-container">
-        <button @click="saveData" class="save-button">저장하기</button>
-      </div>
+      <div @click="saveData" class="save-button">저장하기</div>
+    </div>
       <MainFooter />
    </div> 
 </template>
@@ -155,7 +160,7 @@ textarea {
   font-size: 12px;
 }
 
-button {
+.tag-div {
   display: inline-block;
   margin: 3px;
   padding: 5px 10px;
@@ -165,8 +170,13 @@ button {
   border: 1px solid #eec092;
 }
 
-button.active {
-  background-color: #f6b87a;
+.tag-div.active {
+  background-color: #f7c088;
+}
+
+.tag-div:hover {
+  background-color: #f7c088;
+  cursor: pointer;
 }
 
 /* 분야 설정 박스 */
@@ -208,12 +218,14 @@ button.active {
   font-size: 0.875rem;  
   font-weight: 500;  
   border-radius: 9999px; 
+  text-align: center;
   transition: background-color 0.3s ease;
   margin-bottom: 20px;
 }
 
 .save-button:hover {
   background-color: #e5a769;
+  cursor: pointer;
 }
 
 .experience-container h3,
@@ -269,16 +281,15 @@ label {
   top: 5px;
   right: 5px;
   color: black;
-  border: none;
-  background: none; /* 배경색 제거 */
-  font-size: 16px; /* X 아이콘이 더 잘 보이도록 크기 조정 */
+  background: none; 
+  font-size: 15px; 
   cursor: pointer;
-  transition: color 0.3s; /* 색상 전환 애니메이션 추가 */
+  transition: color 0.3s;
 }
 
 
 .delete-image-btn:hover {
-  color: white; 
+  color:#d9d9d9;  
 }
 
 
@@ -302,12 +313,10 @@ label {
   object-fit: contain; /* 이미지가 컨테이너 내에서 비율을 유지하면서 크기 조정 */
 }
 
-/* 기본 input[type="file"] 숨기기 */
 input[type="file"] {
   display: none;
 }
 
-/* 커스텀 버튼 스타일 */
 .custom-file-upload {
   background-color: #faf5f0; 
   color: #f3ab62;

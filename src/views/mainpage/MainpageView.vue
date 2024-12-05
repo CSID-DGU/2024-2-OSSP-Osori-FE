@@ -49,7 +49,12 @@
               }"
             >
               <span>{{ task.name }}</span>
-              <img :src="getTaskIcon(task.name)" />
+              <img
+                :src="getTaskIcon(task.name)"
+                :style="{
+                  filter: task.completed ? 'none' : 'grayscale(100%)'
+                }"
+              />
             </div>
           </div>
           <div class="task-row">
@@ -63,7 +68,12 @@
               }"
             >
               <span>{{ task.name }}</span>
-              <img :src="getTaskIcon(task.name)" />
+              <img
+                :src="getTaskIcon(task.name)"
+                :style="{
+                  filter: task.completed ? 'none' : 'grayscale(100%)'
+                }"
+              />
             </div>
           </div>
         </div>
@@ -88,7 +98,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import MainHeader from '@/components/layout/Header.vue'
 import MainFooter from '@/components/layout/Footer.vue'
 import attendanceIcon from '@/assets/Icons/akoming/todo/attendance.svg'
@@ -104,22 +113,6 @@ const tasks = ref([
   { name: '아코폴리오', completed: false }
 ])
 
-// 각 퀘스트의 상태를 받아와서 tasks에 업데이트하는 함수
-const fetchQuestStatus = async () => {
-  try {
-    const userId = 'user-id'
-    const response = await axios.get(`/api/quests/${userId}`)
-    const { quest1, quest2, quest3, quest4 } = response.data
-
-    tasks.value[0].completed = quest1
-    tasks.value[1].completed = quest2
-    tasks.value[2].completed = quest3
-    tasks.value[3].completed = quest4
-  } catch (error) {
-    console.error('퀘스트 상태를 가져오는 중 오류 발생:', error)
-  }
-}
-
 // 스탬프 상태 정의
 const stamps = ref([
   { label: 'A', completed: false, position: { top: '-18px', left: '12px' } },
@@ -131,52 +124,39 @@ const stamps = ref([
   { label: 'G', completed: false, position: { top: '297px', left: '237px' } }
 ])
 
-// 각 스탬프의 상태를 받아와서 stamps에 업데이트하는 함수
-const fetchStampsStatus = async () => {
+// 기본 아코 이미지 설정
+const akoImage = ref(require('@/assets/Icons/akoming/mainpage/ako-01.svg'))
+
+// 퀘스트와 스탬프 상태를 업데이트하는 함수
+const fetchQuestStatus = async () => {
   try {
-    const userId = 'user-id'
-    const response = await axios.get(`/api/quests/${userId}`)
-    const { stamp1, stamp2, stamp3, stamp4, stamp5, stamp6, stamp7 } =
-      response.data
+    const response = await fetch(
+      `${process.env.VUE_APP_BE_API_URL}/api/quests/status`,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+    )
+    if (!response.ok) throw new Error('Failed to fetch quest status')
 
-    stamps.value[0].completed = stamp1
-    stamps.value[1].completed = stamp2
-    stamps.value[2].completed = stamp3
-    stamps.value[3].completed = stamp4
-    stamps.value[4].completed = stamp5
-    stamps.value[5].completed = stamp6
-    stamps.value[6].completed = stamp7
+    const { questStatus, stampCount } = await response.json()
+
+    // 퀘스트 상태 업데이트
+    tasks.value[0].completed = questStatus.attended
+    tasks.value[1].completed = questStatus.goalWritten
+    tasks.value[2].completed = questStatus.commentedOnFriendGoal
+    tasks.value[3].completed = questStatus.portfolioWritten
+    console.log('Updated tasks:', tasks.value) // 확인용 로그
+
+    // 스탬프 상태 업데이트
+    stamps.value.forEach((stamp, index) => {
+      stamp.completed = index < stampCount
+    })
   } catch (error) {
-    console.error('스탬프 상태를 가져오는 중 오류 발생:', error)
-  }
-}
-
-// 아코 이미지 경로 저장할 변수
-const elephantIcons = [
-  '@/assets/Icons/akoming/mainpage/ako-01.svg',
-  '@/assets/Icons/akoming/mainpage/ako-02.svg',
-  '@/assets/Icons/akoming/mainpage/ako-03.svg',
-  '@/assets/Icons/akoming/mainpage/ako-04.svg',
-  '@/assets/Icons/akoming/mainpage/ako-05.svg',
-  '@/assets/Icons/akoming/mainpage/ako-06.svg'
-]
-const akoImage = ref(elephantIcons[0])
-
-// Level에 따른 아코 이미지 설정 함수
-const setElephantIconByLevel = async () => {
-  try {
-    const response = await axios.get('/api/goals')
-    const level = response.data.level
-
-    if (level >= 1 && level <= 6) {
-      akoImage.value = elephantIcons[level - 1]
-    } else {
-      console.warn('유효한 level 값이 아닙니다:', level)
-      akoImage.value = elephantIcons[0]
-    }
-  } catch (error) {
-    console.error('아코 이미지를 가져오는 중 오류 발생:', error)
-    akoImage.value = elephantIcons[0]
+    console.error('퀘스트 상태를 가져오는 중 오류 발생:', error)
   }
 }
 
@@ -207,9 +187,138 @@ const getTaskIcon = (taskName) => {
 // onMounted에서 호출하여 초기 데이터 로드
 onMounted(() => {
   fetchQuestStatus()
-  fetchStampsStatus()
-  setElephantIconByLevel()
 })
 </script>
 
-<style scoped src="./MainpageStyled.css"></style>
+<style scoped>
+/* 외부 컨테이너 */
+.page-container {
+  min-height: 100vh;
+  background-color: #fff9f2;
+  font-family: 'NanumSquareRound', sans-serif;
+  display: flex;
+  justify-content: center;
+}
+
+/* 모바일 컨테이너 */
+.mobile-container {
+  width: 395px;
+  min-width: 340px;
+  background-color: #fae8da;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+}
+
+/* 메인 컨텐츠 */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  padding: 6rem 1.5rem 6rem;
+  font-family: 'NanumSquareRound', sans-serif;
+}
+
+.main-content .title {
+  margin-bottom: 70px;
+  font-size: 1.25rem;
+  font-weight: 500;
+  text-align: center;
+  color: #4a4a4a;
+  font-family: 'UhBeeSehyun', sans-serif;
+}
+
+/* 스탬프 영역 */
+.stamp-container {
+  position: relative;
+  width: 390px;
+  height: 520px;
+  margin: 0 auto;
+}
+
+.stamp-container .stamp {
+  position: absolute;
+  width: 95px;
+  height: 95px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stamp-container .stamp img {
+  width: 100%;
+  height: 100%;
+}
+
+/* 할 일 표시 영역 */
+.task-container {
+  margin-top: -80px;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.task-container .task-row {
+  display: flex;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 290px;
+}
+
+.task-container .task-row .task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  height: 40px;
+  padding: 0 1rem;
+  background-color: white;
+  border-radius: 17px;
+}
+
+.task-container .task-row .task span {
+  font-size: 0.875rem;
+  font-family: 'NanumSquareRound', sans-serif;
+  color: var(--task-color, #b3b3b3);
+}
+
+.task-container .task-row .task img {
+  width: 20px;
+  height: 20px;
+  filter: var(--task-filter, grayscale(100%));
+}
+
+/* 아코 이미지 영역 */
+.ako-image-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.ako-image-container .ako-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.ako-image-container .ako-status img {
+  width: 32px;
+  height: 32px;
+  margin-right: 0.5rem;
+}
+
+.ako-image-container .ako-status p {
+  font-size: 0.875rem;
+  color: #757575;
+  font-family: 'NanumSquareRound', sans-serif;
+}
+
+.ako-image-container .ako-image {
+  width: 256px;
+  height: 256px;
+  margin: 0 auto;
+}
+</style>
