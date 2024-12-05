@@ -41,7 +41,7 @@
     </div>
   </div>
   <div v-else>
-    <p>표시할 목표가 없습니다.</p>
+    <p class="no">친구들의 목표가 없습니다😢</p>
   </div>
 </template>
 
@@ -221,6 +221,14 @@ export default {
   flex-direction: column;
   gap: 5px;
   margin-bottom: 5px;
+}
+.no{
+  font-family: 'NaR';
+  width:100%;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(107, 105, 105, 0.612);
+  margin-top: 10px;
 }
 
 .comment {
