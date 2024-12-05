@@ -1,6 +1,7 @@
 <template>
   <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
-    <div class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto">
+    <div class="w-[395px] min-w-[340px] min-h-screen relative overflow-y-auto">
+      <div class="back">
       <header class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10">
         <div class="flex items-center justify-between">
           <img src="@/assets/images/Akoming.svg" alt="로고" class="h-8" />
@@ -21,7 +22,7 @@
               팔로워 {{ followerCount }}
             </div>
             <div class="followerline" :style="{ width: '100%', height: '2px', background: showFollowers ? '#FF7F00' : '#B3B3B3', marginBottom: '15px' }"></div>
-            <ul v-show="showFollowers && followers.length > 0" style="margin-left: 155px; padding: 20; width: 150%; z-index: 200;">
+            <ul v-show="showFollowers && followers.length > 0" style="margin-left: 170px; padding: 20; width: 150%; z-index: 200;">
               <li v-for="follower in followers" :key="follower.followingId" class="flex justify-between items-center mb-4">
                 <span class='font-NaR'>{{ follower.nickname }}</span>
                 <button @click="blockFollower(follower.followingId)" class="followerDelete-btn">삭제</button>
@@ -34,7 +35,7 @@
               팔로잉 {{ followingCount }}
             </div>
             <div class="followingline" :style="{ width: '100%', height: '2px', background: showFollowings ? '#FF7F00' : '#B3B3B3', marginBottom: '15px' }"></div>
-            <ul v-show="showFollowings && followings.length > 0" style="padding-right: 110%; width: 260%;">
+            <ul v-show="showFollowings && followings.length > 0" style="padding-right: 100%; width: 250%;">
               <li v-for="following in followings" :key="following.followingId" class="flex justify-between items-center mb-4">
                 <span class='font-NaR'>{{ following.nickname }}</span>
                 <button @click="unfollow(following.followingId)" class="unfollow-button">팔로우 취소</button>
@@ -44,6 +45,7 @@
         </div>
       </main>
       <Footer />
+      </div>
     </div>
   </div>
 </template>
@@ -172,3 +174,10 @@ const goBack = () => {
   window.history.back();
 };
 </script>
+
+<style scoped>
+.back{
+  background-color:#FAE8DA;
+  height: 100%;
+}
+</style>

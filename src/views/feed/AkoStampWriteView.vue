@@ -1,8 +1,9 @@
 <template>
   <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
     <div
-      class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto"
+      class="w-[395px] min-w-[340px] min-h-screen relative overflow-y-auto"
     >
+    <div class='back'>
       <header
         class="bg-white shadow-sm py-3 px-4 fixed top-0 left-1/2 transform -translate-x-1/2 w-[395px] min-w-[340px] z-10"
       >
@@ -66,6 +67,7 @@
         </div>
       </main>
       <Footer />
+    </div>
     </div>
   </div>
 </template>
@@ -154,3 +156,11 @@ onMounted(() => {
   fetchUserData()
 })
 </script>
+
+<style scoped>
+
+.back{
+  background-color:#FAE8DA;
+  height: 100%;
+}
+</style>

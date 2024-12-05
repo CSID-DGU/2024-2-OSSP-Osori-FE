@@ -1,20 +1,22 @@
 <template>
   <div class="min-h-screen bg-[#FFF9F2] font-pretendard flex justify-center">
-    <div class="w-[395px] min-w-[340px] bg-[#FAE8DA] min-h-screen relative overflow-y-auto">
-      <div class="feed-page">
-        <MainHeader />
-        <SearchBar class="component-spacing1" style="margin-top: 100px" />
-        <FollowStats class="component-spacing2" />
-        <MyGoal class="component-spacing" />
-        <FriendGoal class="component-spacing3" />
-        
-        <div class="Btn" v-if="!hasMineGoal">
-          <router-link to="/feed/ako-stamp-write" class="plusMentBtn">
-            <img src="@/assets/images/92.svg" alt="플러스버튼" />
-          </router-link>
-        </div>
+    <div class="w-[395px] min-w-[340px] min-h-screen relative overflow-y-auto">
+      <div class="back">
+        <div class="feed-page">
+          <MainHeader />
+          <SearchBar class="component-spacing1" style="margin-top: 100px" />
+          <FollowStats class="component-spacing2" />
+          <MyGoal class="component-spacing" />
+          <FriendGoal class="component-spacing3" />
+          
+          <div class="Btn" v-if="!hasMineGoal">
+            <router-link to="/feed/ako-stamp-write" class="plusMentBtn">
+              <img src="@/assets/images/92.svg" alt="플러스버튼" />
+            </router-link>
+          </div>
 
-        <MainFooter />
+          <MainFooter />
+        </div>
       </div>
     </div>
   </div>
@@ -98,6 +100,11 @@ box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 .plusMentBtn {
 
+}
+
+.back{
+  background-color:#FAE8DA;
+  height: 100%;
 }
 
 </style>
