@@ -1,159 +1,149 @@
 <template>
-  <div v-if="friendNickname && friendGoalContent" class="friend-goal">
-    <div class="goal-content">
-      <span class="friendName">{{ friendNickname }}</span>
-      <span class="friendContent">{{ friendGoalContent }}</span>
-      <button class="btn" @click="toggleCommentSection">
-        <img src="../../../assets/images/comment.svg" alt="댓글">
-      </button>
-    </div>
-
-    <!-- 댓글 입력 섹션 -->
-    <div v-if="showCommentSection">
-      <div class="comment-input">
-        <select v-model="selectedEmoji">
-          <option value="" disabled selected hidden>#️⃣</option>
-          <option value="😊">😊</option>
-          <option value="👍">👍</option>
-          <option value="❤️">❤️</option>
-          <option value="😎">😎</option>
-          <option value="😍">😍</option>
-        </select>
-        <input
-          class="realinput"
-          type="text"
-          v-model="comment"
-          placeholder="댓글 입력"
-        />
-        <button @click="submitComment">
-          <img src="../../../assets/images/add.svg" />
+  <div v-if="goals.length" class="friend-goals">
+    <div v-for="goal in goals" :key="goal.goalId" class="friend-goal">
+      <div class="goal-content">
+        <span class="friendName">{{ goal.nickname }}</span>
+        <span class="friendContent">{{ goal.content }}</span>
+        <button class="btn" @click="toggleCommentSection(goal.goalId)">
+          <img src="../../../assets/images/comment.svg" alt="댓글">
         </button>
       </div>
 
-      <div class="comment-list">
-        <div v-for="comment in comments" :key="comment.id" class="comment">
-          <div class="nick">{{ comment.nickname }}</div>
-          <div>{{ getEmoji(comment.emoji) }}</div> <!-- 이모지 변환 -->
-          <div class="comment-content">{{ comment.content }}</div>
+      <div v-if="showCommentSection === goal.goalId">
+        <div class="comment-input">
+          <select v-model="comments[goal.goalId].emoji">
+            <option value="" disabled selected hidden>#️⃣</option>
+            <option value="😊">😊</option>
+            <option value="👍">👍</option>
+            <option value="❤️">❤️</option>
+            <option value="😎">😎</option>
+            <option value="😍">😍</option>
+          </select>
+          <input
+            class="realinput"
+            type="text"
+            v-model="comments[goal.goalId].content"
+            placeholder="댓글 입력"
+          />
+          <div class="'btn2'" @click="submitComment(goal.goalId)">
+            <img src="../../../assets/images/add.svg" />
+          </div>
+        </div>
+
+        <div class="comment-list">
+          <div v-for="comment in goal.comments" :key="comment.commentId" class="comment">
+            <div class="nick">{{ comment.nickname }}</div>
+            <div class='emo'>{{ getEmoji(comment.emoji) }}</div>
+            <div class="comment-content">{{ comment.content }}</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div v-else>
+    <p>표시할 목표가 없습니다.</p>
+  </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue'
+<script>
+import { ref, reactive, onMounted } from 'vue';
 
-// 데이터 정의
-const friendNickname = ref('')
-const friendGoalContent = ref('')
-const comments = ref([])
-const showCommentSection = ref(false)
-const selectedEmoji = ref('')
-const comment = ref('')
-const goalId = ref(null)  // goalId는 API에서 받아옴
+export default {
+  setup() {
+    const goals = ref([]);
+    const showCommentSection = ref(null);
+    const comments = reactive({}); 
 
-// 이모지 맵
-const emojiMap = {
-  '😊': 0,
-  '👍': 1,
-  '❤️': 2,
-  '😎': 3,
-  '😍': 4
-}
+    const emojiMap = {
+      '😊': 0,
+      '👍': 1,
+      '❤️': 2,
+      '😎': 3,
+      '😍': 4,
+    };
 
-// emojiMap을 반대로 변환하여 숫자 값을 이모지로 변환하는 함수
-const getEmoji = (emojiIndex) => {
-  const reversedMap = Object.keys(emojiMap).reduce((acc, key) => {
-    acc[emojiMap[key]] = key
-    return acc
-  }, {})
-  return reversedMap[emojiIndex] || ''  // 없으면 빈 문자열 반환
-}
+    const fetchGoals = async () => {
+      try {
+        const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/feeds`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+        });
 
-// 목표 데이터를 불러오는 함수
-const fetchGoals = async () => {
-  try {
-    const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/feeds`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
+        if (response.ok) {
+          const data = await response.json();
+          goals.value = data.filter((goal) => !goal.mine);
 
-    if (response.ok) {
-      const data = await response.json()
-      console.log('API 응답 데이터:', data)
-      if (data.length > 0) {
-        const firstGoal = data[0]
-        friendNickname.value = firstGoal.nickname
-        friendGoalContent.value = firstGoal.content
-        comments.value = firstGoal.comments
-        goalId.value = firstGoal.goalId
+          goals.value.forEach((goal) => {
+            comments[goal.goalId] = { content: '', emoji: '' };
+          });
+        } else {
+          console.error('목표 데이터를 불러오지 못했습니다.', response.status);
+          alert('데이터를 불러오는 데 문제가 발생했습니다.');
+        }
+      } catch (error) {
+        console.error('API 요청 오류:', error);
+        alert('서버 요청 오류가 발생했습니다.');
       }
-    } else {
-      console.error('목표 데이터를 불러오지 못했습니다.', response.status)
-      alert('데이터를 불러오는 데 문제가 발생했습니다.')
-    }
-  } catch (error) {
-    console.error('API 요청 오류:', error)
-    alert('서버 요청 오류가 발생했습니다.')
-  }
-}
+    };
 
-// 댓글을 작성하는 함수
-const submitComment = async () => {
-  if (!comment.value.trim()) {
-    alert('댓글을 입력하세요.')
-    return
-  }
+    const toggleCommentSection = (goalId) => {
+      showCommentSection.value = showCommentSection.value === goalId ? null : goalId;
+    };
 
-  try {
-    const emojiNumber = emojiMap[selectedEmoji.value] ?? -1
+    const getEmoji = (emoji) => {
+      return Object.keys(emojiMap).find((key) => emojiMap[key] === emoji) || '#️⃣';
+    };
 
-    const payload = {
-      emoji: emojiNumber,
-      content: comment.value,
-    }
+    const submitComment = async (goalId) => {
+      const { content, emoji } = comments[goalId];
+      const emojiValue = emojiMap[emoji] ?? -1;
 
-    console.log("요청할 Payload:", payload)
-
-    const response = await fetch(
-      `${process.env.VUE_APP_BE_API_URL}/api/goals/${goalId.value}/comments`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify(payload),
+      if (!content.trim()) {
+        alert('댓글을 입력해주세요.');
+        return;
       }
-    )
 
-    if (response.ok) {
-      const data = await response.json()
-      console.log("API 응답 데이터:", data) 
-      window.location.reload() 
-      alert('댓글이 성공적으로 추가되었습니다!')
-      selectedEmoji.value = ''
-      comment.value = ''
-    } else {
-      alert('댓글 추가 중 문제가 발생했습니다. 다시 시도해주세요.')
-    }
-  } catch (error) {
-    console.error('댓글 전송 중 오류:', error)
-    alert('댓글 추가 중 문제가 발생했습니다. 다시 시도해주세요.')
-  }
-}
+      try {
+        const payload = { content, emoji: emojiValue };
+        const response = await fetch(`${process.env.VUE_APP_BE_API_URL}/api/goals/${goalId}/comments`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(payload),
+        });
 
-const toggleCommentSection = () => {
-  showCommentSection.value = !showCommentSection.value
-}
+        if (response.ok) {
+          alert('댓글이 성공적으로 추가되었습니다.');
+          comments[goalId].content = '';
+          comments[goalId].emoji = '';
+          fetchGoals();
+        } else {
+          console.error('댓글 추가 실패:', response.status);
+          alert('댓글 추가에 실패했습니다.');
+        }
+      } catch (error) {
+        console.error('댓글 제출 오류:', error);
+        alert('서버 요청 오류가 발생했습니다.');
+      }
+    };
 
-onMounted(() => {
-  fetchGoals()
-})
+    onMounted(fetchGoals);
+
+    return {
+      goals,
+      showCommentSection,
+      comments,
+      toggleCommentSection,
+      getEmoji,
+      submitComment,
+    };
+  },
+};
 </script>
 
 <style scoped>
@@ -161,6 +151,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-bottom: 3px;
   width: 100%;
   border-radius: 10px;
   background: #fff;
@@ -186,8 +177,33 @@ onMounted(() => {
   padding: 8px 0;
   word-wrap: break-word;
 }
+.btn,
+.btn2{
+  display: flex;
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer; 
+}
 
+.btn:focus,
+.btn:active,
+.btn2:focus,
+.btn2:active {
+  outline: none;
+  border: none;
+  cursor: pointer; 
+}
+
+
+.emo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .friendContent {
+  display: flex;
+  align-items: center;
   margin-left: 10px;
   margin-right: 5px;
   padding: 5px 0;
@@ -201,6 +217,7 @@ onMounted(() => {
 
 .comment-list {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 5px;
   margin-bottom: 5px;
@@ -208,8 +225,8 @@ onMounted(() => {
 
 .comment {
   display: flex;
-  gap: 10px;
   margin-left: 5px;
+  align-items: center;
 }
 
 .nick {
@@ -220,6 +237,7 @@ onMounted(() => {
   font-weight: 300;
   line-height: normal;
   display: flex;
+  min-width: 40px;
   align-items: center;
 }
 
@@ -232,6 +250,7 @@ onMounted(() => {
   line-height: normal;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .comment-input {
