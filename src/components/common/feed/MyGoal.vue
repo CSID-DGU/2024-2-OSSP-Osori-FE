@@ -313,7 +313,8 @@ export default {
   width:100%;
   text-align: center;
   font-size: 14px;
-  color: rgba(107, 105, 105, 0.612)
+  color: rgba(107, 105, 105, 0.612);
+  margin-bottom: 10px;
 }
 .comment-input select:focus {
   outline: none;
