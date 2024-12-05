@@ -126,7 +126,6 @@ export default {
         });
 
         if (response.ok) {
-          alert('댓글이 성공적으로 추가되었습니다.');
           comments[goalId].content = '';
           comments[goalId].emoji = '';
           fetchGoals();
@@ -158,7 +157,6 @@ export default {
 
           if (response.ok) {
             goal.content = updatedContent;
-            alert('목표가 수정되었습니다.');
           } else {
             alert('목표 수정 중 문제가 발생했습니다.');
           }
@@ -180,7 +178,7 @@ export default {
     });
 
     if (response.ok) {
-      alert('목표가 삭제되었습니다.');
+      alert('목표가 삭제되었습니다☠️');
       window.location.reload(); 
     } else {
       const errorData = await response.json();

@@ -118,7 +118,6 @@ export default {
         });
 
         if (response.ok) {
-          alert('댓글이 성공적으로 추가되었습니다.');
           comments[goalId].content = '';
           comments[goalId].emoji = '';
           fetchGoals();
@@ -184,6 +183,7 @@ export default {
   border: none;
   background: none;
   cursor: pointer; 
+  align-items: center;
 }
 
 .btn:focus,
