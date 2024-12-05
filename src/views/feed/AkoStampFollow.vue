@@ -22,7 +22,7 @@
               팔로워 {{ followerCount }}
             </div>
             <div class="followerline" :style="{ width: '100%', height: '2px', background: showFollowers ? '#FF7F00' : '#B3B3B3', marginBottom: '15px' }"></div>
-            <ul v-show="showFollowers && followers.length > 0" style="margin-left: 170px; padding: 20; width: 150%; z-index: 200;">
+            <ul v-show="showFollowers && followers.length > 0" style="margin-left: 190px; padding: 20; width: 140%; z-index: 200;">
               <li v-for="follower in followers" :key="follower.followingId" class="flex justify-between items-center mb-4">
                 <span class='font-NaR'>{{ follower.nickname }}</span>
                 <button @click="blockFollower(follower.followingId)" class="followerDelete-btn">삭제</button>
@@ -35,7 +35,7 @@
               팔로잉 {{ followingCount }}
             </div>
             <div class="followingline" :style="{ width: '100%', height: '2px', background: showFollowings ? '#FF7F00' : '#B3B3B3', marginBottom: '15px' }"></div>
-            <ul v-show="showFollowings && followings.length > 0" style="padding-right: 100%; width: 250%;">
+            <ul v-show="showFollowings && followings.length > 0" style="padding-right: 90%; width: 220%;">
               <li v-for="following in followings" :key="following.followingId" class="flex justify-between items-center mb-4">
                 <span class='font-NaR'>{{ following.nickname }}</span>
                 <button @click="unfollow(following.followingId)" class="unfollow-button">팔로우 취소</button>
@@ -179,5 +179,8 @@ const goBack = () => {
 .back{
   background-color:#FAE8DA;
   height: 100%;
+}
+.unfollow-button{
+  width: 90px;
 }
 </style>

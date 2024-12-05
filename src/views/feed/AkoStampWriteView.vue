@@ -133,7 +133,6 @@ const registerGoal = async () => {
 
       if (response.ok) {
         const data = await response.json()
-        alert(`목표가 등록되었습니다: ${data.content}`)
         window.history.back();
         userText.value = ''
       } else {
