@@ -16,9 +16,6 @@
         <header class="header">
           <div class="header-content">
             <img src="@/assets/images/Akoming.svg" alt="로고" class="logo" />
-            <button @click="$router.push('/auth/signup')" class="signup-button">
-              회원가입
-            </button>
           </div>
         </header>
 
@@ -58,6 +55,9 @@
               <button type="submit" class="submit-button">로그인</button>
             </div>
           </form>
+          <button @click="$router.push('/auth/signup')" class="signup-button">
+            회원가입
+          </button>
         </main>
       </div>
     </div>
@@ -138,7 +138,7 @@ export default {
 }
 
 .signup-button {
-  color: #f6b87a;
+  color: #000000;
   background-color: transparent;
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
@@ -239,5 +239,20 @@ export default {
 .submit-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+.signup-button {
+  display: block;
+  margin: 0 auto 0;
+  padding: 0.25rem 0.5rem;
+  color: #000000;
+  background-color: transparent;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  margin-top: -10px;
+}
+
+.signup-button:hover {
+  background-color: rgba(246, 184, 122, 0.1);
 }
 </style>

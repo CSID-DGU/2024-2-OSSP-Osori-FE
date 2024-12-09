@@ -41,28 +41,34 @@ onMounted(() => {
         <div>
           <h2
             class="section-title"
-            style="font-family: 'NanumSquareRound', sans-serif"
+            style="
+              font-family: 'NanumSquareRound', sans-serif;
+              margin-top: 10px;
+              margin-left: 28px;
+            "
           >
             {{ currentYear }} at 동국대학교
           </h2>
           <div class="flex items-center justify-between">
             <h3
               class="month-title"
-              style="font-family: 'NanumSquareRound', sans-serif"
+              style="
+                font-family: 'NanumSquareRound', sans-serif;
+                margin-left: 28px;
+              "
             >
               {{ currentMonth }}월
             </h3>
             <div class="flex space-x-6">
               <button @click="goToPrevMonth">
                 <img
-                  src="@/assets/Icons/akoming/arrowright.svg"
+                  src="@/assets/Icons/akoming/calendar-arrow-left.svg"
                   alt="arrow left"
-                  class="transform scale-x-[-1]"
                 />
               </button>
-              <button @click="goToNextMonth">
+              <button @click="goToNextMonth" style="margin-right: 28px">
                 <img
-                  src="@/assets/Icons/akoming/arrowright.svg"
+                  src="@/assets/Icons/akoming/calendar-arrow-right.svg"
                   alt="arrow right"
                 />
               </button>
@@ -101,14 +107,28 @@ onMounted(() => {
           class="schedule-popup"
           v-if="isScheduleOpen && selectedEvents.length > 0"
         >
-          <div class="popup-header">
-            <h2>학사 일정</h2>
-            <button class="close-button" @click="closeSchedule">×</button>
-          </div>
+          <button class="close-button" @click="closeSchedule">×</button>
           <div class="popup-content">
-            <div v-for="event in selectedEvents" :key="event.title">
-              <p>{{ event.title }}</p>
-              <p>{{ formatDateRange(event.startDate, event.endDate) }}</p>
+            <div
+              v-for="(event, index) in selectedEvents"
+              :key="event.title"
+              class="event-item"
+            >
+              <div class="event-header">
+                <div class="selected-date">
+                  {{ selectedDay }}
+                </div>
+                <div class="event-info">
+                  <p class="event-title">{{ event.title }}</p>
+                  <p class="event-date">
+                    {{ formatDateRange(event.startDate, event.endDate) }}
+                  </p>
+                </div>
+              </div>
+              <hr
+                v-if="index < selectedEvents.length - 1"
+                class="event-divider"
+              />
             </div>
           </div>
         </div>
@@ -186,14 +206,17 @@ onMounted(() => {
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1rem;
+  gap: 1.5rem; /* Updated gap value */
   text-align: center;
   margin-bottom: 1rem;
+  margin-left: 10px;
 }
 
 .calendar-day {
   font-size: 0.875rem;
   color: #b3b3b3;
+
+  letter-spacing: 0.7em; /* Updated letter-spacing value */
 }
 
 .calendar-week {
@@ -229,19 +252,32 @@ onMounted(() => {
 
 .schedule-popup {
   position: fixed;
-  bottom: -100%; /* 시작 위치: 화면 아래 */
+  bottom: 60px; /* Adjust this value to match your footer height */
   left: 0;
   right: 0;
   background-color: #ffffff;
   border-radius: 1.5rem 1.5rem 0 0;
   padding: 1.5rem;
   overflow-y: auto;
-  max-height: 60vh;
+  max-height: calc(
+    100vh - 120px
+  ); /* Adjust this value to account for footer and some extra space */
   width: 395px;
   margin: 0 auto;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
-  animation: slide-up 0.3s ease-out forwards; /* 부드러운 위로 이동 애니메이션 */
   z-index: 1000;
+}
+
+.close-button {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 
 .link-button {
@@ -265,56 +301,74 @@ onMounted(() => {
 .link-button:hover {
   background-color: #f1cdb1;
 }
+
 .day-button.has-event::after {
   content: '';
   display: block;
-  width: 6px;
-  height: 6px;
+  width: 4px;
+  height: 4px;
   background-color: #b3b3b3;
   border-radius: 50%;
   margin: 0 auto;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 @keyframes slide-up {
   from {
-    bottom: -100%; /* 초기 상태 */
+    bottom: -100%;
   }
   to {
-    bottom: 0; /* 최종 상태 */
+    bottom: 0;
   }
 }
 
-.popup-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.event-item {
   margin-bottom: 1rem;
 }
 
-.popup-header h2 {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #4a4a4a;
+.event-header {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
 }
 
-.close-button {
-  background: none;
+.selected-date {
+  background-color: #ff7f00;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  font-size: 0.875rem;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.25rem; /* Updated margin-right value */
+  flex-shrink: 0;
+}
+
+.event-info {
+  flex: 1;
+}
+
+.event-title {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.event-date {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.event-divider {
   border: none;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #b3b3b3;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.close-button:hover {
-  color: #ff7f00;
+  border-top: 1px solid #878787;
+  margin: 0.75rem;
 }
 
 .popup-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+  padding-top: 1rem;
 }
 </style>
