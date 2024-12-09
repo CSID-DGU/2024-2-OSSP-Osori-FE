@@ -94,13 +94,14 @@
 
 <style scoped>
 .akopolio-detail {
-  width: 395px;
+  min-height: 110vh;
+  max-width: 395px;
+  width: 100%; 
   margin: 4rem auto;
   padding: 20px;
   background-color: #fae8da;
-  min-height: calc(100vh - 120px);
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  justify-content: space-between; 
   font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -201,8 +202,9 @@
   color: black;
   padding: 4px 8px;
   border-radius: 20px;
-  font-size: 11px;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-size: 10px;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .dropdown-arrow {

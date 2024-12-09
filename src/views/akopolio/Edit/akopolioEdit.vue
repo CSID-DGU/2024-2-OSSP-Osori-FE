@@ -104,12 +104,14 @@
 
 <style scoped>
 .container {
-  width: 395px;
-  max-width: 500px;
+  min-height: 110vh;
+  max-width: 395px;
+  width: 100%; 
   margin: 4rem auto;
-  padding: 20px;  
+  padding: 20px;
   background-color: #fae8da;
-  min-height: calc(100vh - 120px); /* 헤더와 푸터를 고려한 페이지 높이 조정 */
+  position: relative;
+  justify-content: space-between; 
   font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -179,6 +181,9 @@ textarea {
   border: 1px solid #eec092;
   cursor: pointer;
   margin: 2px;
+  font-size: 10px;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .tag-item.active {
@@ -209,8 +214,10 @@ textarea {
   color: black;
   padding: 4px 8px;
   border-radius: 20px;
-  font-size: 11px;
   margin-top: 2px;
+  font-size: 10px;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .dropdown-arrow {

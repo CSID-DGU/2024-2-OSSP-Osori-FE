@@ -1,6 +1,7 @@
 <template>
-  <div class="akopolio-page">
+<div class="whole-page">
     <MainHeader />
+    <div class="akopolio-page">
     <header class="header">
       <div class="filter-container">
         <div class="search-container">
@@ -50,7 +51,7 @@
       <img :src="require('@/assets/images/detailarr.svg')" alt="detail arrow" class="portfolio-arrow">
       </div>
     </div>
-  </div>
+    </div>
 
   <!-- 데이터가 없을 경우 -->
   <div v-else class="no-data">
@@ -70,24 +71,23 @@
         alt="Akoming Logo"
       />
     </div>
-
-
-    <MainFooter />
   </div>
+    <MainFooter />
+</div>
 </template>
 
 <script src="./main.js"></script>
 
 <style scoped>
-
 .akopolio-page {
-  width: 395px;
-  max-width: 500px;
+  min-height: 110vh;
+  max-width: 395px;
+  width: 100%; 
   margin: 4rem auto;
   padding: 20px;
   background-color: #fae8da;
-  min-height: calc(100vh - 120px);
   position: relative;
+  justify-content: space-between; 
   font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -162,9 +162,10 @@ input[type='text']{
   flex-wrap: wrap; 
   margin-top: 10px;
   margin-bottom: 30px;
-  font-size: 11px;
-  font-weight: 100;
+  font-size: 10px;
+  font-weight: 300;
   justify-content: space-between;
+  font-family: sans-serif;
 }
 
 .tag-container div {
@@ -239,10 +240,10 @@ input[type='text']{
   color: black;
   padding: 3px 8px;
   border-radius: 20px;
-  font-size: 11px;
+  font-size: 10px;
   margin-top: 5px;
-  font-family: 'NanumSquareRound', sans-serif;
   font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .header {
@@ -268,7 +269,7 @@ input[type='text']{
 
 .floating-btn {
   position: fixed;
-  bottom: 8%; 
+  bottom: 10%; 
   right: calc(50% - 180px);
   background-color: #f4b28c;
   color: white;
@@ -279,18 +280,26 @@ input[type='text']{
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 100; /* 다른 요소들 위에 표시되도록 */
+  z-index: 10;
 }
-
 
 .floating-btn:hover {
   cursor: pointer;
   background-color: #eaa279;
 }
 
-
 .floating-btn img {
   width: 30px;
   height: 30px;
 }
+
+@media (max-width: 370px) {
+  .floating-btn {
+    right: 40px; 
+    bottom: 10%; 
+    width: 50px; 
+    height: 50px; 
+  }
+}
+
 </style>
