@@ -21,9 +21,9 @@ export default {
       selectedTags: [],
       tags: [
         '전공', '교양', '교내동아리', '교외동아리', '학회', '봉사활동',
-        '인턴', '아르바이트', '대외활동', '서포터즈', '기자단',
+        '인턴', '아르바이트', '대외활동', '서포터즈', '기자단', '기타',
         '강연/행사', '스터디', '부트캠프', '프로젝트', '연구',
-        '학생회', '기타'
+        '학생회'
       ],
       isDropdownOpen: false,
       portfolioList: [], // 초기 포트폴리오는 빈 배열로 설정
@@ -91,6 +91,21 @@ export default {
     totalPages() {
       return Math.ceil(this.portfolioList.length / this.itemsPerPage);
     },
+
+    groupedPortfolioList() {
+      const grouped = {};
+      this.filteredPortfolioList.forEach(item => {
+        if (!grouped[item.startDate]) {
+          grouped[item.startDate] = [];
+        }
+        grouped[item.startDate].push(item);
+      });
+  
+      // 객체를 배열로 변환하고 날짜를 오래된 순으로 정렬
+      return Object.entries(grouped)
+        .sort((a, b) => new Date(a[0]) - new Date(b[0]))
+        .map(([date, items]) => ({ date, items }));
+    },
   },
   methods: {
     async fetchUserData() {
@@ -124,19 +139,18 @@ export default {
       }
     },
 
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen;
-    },
-
     toggleTag(tag) {
       const index = this.selectedTags.indexOf(tag);
       if (index > -1) {
+        // 이미 선택된 태그라면 배열에서 제거
         this.selectedTags.splice(index, 1);
       } else {
+        // 선택되지 않은 태그라면 배열에 추가
         this.selectedTags.push(tag);
       }
-      this.applyFilters();
+      this.applyFilters(); // 필터 적용
     },
+    
 
     applyFilters() {
       this.currentPage = 1; 
@@ -148,14 +162,6 @@ export default {
 
     goToCreatePage() {
       this.$router.push('/akopolio/create');
-    },
-
-    resetFilters() {
-      this.searchQuery = '';
-      this.startDate = '';
-      this.endDate = '';
-      this.selectedTags = [];
-      this.currentPage = 1;
     },
 
     goToDetailPage(id) {
