@@ -1,5 +1,6 @@
 <template>
-  <div class="page-container">
+  <SkeletonMainPage v-if="isLoading" />
+  <div v-else class="page-container">
     <div class="mobile-container" style="margin-top: 20px">
       <MainHeader />
 
@@ -13,7 +14,7 @@
         <div class="stamp-container">
           <svg viewBox="0 0 390 520" class="path">
             <path
-              d="M 60 25 L 195 25 Q 330 25, 330 107.5 Q 330 190, 195 190 L 60 190 A 75 75 0 0 0 60 340 L 270 340"
+              d="M 60 25 L 195 25 Q 330 25, 330 107.5 Q 330 190, 195 190 L 60 190 A 75 75 0 0 0 100 340 L 270 340"
               stroke="#BBB4B4"
               stroke-width="3"
               fill="transparent"
@@ -82,10 +83,11 @@
         <div class="ako-image-container">
           <div class="ako-status">
             <img
+              class="ako-status-icon"
               src="@/assets/Icons/akoming/mainpage/minielephanticon.svg"
               alt="미니 아코 이미지"
             />
-            <p>토실토실 아코가 자라는 중</p>
+            <p class="ako-status-text">토실토실 아코가 자라는 중</p>
           </div>
           <img :src="akoImage" alt="아코 이미지" class="ako-image" />
         </div>
@@ -104,6 +106,7 @@ import attendanceIcon from '@/assets/Icons/akoming/todo/attendance.svg'
 import akojagukIcon from '@/assets/Icons/akoming/todo/akojaguk.svg'
 import commentIcon from '@/assets/Icons/akoming/todo/comment.svg'
 import akofolioIcon from '@/assets/Icons/akoming/todo/akofolio.svg'
+import SkeletonMainPage from './SkeletonMainPage.vue'
 
 // Tasks for the to-do list
 const tasks = ref([
@@ -120,8 +123,8 @@ const stamps = ref([
   { label: 'O', completed: false, position: { top: '62px', left: '262px' } },
   { label: 'M', completed: false, position: { top: '144px', left: '157px' } },
   { label: 'I', completed: false, position: { top: '144px', left: '22px' } },
-  { label: 'N', completed: false, position: { top: '297px', left: '102px' } },
-  { label: 'G', completed: false, position: { top: '297px', left: '237px' } }
+  { label: 'N', completed: false, position: { top: '292px', left: '102px' } },
+  { label: 'G', completed: false, position: { top: '292px', left: '237px' } }
 ])
 
 // 기본 아코 이미지 설정
@@ -310,15 +313,21 @@ onMounted(() => {
   margin-right: 0.5rem;
 }
 
-.ako-image-container .ako-status p {
-  font-size: 0.875rem;
-  color: #757575;
+.ako-image-container .ako-status-text {
+  font-size: 1.1rem;
+  color: #000000;
   font-family: 'NanumSquareRound', sans-serif;
+  letter-spacing: 1px;
+  font-weight: bold;
 }
 
 .ako-image-container .ako-image {
   width: 256px;
   height: 256px;
   margin: 0 auto;
+}
+
+.ako-status-icon {
+  margin-top: -10px;
 }
 </style>
