@@ -14,24 +14,29 @@
     </div>
 
     <!-- 포트폴리오 정보 표시 -->
-    <div class="activity-info">
-      <div class="row activity-box">
+      <div class="activity-box">
         <h2>활동명</h2>
         <p>{{ portfolio ? portfolio.name : '' }}</p>
       </div>
-    <div class="row activity-box activity-date">
+    <div class="activity-date">
       <h2>활동일</h2>
+      <img :src="require('@/assets/images/cal.svg')" alt="calendar" class="calendar-icon" />
       <p>{{ portfolio ? portfolio.startDate : '' }}</p>
     </div>
-      <div class="row activity-box">
+      <div class="category-box">
         <h2>분야 설정</h2>
         <div class="tags">
           <span v-for="(tag, index) in (portfolio ? portfolio.tags : [])" :key="index" class="tag-badge">
-            {{ tag }}
+            #{{ tag }}
           </span>
         </div>
+        <img 
+            :src="require('@/assets/images/downarr.svg')" 
+            alt="down arrow"
+            class="dropdown-arrow"
+          />
       </div>
-    </div>
+  
 
     <!-- STAR 모델 정보 표시 -->
     <div class="experience-container">
@@ -150,39 +155,38 @@
 .pmi-container {
   background-color: white;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 10px; 
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-.activity-info {
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  justify-content: center; 
-  align-items: center; 
+.category-box{
+  margin-top: 40px;
 }
 
+.activity-date,
+.category-box,
 .activity-box {
   background-color: white;
   padding: 20px;
-  border-radius: 10px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-radius: 8px;
   display: flex;
-  flex-direction: column; 
+  flex-direction: row;
   gap: 10px;
-  width: 100%; 
-}
-
-.row {
-  display: flex;
-  justify-content: flex-start; 
   align-items: center;
-  gap: 10px;
   width: 100%; 
+  margin-bottom: 10px;
 }
 
+.activity-date h2,
+.category-box h2,
+.activity-box h2 {
+  margin: 0;
+  margin-right: 8px;
+}
 
 .tags {
   display: flex;
@@ -195,10 +199,17 @@
   display: inline-block;
   background-color: #f6b87a;
   color: black;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 11px;
   font-family: 'NanumSquareRound', sans-serif;
+}
+
+.dropdown-arrow {
+  width: 16px; 
+  height: auto;
+  margin-left: auto; 
+  margin-right: 13px;
 }
 
 .experience-container h3,
@@ -260,4 +271,11 @@ p {
   height: 100%;
   object-fit: contain; 
 }
+
+.calendar-icon {
+  width: 15px; 
+  height: auto;
+  vertical-align: middle; 
+}
+
 </style>
