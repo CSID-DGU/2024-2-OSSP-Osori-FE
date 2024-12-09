@@ -17,7 +17,7 @@ export default {
       startDate: '',
       endDate: '',
       currentPage: 1,
-      itemsPerPage: 8,
+      itemsPerPage: 7,
       selectedTags: [],
       tags: [
         '전공', '교양', '교내동아리', '교외동아리', '학회', '봉사활동',
