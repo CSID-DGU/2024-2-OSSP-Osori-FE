@@ -2,6 +2,7 @@ import MainHeader from '../../../components/layout/Header.vue';
 import MainFooter from '../../../components/layout/Footer.vue';
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 const nickname = ref('');
@@ -40,6 +41,7 @@ export default {
     MainFooter,
   },
   setup() {
+    const router = useRouter();
     const route = useRoute();
     const portfolio = ref(null);
     const portfolioId = route.params.id;
@@ -235,51 +237,88 @@ export default {
       }
     };
 
-    const saveData = async (id) => {
-      if (!isFormComplete.value) {
-        alert('모든 필드를 입력해주세요.');
-        return;
+    const saveData = async () => {
+      const id = portfolioId // route에서 가져온 portfolioId를 사용
+
+      // id가 올바른지 확인
+      if (!id || (typeof id !== 'string' && typeof id !== 'number')) {
+        console.error('Invalid id:', id)
+        alert('잘못된 ID 값입니다. 다시 시도해주세요.')
+        return
       }
 
+      if (!isFormComplete.value) {
+        alert('모든 필드를 입력해주세요.')
+        return
+      }
+
+      // 이미지 URL 정리
+      const photoUrls =
+        images.value.length > 0
+          ? images.value
+              .map((image) => image.previewUrl?.trim()) // previewUrl이 존재하는지 확인 후 트림
+              .filter((url) => url) // 빈 값 제거
+          : []
+
+      // 태그 정리
+      const tagsArray = Array.isArray(selectedTags.value)
+        ? [...selectedTags.value] // Proxy 객체를 일반 배열로 변환
+        : []
+
+      // 요청 바디 생성
+      const requestBody = {
+        name: activityName.value,
+        startDate: activityDate.value,
+        tags: tagsArray,
+        experience: {
+          situation: star.value.situation,
+          task: star.value.task,
+          action: star.value.action,
+          result: star.value.result
+        },
+        pmi: {
+          plus: pmi.value.plus,
+          minus: pmi.value.minus,
+          interesting: pmi.value.interesting
+        },
+        photoUrls: photoUrls
+      }
+
+      console.log('요청 데이터:', requestBody)
 
       try {
-        const response = await axios.put(
-          `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${id}`,
-          {
-            name: activityName.value,
-            startDate: activityDate.value,
-            tags: selectedTags.value,
-            experience: {
-              situation: star.value.situation,
-              task: star.value.task,
-              action: star.value.action,
-              result: star.value.result,
-            },
-            pmi: {
-              plus: pmi.value.plus,
-              minus: pmi.value.minus,
-              interesting: pmi.value.interesting,
-            },
-            photoUrls: images.value.map(image => image.url),
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        );
+        // URL 확인
+        const apiUrl = `${process.env.VUE_APP_BE_API_URL}/api/portfolios/${id}`
+        console.log('API URL:', apiUrl)
 
-        if (response.status === 200) {
-          alert('데이터가 성공적으로 저장되었습니다.');
-        } else {
-          alert('저장에 실패했습니다. 다시 시도해주세요.');
+        const response = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(requestBody),
+          credentials: 'include' // 인증 쿠키 포함
+        })
+
+        // 응답 확인
+        if (!response.ok) {
+          const errorData = await response.json() // 에러 상세 데이터 파싱
+          console.error('서버 에러 응답:', errorData)
+          alert('저장에 실패했습니다. 다시 시도해주세요.')
+          return
         }
 
+        const responseData = await response.json()
+        console.log('서버 응답:', responseData)
+        alert('포트폴리오가 성공적으로 저장되었습니다.')
+        router.push('/akopolio/main'); 
       } catch (error) {
-        console.error('Error saving data:', error);
-        alert('데이터 저장 중 오류가 발생했습니다.');
+        console.error('데이터 저장 중 오류 발생:', error)
+        alert(
+          '데이터 저장 중 오류가 발생했습니다. 자세한 내용은 콘솔에서 확인하세요.'
+        )
       }
-    };
+    }
 
     const isFormComplete = computed(() => {
       return (

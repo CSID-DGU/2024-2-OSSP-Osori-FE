@@ -9,12 +9,15 @@
       <header class="header">
         <div class="header-content">
           <img src="@/assets/images/Akoming.svg" alt="로고" class="logo" />
-          <button @click="$router.push('/auth/login')" class="back-button">
-            뒤로가기
-          </button>
         </div>
       </header>
-
+      <button @click="$router.push('/auth/login')" class="back-button">
+        <img
+          src="@/assets/Icons/akoming/arrow-left.png"
+          alt="뒤로가기"
+          class="back-icon"
+        />
+      </button>
       <!-- 본문 내용 -->
       <main class="main-content">
         <h1 class="title" style="font-family: 'NanumSquareRound', sans-serif">
@@ -141,6 +144,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow-x: hidden;
 }
 
 .header {
@@ -166,21 +170,31 @@
 }
 
 .back-button {
-  color: #f6b87a;
-  background-color: transparent;
-  padding: 0.25rem 0.5rem;
-  border-radius: 9999px;
-  transition: background-color 0.3s ease;
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 20;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.back-icon {
+  width: 24px;
+  height: 24px;
 }
 
 .back-button:hover {
-  background-color: rgba(246, 184, 122, 0.1);
+  opacity: 0.8;
 }
 
 .main-content {
   margin-top: 160px;
   flex-grow: 1;
   padding: 4rem 3rem 2rem;
+  padding-top: 40px;
 }
 
 .title {
@@ -206,6 +220,7 @@
 .form-inline {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .form-group label {
@@ -234,15 +249,24 @@ input.invalid {
   border-color: #ff6b6b;
 }
 
+input#email {
+  height: 2.5rem;
+}
+
 .verification-button {
   padding: 0.5rem 1rem;
   background-color: #f6b87a;
-  color: #ffffff;
+  color: #000000;
   font-size: 0.875rem;
   border-radius: 9999px;
   text-align: center;
   transition: background-color 0.3s ease;
   cursor: pointer;
+  height: 2.5rem;
+  padding: 0.5rem 0.75rem; /* 좌우 패딩을 약간 줄임 */
+  letter-spacing: -0.05em; /* 자간 줄이기 */
+  white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
+  min-width: 80px; /* 버튼의 최소 너비 설정 */
 }
 
 .verification-button:hover {
@@ -271,13 +295,14 @@ input.invalid {
   padding: 0.5rem 1rem;
   height: 2.5rem;
   background-color: #f6b87a;
-  color: #ffffff;
+  color: #000000;
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 9999px;
   text-align: center;
   transition: background-color 0.3s ease;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .submit-button:hover {
@@ -287,18 +312,5 @@ input.invalid {
 .submit-button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
-}
-.form-inline {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center; /* 높이를 맞추기 위해 추가 */
-}
-
-input#email {
-  height: 2.5rem; /* 버튼 높이와 동일하게 설정 */
-}
-
-.verification-button {
-  height: 2.5rem; /* 입력란 높이와 동일하게 설정 */
 }
 </style>

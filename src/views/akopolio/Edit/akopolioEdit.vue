@@ -88,7 +88,9 @@
     </div>
 
     <div class="button-container">
-      <div @click="saveData" class="save-button">저장하기</div>
+      <div @click="() => saveData(activityId)" class="save-button">
+        저장하기
+      </div>
     </div>
       <MainFooter />
    </div> 
