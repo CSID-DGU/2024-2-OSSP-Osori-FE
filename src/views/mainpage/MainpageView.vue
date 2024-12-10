@@ -111,7 +111,6 @@ import commentIcon from '@/assets/Icons/akoming/todo/comment.svg'
 import akofolioIcon from '@/assets/Icons/akoming/todo/akofolio.svg'
 import SkeletonMainPage from './SkeletonMainPage.vue'
 
-// Tasks for the to-do list
 const tasks = ref([
   { name: '아코밍 출석', completed: false },
   { name: '아코자국', completed: false },
@@ -119,7 +118,6 @@ const tasks = ref([
   { name: '아코폴리오', completed: false }
 ])
 
-// 스탬프 상태 정의
 const stamps = ref([
   {
     label: 'A',
@@ -193,7 +191,6 @@ const fetchQuestStatus = async () => {
   }
 }
 
-// Functions to get icons based on task name and completion status
 const getCompletedStampIcon = (label) => {
   return require(`@/assets/Icons/akoming/stamp/color/color${label.toLowerCase()}.svg`)
 }
@@ -217,7 +214,6 @@ const getTaskIcon = (taskName) => {
   }
 }
 
-// onMounted에서 호출하여 초기 데이터 로드
 onMounted(() => {
   fetchQuestStatus()
 })
@@ -230,11 +226,11 @@ onMounted(() => {
   font-family: 'NanumSquareRound', sans-serif;
   display: flex;
   justify-content: center;
-  overflow-x: hidden; /* 좌우 스크롤 제거 */
+  overflow-x: hidden;
 }
 
 .mobile-container {
-  width: 100%; /* 화면 크기에 맞게 조정 */
+  width: 100%;
   max-width: 395px;
   min-width: 340px;
   background-color: #fae8da;
