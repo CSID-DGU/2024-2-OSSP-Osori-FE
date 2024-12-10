@@ -1,6 +1,7 @@
 <template>
-  <div class="akopolio-page">
+<div class="whole-page">
     <MainHeader />
+    <div class="akopolio-page">
     <header class="header">
       <div class="filter-container">
         <div class="search-container">
@@ -8,9 +9,8 @@
             type="text"
             v-model="searchQuery"
             @input="applyFilters" 
-            placeholder="활동명을 입력하세요 (두 글자 이상)"
+            placeholder="아코폴리오 활동명을 입력하세요"
           />
-          <div class="reset-btn" @click="resetFilters">초기화</div>
         </div>
         <div class="date-picker">
           <input type="date" v-model="startDate" @input="applyFilters" />
@@ -21,53 +21,42 @@
     </header>
 
     <!-- 분야 설정 -->
-    <div class="category-box">
-      <div class="category">
-        <label @click="toggleDropdown" class="category-label">
-          <h2>분야 설정</h2>
-          <span v-if="selectedTags.length">
-            <span class="tag-badge" v-for="tag in selectedTags" :key="tag">
-              {{ tag }}
-            </span>
-          </span>
-        </label>
-
-        <div v-show="isDropdownOpen" class="tag-container">
-          <div
-            v-for="tag in tags"
-            :key="tag"
-            @click="toggleTag(tag)"
-            :class="{ active: selectedTags.includes(tag) }"
-          >
-            {{ tag }}
-          </div>
-        </div>
+    <div class="tag-container">
+      <div
+        v-for="tag in tags"
+        :key="tag"
+        @click="toggleTag(tag)"
+        :class="{ active: selectedTags.includes(tag) }"
+      >
+        #{{ tag }}
       </div>
     </div>
 
-    <!-- 포트폴리오 목록 또는 데이터 없음 메시지 -->
+
     <div v-if="filteredPortfolioList.length > 0" class="portfolio-list">
-      <div
-        v-for="item in filteredPortfolioList"
-        :key="item.id"
-        class="portfolio-card"
-        @click="goToDetailPage(item.id)" 
-      >
+    <div v-for="group in groupedPortfolioList" :key="group.date" class="portfolio-group">
+      <!-- 날짜 헤더 -->
+      <p class="group-date">{{ group.date }}</p>
+
+      <!-- 해당 날짜의 카드들 -->
+      <div v-for="item in group.items" :key="item.id" class="portfolio-card"  @click="goToDetailPage(item.id)">
         <div class="portfolio-content">
           <h3 class="portfolio-title">{{ item.name }}</h3>
           <div class="portfolio-tags">
             <span v-for="tag in item.tags" :key="tag" class="portfolio-tag">
-              {{ tag }}
+              #{{ tag }}
             </span>
           </div>
         </div>
-        <p class="created-date">활동일: {{ item.startDate }}</p>
+      <img :src="require('@/assets/images/detailarr.svg')" alt="detail arrow" class="portfolio-arrow">
       </div>
     </div>
-
-    <div v-else class="no-data">
-      <h2>등록된 포트폴리오가 없습니다.</h2>
     </div>
+
+  <!-- 데이터가 없을 경우 -->
+  <div v-else class="no-data">
+    <h2>등록된 포트폴리오가 없습니다😮</h2>
+  </div>
 
     <pagination-nav
       :current-page="currentPage"
@@ -82,25 +71,24 @@
         alt="Akoming Logo"
       />
     </div>
-
-
-    <MainFooter />
   </div>
+    <MainFooter />
+</div>
 </template>
 
 <script src="./main.js"></script>
 
 <style scoped>
-
 .akopolio-page {
-  width: 395px;
-  max-width: 500px;
+  min-height: 110vh;
+  max-width: 395px;
+  width: 100%; 
   margin: 4rem auto;
   padding: 20px;
   background-color: #fae8da;
-  min-height: calc(100vh - 120px);
   position: relative;
-  font-family: 'NanumSquareRound', sans-serif;
+  justify-content: space-between; 
+  font-family: 'NaR';
 }
 
 h3 {
@@ -124,85 +112,84 @@ h2 {
 }
 
 .no-data h2 {
-  font-size: 0.7rem; 
-  color: #777; 
+  font-family: 'NaR';
+  width:100%;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(107, 105, 105, 0.612);
+  margin-bottom: 10px;
 }
 
 input[type='text'],
 input[type='date'] {
-  background-color: white;
-  border: 1px solid #eec092;
-  border-radius: 10px;
-  padding: 5px;
+  background-color: transparent;
+  border:none;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
+  text-align: center;
 }
+
+input[type='text']{
+  border-bottom: 1px solid #D9D9D9;
+  border-radius: 0;
+  padding: 7px;
+  }
+
+  input[type='date'] {
+  padding-top: 0;      
+  padding-right: 10px; 
+  padding-bottom: 5px; 
+  padding-left: 10px;  
+}
+
+
+input {
+  all: unset; /* 기본 스타일 초기화 */
+}
+
 
 .date-picker input[type='date'] {
   margin-right: 10px;
+
 }
 
 .date-picker input[type='date']:last-of-type {
   margin-right: 0;
 }
 
+.filter-container {
+  background-color: white;
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  border: 1px solid #D9D9D9;
+}
+
 .tag-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
   margin-top: 10px;
-  font-size: 12px;
+  margin-bottom: 30px;
+  font-size: 10px;
+  font-weight: 300;
+  justify-content: space-between;
+  font-family: sans-serif;
 }
 
 .tag-container div {
   display: inline-block;
-  margin: 3px;
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
   border: 1px solid #eec092;
   cursor: pointer;
+  margin-top: 4px;
 }
 
 .tag-container div.active {
   background-color: #f6b87a;
-}
-
-.tag-container div:hover {
-  background-color: #f6b87a; 
-  cursor: pointer;
-}
-
-.filter-container {
-  background-color: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: 100%;
-}
-.category-box {
-  background-color: white;
-  padding: 15px;
-  border-radius: 10px;
-  margin-top: 0px;
-  margin-bottom: 40px;
-  width: 100%;
-}
-
-.category-label {
-  display: flex;
-  align-items: center;
-}
-
-.tag-badge {
-  display: inline-block;
-  margin-left: 10px;
-  background-color: #f6b87a;
-  color: black;
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 13px;
 }
 
 .portfolio-list {
@@ -215,13 +202,13 @@ input[type='date'] {
   background-color: white;
   border: 1px solid #f0f0f0;
   border-radius: 10px;
-  padding: 15px;
+  padding: 13px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s;
   position: relative; 
-  
+  margin-bottom: 10px;
 }
 
 .portfolio-card:hover {
@@ -236,17 +223,19 @@ input[type='date'] {
 }
 
 .portfolio-title {
-  font-size: 16px;
+  font-size: 15px;
   margin: 0;
 }
 
-.created-date {
-  font-size: 13px;
-  color: #666;
-  text-align: right;
-  align-self: flex-end; 
-  margin: 0;
-  font-family: 'NanumSquareRound', sans-serif;
+.group-date {
+  font-size: 15px;
+  margin-bottom: 7px;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.portfolio-arrow {
+  margin-right: 5px;
 }
 
 .portfolio-tags {
@@ -258,11 +247,12 @@ input[type='date'] {
 .portfolio-tag {
   background-color: #ffc68d;
   color: black;
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 10px;
   margin-top: 5px;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
 .header {
@@ -286,24 +276,9 @@ input[type='date'] {
   align-items: center;
 }
 
-.reset-btn {
-  margin-left: 10px; /* 오른쪽 여백 */
-  background-color: #f4b28c;
-  color: black;
-  padding: 6px 11px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 13px;
-  text-align: center;
-}
-
-.reset-btn:hover {
-  background-color: #f2a579;
-}
-
 .floating-btn {
   position: fixed;
-  bottom: 8%; 
+  bottom: 90px;
   right: calc(50% - 180px);
   background-color: #f4b28c;
   color: white;
@@ -314,18 +289,26 @@ input[type='date'] {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 100; /* 다른 요소들 위에 표시되도록 */
+  z-index: 10;
 }
-
 
 .floating-btn:hover {
   cursor: pointer;
   background-color: #eaa279;
 }
 
-
 .floating-btn img {
   width: 30px;
   height: 30px;
 }
+
+@media (max-width: 370px) {
+  .floating-btn {
+    right: 40px; 
+    bottom: 10%; 
+    width: 50px; 
+    height: 50px; 
+  }
+}
+
 </style>
