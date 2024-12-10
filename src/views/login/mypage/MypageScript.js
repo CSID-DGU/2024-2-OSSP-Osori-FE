@@ -106,41 +106,41 @@ export async function verifyCurrentPassword() {
 
 // 비밀번호 변경
 export async function updatePassword() {
-  // 현재 비밀번호 확인 여부
   if (!passwordVerified.value) {
     alert('현재 비밀번호를 먼저 확인해주세요.')
     return
   }
 
-  // 새 비밀번호와 확인 비밀번호 일치 여부 확인
   if (password.value !== confirmPassword.value) {
     alert('새 비밀번호가 일치하지 않습니다.')
     return
   }
 
+  if (!password.value || !confirmPassword.value) {
+    alert('새 비밀번호를 입력해주세요.')
+    return
+  }
+
   try {
-    // API 요청
     const response = await fetch(
       `${process.env.VUE_APP_BE_API_URL}/api/users/password`,
       {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          currentPassword: currentPassword.value, // 현재 비밀번호
-          newPassword: password.value // 새 비밀번호
+          currentPassword: currentPassword.value,
+          newPassword: password.value
         }),
-        credentials: 'include' // 세션 포함
+        credentials: 'include'
       }
     )
 
-    // 응답 처리
     if (response.ok) {
-      const message = await response.json() // 성공 메시지
-      alert(message) // "비밀번호가 성공적으로 변경되었습니다."
+      alert('비밀번호가 성공적으로 변경되었습니다.')
       password.value = ''
       confirmPassword.value = ''
       currentPassword.value = ''
-      passwordVerified.value = false // 비밀번호 확인 상태 초기화
+      passwordVerified.value = false
     } else if (response.status === 400) {
       alert('현재 비밀번호가 일치하지 않습니다.')
     } else {
@@ -148,8 +148,6 @@ export async function updatePassword() {
     }
   } catch (error) {
     console.error('비밀번호 수정 오류:', error)
-  } finally {
-    alert('비밀번호가 변경되었습니다.')
   }
 }
 
