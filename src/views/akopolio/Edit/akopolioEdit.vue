@@ -130,7 +130,9 @@
 
 input[type="text"],
 input[type="date"] {
+  all: initial;
   width: 70%;
+  font-family: 'NanumSquareRound', sans-serif;
   padding: 10px;
   background-color: white;
   border: transparent;
@@ -146,11 +148,6 @@ textarea {
   resize: none;
   font-size: 13px;
 }
-
-input {
-  all: unset; /* 기본 스타일 초기화 */
-}
-
 
 textarea:focus {
   outline: none; 

@@ -153,6 +153,8 @@
 
 input[type="text"],
 input[type="date"] {
+  all: initial;
+  font-family: 'NanumSquareRound', sans-serif;
   width: 70%;
   padding: 10px;
   background-color: white;
@@ -195,20 +197,6 @@ textarea {
   margin-bottom: 10px;
   justify-content: space-between; 
   align-items: center; 
-}
-
-#activity-name,
-#activity-date {
-  outline: none !important;
-}
-
-#activity-name:focus,
-#activity-date:focus {
-  outline: none !important;
-}
-
-input {
-  all: unset; /* 기본 스타일 초기화 */
 }
 
 
