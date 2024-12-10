@@ -254,7 +254,6 @@ const saveProfile = () => {
   background-color: #ffc68d;
   color: #000000;
   font-size: 12px;
-  font-weight: medium;
   border-radius: 9999px;
   transition: background-color 0.3s;
   height: 28px;
@@ -337,7 +336,7 @@ const saveProfile = () => {
   margin-bottom: 15px;
 }
 
-.goal-date {
+/* .goal-date {
   flex-shrink: 0;
   width: 40px;
   height: 40px;
@@ -347,10 +346,10 @@ const saveProfile = () => {
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  font-size: 11px;
+  font-size: 5px;
   font-weight: 100;
   margin-right: 12px;
-}
+} */
 
 .goal-content {
   flex-grow: 1;
@@ -365,7 +364,7 @@ const saveProfile = () => {
 }
 
 .user-info-section {
-  margin-top: 32px;
+  margin-top: 8px;
 }
 
 .section-title {
@@ -393,6 +392,11 @@ const saveProfile = () => {
   font-weight: medium;
   color: #4a4a4a;
   font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .form-input {
@@ -403,6 +407,12 @@ const saveProfile = () => {
   border-radius: 9999px;
   font-size: 14px;
   transition: all 0.2s;
+  height: 35px;
+  font-family: 'NaR';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .form-input:focus {
@@ -415,11 +425,16 @@ const saveProfile = () => {
   display: flex;
   gap: 8px;
   align-items: center;
+  height: 35px;
 }
 
 .input-button-group .form-input {
   flex-grow: 1;
   height: 37.6px;
+  font-family: 'NaB';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
 }
 
 .verify-button,
@@ -435,6 +450,10 @@ const saveProfile = () => {
   white-space: nowrap;
   min-width: 80px;
   letter-spacing: -0.05em;
+  font-family: 'NaB';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
 }
 
 .verify-button:hover,
@@ -456,6 +475,11 @@ const saveProfile = () => {
   font-weight: medium;
   border-radius: 9999px;
   transition: background-color 0.3s;
+  font-family: 'NaB';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .save-button:hover {
@@ -469,20 +493,6 @@ const saveProfile = () => {
   position: relative;
 }
 
-.goal-date {
-  width: 34px;
-  height: 34px;
-  margin-right: 12px; /* 좌우 간격 늘리기 */
-  font-size: 10px;
-  background-color: #ff7f00;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  white-space: nowrap; /* 줄바꿈 방지 */
-}
-
 .goal-item {
   display: flex;
   align-items: center;
@@ -492,13 +502,18 @@ const saveProfile = () => {
 .goals-title,
 .expand-button {
   position: absolute;
-  top: -8px;
+  top: -12px;
   background-color: #ffffff;
   color: #000000;
-  padding: 4px 10px;
+  padding: 5px 11px;
   font-size: 12px;
   border-radius: 8px;
   white-space: nowrap; /* 줄바꿈 방지 */
+  font-family: 'NaB';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .goals-title {
@@ -512,9 +527,30 @@ const saveProfile = () => {
 .goal-content {
   font-size: 12px;
   line-height: 1.2;
+  font-family: 'NaL';
+  font-size: 14px;
+  color: #000000;
+  font-style: normal;
+  font-weight: 300;
 }
 
 .goals-list {
   margin-top: 10px;
+}
+.goal-date {
+  width: 34px;
+  height: 30px;
+  margin-right: 12px; /* 좌우 간격 늘리기 */
+  font-size: 10px;
+  background-color: #ff7f00;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+  font-family: 'NaL';
+
+  font-weight: 300;
 }
 </style>

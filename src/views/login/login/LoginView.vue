@@ -1,9 +1,6 @@
 <template>
   <div class="login-page page-container">
-    <div
-      class="mobile-container"
-      style="font-family: 'NanumSquareRound', sans-serif"
-    >
+    <div class="mobile-container" style="font-family: NaR, sans-serif">
       <!-- 로고 로딩 화면 -->
       <LogoLoading
         v-if="showLoading"
@@ -13,14 +10,13 @@
 
       <!-- 로그인 페이지 -->
       <div v-else>
-        <header class="header">
-          <div class="header-content">
-            <img src="@/assets/images/Akoming.svg" alt="로고" class="logo" />
-          </div>
-        </header>
+        <MainHeader />
 
         <main class="main-content">
-          <h1 class="title" style="font-family: 'NanumSquareRound', sans-serif">
+          <h1
+            class="title"
+            style="font-family: NaB, sans-serif; letter-spacing: 5px"
+          >
             로그인
           </h1>
           <form @submit.prevent="onSubmit" class="form">
@@ -52,7 +48,13 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="submit-button">로그인</button>
+              <button
+                type="submit"
+                class="submit-button"
+                style="margin-top: 10px"
+              >
+                로그인
+              </button>
             </div>
           </form>
           <button @click="$router.push('/auth/signup')" class="signup-button">
@@ -67,10 +69,12 @@
 <script>
 import LogoLoading from '@/components/LogoLoading.vue'
 import LoginScript from './LoginScript.js'
+import MainHeader from '@/components/layout/Header.vue'
 
 export default {
   components: {
-    LogoLoading
+    LogoLoading,
+    MainHeader
   },
   data() {
     return {
@@ -143,6 +147,8 @@ export default {
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
   transition: background-color 0.3s ease;
+  font-size: 1rem;
+  margin-top: -10px;
 }
 
 .signup-button:hover {
@@ -151,7 +157,7 @@ export default {
 
 /* 메인 컨텐츠 */
 .main-content {
-  margin-top: 160px;
+  margin-top: 130px;
   flex-grow: 1;
   padding: 4rem 3rem 2rem;
 }
@@ -161,12 +167,13 @@ export default {
   font-size: 1.5rem;
   font-weight: bold;
   text-align: center;
-  font-family: 'Nanum Square Round', sans-serif;
+  font-family: NaB, sans-serif;
 }
 
 /* 폼 */
 .form {
-  margin: 2rem 0;
+  margin: 2rem auto;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -193,6 +200,7 @@ export default {
   font-size: 0.875rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  max-width: 340px;
 }
 
 .form-group input:focus {
@@ -223,13 +231,14 @@ export default {
   padding: 0.5rem 1rem;
   height: 2.5rem;
   background-color: #f6b87a;
-  color: #ffffff;
-  font-size: 0.875rem;
+  color: #000000;
+  font-size: 1rem;
   font-weight: 500;
   border-radius: 9999px;
   text-align: center;
   transition: background-color 0.3s ease;
   cursor: pointer;
+  font-family: 'NaB';
 }
 
 .submit-button:hover {

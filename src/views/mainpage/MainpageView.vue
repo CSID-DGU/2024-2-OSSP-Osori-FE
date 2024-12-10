@@ -12,11 +12,11 @@
 
         <!-- 스탬프 영역 -->
         <div class="stamp-container">
-          <svg viewBox="0 0 390 520" class="path">
+          <svg viewBox="0 0 351 468" class="path">
             <path
-              d="M 60 25 L 195 25 Q 330 25, 330 107.5 Q 330 190, 195 190 L 60 190 A 75 75 0 0 0 100 340 L 270 340"
+              d="M 54 22.5 L 175.5 22.5 Q 297 22.5, 297 96.75 Q 297 171, 175.5 171 L 54 171 A 67.5 67.5 0 0 0 90 306 L 243 306"
               stroke="#BBB4B4"
-              stroke-width="3"
+              stroke-width="2.7"
               fill="transparent"
             />
           </svg>
@@ -38,7 +38,10 @@
         </div>
 
         <!-- 할 일 표시 -->
-        <div class="task-container">
+        <div
+          class="task-container"
+          style="font-family: 'NaR'; letter-spacing: 0.4px"
+        >
           <div class="task-row">
             <div
               v-for="(task, index) in tasks.slice(0, 2)"
@@ -118,13 +121,41 @@ const tasks = ref([
 
 // 스탬프 상태 정의
 const stamps = ref([
-  { label: 'A', completed: false, position: { top: '-18px', left: '12px' } },
-  { label: 'K', completed: false, position: { top: '-18px', left: '147px' } },
-  { label: 'O', completed: false, position: { top: '62px', left: '262px' } },
-  { label: 'M', completed: false, position: { top: '144px', left: '157px' } },
-  { label: 'I', completed: false, position: { top: '144px', left: '22px' } },
-  { label: 'N', completed: false, position: { top: '292px', left: '102px' } },
-  { label: 'G', completed: false, position: { top: '292px', left: '237px' } }
+  {
+    label: 'A',
+    completed: false,
+    position: { top: '-16.2px', left: '10.8px' }
+  },
+  {
+    label: 'K',
+    completed: false,
+    position: { top: '-16.2px', left: '132.3px' }
+  },
+  {
+    label: 'O',
+    completed: false,
+    position: { top: '55.8px', left: '234.3px' }
+  },
+  {
+    label: 'M',
+    completed: false,
+    position: { top: '129.6px', left: '140.4px' }
+  },
+  {
+    label: 'I',
+    completed: false,
+    position: { top: '129.6px', left: '19.8px' }
+  },
+  {
+    label: 'N',
+    completed: false,
+    position: { top: '262.8px', left: '91.8px' }
+  },
+  {
+    label: 'G',
+    completed: false,
+    position: { top: '262.8px', left: '213.3px' }
+  }
 ])
 
 // 기본 아코 이미지 설정
@@ -152,7 +183,6 @@ const fetchQuestStatus = async () => {
     tasks.value[1].completed = questStatus.goalWritten
     tasks.value[2].completed = questStatus.commentedOnFriendGoal
     tasks.value[3].completed = questStatus.portfolioWritten
-    console.log('Updated tasks:', tasks.value) // 확인용 로그
 
     // 스탬프 상태 업데이트
     stamps.value.forEach((stamp, index) => {
@@ -194,18 +224,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* 외부 컨테이너 */
 .page-container {
   min-height: 100vh;
   background-color: #fff9f2;
   font-family: 'NanumSquareRound', sans-serif;
   display: flex;
   justify-content: center;
+  overflow-x: hidden; /* 좌우 스크롤 제거 */
 }
 
-/* 모바일 컨테이너 */
 .mobile-container {
-  width: 395px;
+  width: 100%; /* 화면 크기에 맞게 조정 */
+  max-width: 395px;
   min-width: 340px;
   background-color: #fae8da;
   min-height: 100vh;
@@ -213,7 +243,6 @@ onMounted(() => {
   overflow-y: auto;
 }
 
-/* 메인 컨텐츠 */
 .main-content {
   display: flex;
   flex-direction: column;
@@ -230,18 +259,17 @@ onMounted(() => {
   font-family: 'UhBeeSehyun', sans-serif;
 }
 
-/* 스탬프 영역 */
 .stamp-container {
   position: relative;
-  width: 390px;
-  height: 520px;
+  width: 351px;
+  height: 468px;
   margin: 0 auto;
 }
 
 .stamp-container .stamp {
   position: absolute;
-  width: 95px;
-  height: 95px;
+  width: 85.5px;
+  height: 85.5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -252,7 +280,6 @@ onMounted(() => {
   height: 100%;
 }
 
-/* 할 일 표시 영역 */
 .task-container {
   margin-top: -80px;
   margin-bottom: 3rem;
@@ -292,7 +319,6 @@ onMounted(() => {
   filter: var(--task-filter, grayscale(100%));
 }
 
-/* 아코 이미지 영역 */
 .ako-image-container {
   text-align: center;
   display: flex;

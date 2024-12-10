@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import {
   DAY_LIST,
   currentDate,
@@ -28,13 +28,17 @@ onMounted(() => {
   selectedDay.value = new Date().getDate()
   fetchAcademicEvents()
 })
+// 다른 페이지로 이동 시 바텀시트 닫기
+onUnmounted(() => {
+  isScheduleOpen.value = false
+})
 </script>
 
 <template>
   <div class="page-container">
     <div
       class="inner-container"
-      style="margin-top: 60px; font-family: 'NanumSquareRound', sans-serif"
+      style="margin-top: 60px; font-family: 'NaL', sans-serif"
     >
       <MainHeader />
       <div class="main-content">
@@ -42,9 +46,9 @@ onMounted(() => {
           <h2
             class="section-title"
             style="
-              font-family: 'NanumSquareRound', sans-serif;
+              font-family: 'NaR', sans-serif;
               margin-top: 10px;
-              margin-left: 28px;
+              margin-left: 26px;
             "
           >
             {{ currentYear }} at 동국대학교
@@ -52,26 +56,36 @@ onMounted(() => {
           <div class="flex items-center justify-between">
             <h3
               class="month-title"
-              style="
-                font-family: 'NanumSquareRound', sans-serif;
-                margin-left: 28px;
-              "
+              style="font-family: 'NaB', sans-serif; margin-left: 25px"
             >
               {{ currentMonth }}월
             </h3>
             <div class="flex space-x-6">
-              <button @click="goToPrevMonth">
+              <div
+                @click="goToPrevMonth"
+                role="button"
+                tabindex="0"
+                @keydown.enter="goToPrevMonth"
+                @keydown.space="goToPrevMonth"
+              >
                 <img
                   src="@/assets/Icons/akoming/calendar-arrow-left.svg"
                   alt="arrow left"
                 />
-              </button>
-              <button @click="goToNextMonth" style="margin-right: 28px">
+              </div>
+              <div
+                @click="goToNextMonth"
+                role="button"
+                tabindex="0"
+                @keydown.enter="goToNextMonth"
+                @keydown.space="goToNextMonth"
+                style="margin-right: 28px"
+              >
                 <img
                   src="@/assets/Icons/akoming/calendar-arrow-right.svg"
                   alt="arrow right"
                 />
-              </button>
+              </div>
             </div>
           </div>
         </div>
@@ -158,7 +172,7 @@ onMounted(() => {
 .page-container {
   min-height: 100vh;
   background-color: #fff9f2;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR', sans-serif;
   display: flex;
   justify-content: center;
   position: relative;
@@ -181,14 +195,14 @@ onMounted(() => {
 }
 
 .section-title {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: #4a4a4a;
   margin-bottom: 0.5rem;
 }
 
 .month-title {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: bold;
   color: #4a4a4a;
 }
@@ -206,23 +220,26 @@ onMounted(() => {
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1.5rem; /* Updated gap value */
+  gap: 0.5rem; /* Reduced gap */
   text-align: center;
   margin-bottom: 1rem;
   margin-left: 10px;
+  width: 100%; /* Ensure full width */
 }
 
 .calendar-day {
   font-size: 0.875rem;
   color: #b3b3b3;
-
-  letter-spacing: 0.7em; /* Updated letter-spacing value */
+  width: 2rem;
+  text-align: center;
+  letter-spacing: normal;
 }
 
 .calendar-week {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
   width: 100%;
-  justify-content: space-between;
   margin-bottom: 0.25rem;
 }
 
@@ -235,10 +252,11 @@ onMounted(() => {
   height: 2rem;
   font-size: 0.75rem;
   border-radius: 0.5rem;
-  margin: 0.125rem;
   background-color: transparent;
   color: #b3b3b3;
   transition: background-color 0.3s, color 0.3s;
+  padding: 0;
+  margin: 0 auto;
 }
 
 .day-button.selected {
@@ -264,7 +282,6 @@ onMounted(() => {
   ); /* Adjust this value to account for footer and some extra space */
   width: 395px;
   margin: 0 auto;
-  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
   z-index: 1000;
 }
 
@@ -292,7 +309,7 @@ onMounted(() => {
   font-weight: 500;
   border-radius: 0.5rem;
   text-decoration: none;
-  max-width: 80%;
+  max-width: 90%;
   margin: 0 auto 0.625rem;
   transition: background-color 0.3s ease;
 }
@@ -369,5 +386,102 @@ onMounted(() => {
 
 .popup-content {
   padding-top: 1rem;
+}
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.calendar-day {
+  font-size: 0.875rem;
+  color: #b3b3b3;
+  width: 2rem;
+  text-align: center;
+  letter-spacing: normal;
+}
+
+.calendar-week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0.25rem;
+}
+
+.day-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: #b3b3b3;
+  transition: background-color 0.3s, color 0.3s;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.schedule-popup {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 120px);
+  width: 100%;
+  max-width: 395px;
+  margin: 0 auto;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.schedule-popup {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+  width: 100%;
+  max-width: 395px;
+  margin: 0 auto;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.close-button {
+  position: absolute;
+  top: 0rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 </style>

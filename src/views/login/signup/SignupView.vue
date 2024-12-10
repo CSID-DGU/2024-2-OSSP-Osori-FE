@@ -1,10 +1,7 @@
 <template>
   <div class="page-container">
     <!-- 모바일 영역 -->
-    <div
-      class="mobile-container"
-      style="font-family: 'NanumSquareRound', sans-serif"
-    >
+    <div class="mobile-container" style="font-family: NaB, sans-serif">
       <!-- 상단바 -->
       <header class="header">
         <div class="header-content">
@@ -20,7 +17,10 @@
       </button>
       <!-- 본문 내용 -->
       <main class="main-content">
-        <h1 class="title" style="font-family: 'NanumSquareRound', sans-serif">
+        <h1
+          class="title"
+          style="font-family: 'NaB', sans-serif; letter-spacing: 5px"
+        >
           회원가입
         </h1>
         <form @submit.prevent="onSubmit" class="form">
@@ -36,12 +36,14 @@
                 @input="validateEmail"
                 :class="{ invalid: !isEmailValid && email !== '' }"
                 required
+                style="height: 36px"
               />
               <button
                 type="button"
                 @click="sendVerificationEmail"
                 :disabled="!isEmailValid"
                 class="verification-button"
+                style="height: 35px"
               >
                 인증하기
               </button>
@@ -115,7 +117,12 @@
 
           <!-- 가입하기 버튼 -->
           <div class="form-actions">
-            <button type="submit" :disabled="!canSubmit" class="submit-button">
+            <button
+              type="submit"
+              :disabled="!canSubmit"
+              class="submit-button"
+              style="margin-top: 30px"
+            >
               가입하기
             </button>
           </div>
@@ -131,7 +138,7 @@
 .page-container {
   min-height: 100vh;
   background-color: #fff9f2;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR', sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -191,7 +198,7 @@
 }
 
 .main-content {
-  margin-top: 160px;
+  margin-top: 130px;
   flex-grow: 1;
   padding: 4rem 3rem 2rem;
   padding-top: 40px;
@@ -238,6 +245,7 @@ input {
   font-size: 0.875rem;
   outline: none;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  height: 35px;
 }
 
 input:focus {
@@ -267,6 +275,8 @@ input#email {
   letter-spacing: -0.05em; /* 자간 줄이기 */
   white-space: nowrap; /* 텍스트 줄 바꿈 방지 */
   min-width: 80px; /* 버튼의 최소 너비 설정 */
+  font-family: 'NaB';
+  height: 35px;
 }
 
 .verification-button:hover {
@@ -303,6 +313,8 @@ input#email {
   transition: background-color 0.3s ease;
   cursor: pointer;
   margin-top: 10px;
+  font-family: 'NaB';
+  height: 35px;
 }
 
 .submit-button:hover {
