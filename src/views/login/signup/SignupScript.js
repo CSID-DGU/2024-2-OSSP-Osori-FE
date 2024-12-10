@@ -1,3 +1,5 @@
+import MainHeader from '@/components/layout/Header.vue'
+
 // SignupScript.js
 export default {
   data() {
@@ -10,7 +12,8 @@ export default {
       isEmailValid: true,
       isPasswordValid: true,
       emailSent: false,
-      canSubmit: false // 회원가입 버튼 활성화 상태
+      canSubmit: false, // 회원가입 버튼 활성화 상태
+      MainHeader
     }
   },
   methods: {
