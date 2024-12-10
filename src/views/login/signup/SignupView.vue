@@ -17,7 +17,12 @@
       </button>
       <!-- 본문 내용 -->
       <main class="main-content">
-        <h1 class="title" style="font-family: 'NaB', sans-serif">회원가입</h1>
+        <h1
+          class="title"
+          style="font-family: 'NaB', sans-serif; letter-spacing: 5px"
+        >
+          회원가입
+        </h1>
         <form @submit.prevent="onSubmit" class="form">
           <!-- 이메일 입력란 및 인증하기 버튼 -->
           <div class="form-group">

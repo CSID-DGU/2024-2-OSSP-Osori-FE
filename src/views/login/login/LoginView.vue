@@ -13,7 +13,12 @@
         <MainHeader />
 
         <main class="main-content">
-          <h1 class="title" style="font-family: NaB, sans-serif">로그인</h1>
+          <h1
+            class="title"
+            style="font-family: NaB, sans-serif; letter-spacing: 5px"
+          >
+            로그인
+          </h1>
           <form @submit.prevent="onSubmit" class="form">
             <div class="form-group">
               <label for="email">이메일</label>
@@ -142,7 +147,7 @@ export default {
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
   transition: background-color 0.3s ease;
-  font-size: 0.875rem;
+  font-size: 1rem;
   margin-top: -10px;
 }
 
@@ -227,7 +232,7 @@ export default {
   height: 2.5rem;
   background-color: #f6b87a;
   color: #000000;
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 500;
   border-radius: 9999px;
   text-align: center;
