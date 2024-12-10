@@ -139,6 +139,11 @@ input[type='text']{
 }
 
 
+input {
+  all: unset; /* 기본 스타일 초기화 */
+}
+
+
 .date-picker input[type='date'] {
   margin-right: 10px;
 
@@ -269,7 +274,7 @@ input[type='text']{
 
 .floating-btn {
   position: fixed;
-  bottom: 10%; 
+  bottom: 90px;
   right: calc(50% - 180px);
   background-color: #f4b28c;
   color: white;

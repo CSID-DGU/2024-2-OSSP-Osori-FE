@@ -157,6 +157,13 @@ input[type="date"] {
   border: transparent;
   resize: none;
   font-size: 13px;
+  outline: none; 
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  outline: none; 
 }
 
 textarea {
@@ -187,6 +194,21 @@ textarea {
   justify-content: space-between; 
   align-items: center; 
 }
+
+#activity-name,
+#activity-date {
+  outline: none !important;
+}
+
+#activity-name:focus,
+#activity-date:focus {
+  outline: none !important;
+}
+
+input {
+  all: unset; /* 기본 스타일 초기화 */
+}
+
 
 .tag-container {
   display: flex;
