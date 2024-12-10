@@ -55,7 +55,7 @@
 
   <!-- 데이터가 없을 경우 -->
   <div v-else class="no-data">
-    <h2>등록된 포트폴리오가 없습니다.</h2>
+    <h2>등록된 포트폴리오가 없습니다😮</h2>
   </div>
 
     <pagination-nav
@@ -88,7 +88,7 @@
   background-color: #fae8da;
   position: relative;
   justify-content: space-between; 
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR';
 }
 
 h3 {
@@ -112,8 +112,12 @@ h2 {
 }
 
 .no-data h2 {
-  font-size: 0.7rem; 
-  color: #777; 
+  font-family: 'NaR';
+  width:100%;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(107, 105, 105, 0.612);
+  margin-bottom: 10px;
 }
 
 input[type='text'],
