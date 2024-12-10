@@ -48,7 +48,9 @@ export default {
     const router = useRouter(); // router 사용
     const portfolioId = route.params.id; // route에서 portfolioId 가져오기
 
-
+    const goBack = () => {
+      window.history.back();  // 뒤로 가기
+    };
     console.log("Portfolio ID:", portfolioId);
 
         // 포트폴리오 데이터 가져오기
@@ -140,6 +142,7 @@ export default {
       portfolio,
       images,
       nickname,
+      goBack,
       editPortfolio,
       handleDeletePortfolio,
     };

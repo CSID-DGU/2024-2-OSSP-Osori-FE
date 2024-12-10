@@ -3,6 +3,9 @@
     <MainHeader />
     <div class="detail-header">
       <div class="header-content">
+        <div class="back-button" @click="goBack">
+          <img src="@/assets/images/back.svg" alt="Back" class="arrow-left-icon" />
+        </div>
         <div class="action-buttons">
           <div class="edit-button" @click="editPortfolio">수정하기</div>
           <div class="delete-button" @click="handleDeletePortfolio">
@@ -278,6 +281,10 @@ p {
   width: 15px; 
   height: auto;
   vertical-align: middle; 
+}
+
+.arrow-left-icon {
+  cursor: pointer;
 }
 
 </style>

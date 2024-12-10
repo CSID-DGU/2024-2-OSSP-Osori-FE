@@ -2,7 +2,9 @@
   <div class="container">
     <!-- Header -->
     <MainHeader />
-
+    <div class="back-button" @click="goBack">
+      <img src="@/assets/images/back.svg" alt="Back" class="arrow-left-icon" />
+    </div>
     <!-- Activity Name and Date -->
     <div class="activity-info">
       <div class="activity-name-container">
@@ -151,6 +153,8 @@
 
 input[type="text"],
 input[type="date"] {
+  all: initial;
+  font-family: 'NanumSquareRound', sans-serif;
   width: 70%;
   padding: 10px;
   background-color: white;
@@ -193,20 +197,6 @@ textarea {
   margin-bottom: 10px;
   justify-content: space-between; 
   align-items: center; 
-}
-
-#activity-name,
-#activity-date {
-  outline: none !important;
-}
-
-#activity-name:focus,
-#activity-date:focus {
-  outline: none !important;
-}
-
-input {
-  all: unset; /* 기본 스타일 초기화 */
 }
 
 
@@ -389,6 +379,11 @@ input[type="file"] {
 .upload-icon {
   width: 40px;       
   height: auto;         
+}
+
+.arrow-left-icon {
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 
 </style>

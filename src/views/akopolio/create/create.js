@@ -50,6 +50,7 @@ export default {
     }
   },
   methods: {
+    
     async fetchUserData() {
       try {
         const response = await fetch(
@@ -79,6 +80,10 @@ export default {
         console.error('사용자 정보 가져오기 오류:', error);
         alert('사용자 정보 가져오기 오류가 발생했습니다.');
       }
+    },
+
+    goBack() {
+      window.history.back();  // 이전 페이지로 돌아가기
     },
 
     toggleDropdown() {

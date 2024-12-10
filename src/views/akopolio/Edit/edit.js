@@ -68,6 +68,10 @@ export default {
     });
     const isDropdownOpen = ref(false);
 
+    const goBack = () => {
+      window.history.back();  // 뒤로 가기
+    };
+
     const toggleDropdown = () => {
       isDropdownOpen.value = !isDropdownOpen.value;
     };
@@ -349,6 +353,7 @@ export default {
       star,
       pmi,
       isDropdownOpen,
+      goBack,
       toggleDropdown,
       toggleTag,
       autoResize,
