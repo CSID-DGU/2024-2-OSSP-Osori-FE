@@ -103,7 +103,12 @@
                   placeholder="새 비밀번호를 다시 입력하세요"
                   class="form-input"
                 />
-                <button @click="updatePassword" class="update-button">
+                <!-- 비밀번호 수정 버튼에 :disabled 속성 추가 -->
+                <button
+                  @click="updatePassword"
+                  class="update-button"
+                  :disabled="!password || !confirmPassword"
+                >
                   수정하기
                 </button>
               </div>
