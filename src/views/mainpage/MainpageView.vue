@@ -14,7 +14,7 @@
         <div class="stamp-container">
           <svg viewBox="0 0 390 520" class="path">
             <path
-              d="M 60 25 L 195 25 Q 330 25, 330 107.5 Q 330 190, 195 190 L 60 190 A 75 75 0 0 0 100 340 L 270 340"
+              d="M 80 40 L 195 40 Q 330 40, 330 130 Q 330 212.5, 195 212.5 L 80 212.5 A 75 75 0 0 0 120 372.5 L 270 372.5"
               stroke="#BBB4B4"
               stroke-width="3"
               fill="transparent"
@@ -38,7 +38,10 @@
         </div>
 
         <!-- 할 일 표시 -->
-        <div class="task-container">
+        <div
+          class="task-container"
+          style="font-family: 'NaR'; letter-spacing: 0.4px"
+        >
           <div class="task-row">
             <div
               v-for="(task, index) in tasks.slice(0, 2)"
@@ -121,8 +124,8 @@ const stamps = ref([
   { label: 'A', completed: false, position: { top: '-18px', left: '12px' } },
   { label: 'K', completed: false, position: { top: '-18px', left: '147px' } },
   { label: 'O', completed: false, position: { top: '62px', left: '262px' } },
-  { label: 'M', completed: false, position: { top: '144px', left: '157px' } },
-  { label: 'I', completed: false, position: { top: '144px', left: '22px' } },
+  { label: 'M', completed: false, position: { top: '140px', left: '157px' } },
+  { label: 'I', completed: false, position: { top: '140px', left: '22px' } },
   { label: 'N', completed: false, position: { top: '292px', left: '102px' } },
   { label: 'G', completed: false, position: { top: '292px', left: '237px' } }
 ])
@@ -198,7 +201,7 @@ onMounted(() => {
 .page-container {
   min-height: 100vh;
   background-color: #fff9f2;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaB', sans-serif;
   display: flex;
   justify-content: center;
 }
@@ -218,7 +221,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   padding: 6rem 1.5rem 6rem;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaB', sans-serif;
 }
 
 .main-content .title {
@@ -282,7 +285,7 @@ onMounted(() => {
 
 .task-container .task-row .task span {
   font-size: 0.875rem;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaB', sans-serif;
   color: var(--task-color, #b3b3b3);
 }
 
@@ -316,9 +319,8 @@ onMounted(() => {
 .ako-image-container .ako-status-text {
   font-size: 1.1rem;
   color: #000000;
-  font-family: 'NanumSquareRound', sans-serif;
-  letter-spacing: 1px;
-  font-weight: medium;
+  font-family: 'NaR', sans-serif;
+  letter-spacing: 0.5px;
 }
 
 .ako-image-container .ako-image {
@@ -329,5 +331,36 @@ onMounted(() => {
 
 .ako-status-icon {
   margin-top: -20px;
+}
+.page-container {
+  min-height: 100vh;
+  background-color: #fff9f2;
+  font-family: 'NaB', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+}
+.mobile-container {
+  width: 100%;
+  max-width: 395px;
+  min-width: 340px;
+  background-color: #fae8da;
+  min-height: 100vh;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.stamp-container {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  height: 520px;
+  margin: 0 auto;
+}
+@media (max-width: 390px) {
+  .stamp-container .stamp {
+    transform: scale(0.9);
+  }
 }
 </style>
