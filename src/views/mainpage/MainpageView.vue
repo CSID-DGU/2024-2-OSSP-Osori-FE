@@ -328,6 +328,6 @@ onMounted(() => {
 }
 
 .ako-status-icon {
-  /* margin-top: -10px; */
+  margin-top: -20px;
 }
 </style>
