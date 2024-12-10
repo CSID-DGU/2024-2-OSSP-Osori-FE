@@ -250,17 +250,17 @@ const saveProfile = () => {
 }
 
 .logout-button {
-  padding: 8px 16px;
+  padding: 6px 12px;
   background-color: #ffc68d;
   color: #000000;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   border-radius: 9999px;
   transition: background-color 0.3s;
-  box-shadow: inset 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+
   font-weight: 700;
-  height: 32px;
-  line-height: 20px;
+  height: 28px;
+  line-height: 16px;
 }
 
 .logout-button:hover {
