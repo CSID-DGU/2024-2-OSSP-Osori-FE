@@ -14,7 +14,7 @@
         </div>
         <div class="date-picker">
           <input type="date" v-model="startDate" @input="applyFilters" />
-          <span> </span>
+          <span>~</span>
           <input type="date" v-model="endDate" @input="applyFilters" />
         </div>
       </div>
@@ -122,6 +122,8 @@ h2 {
 
 input[type='text'],
 input[type='date'] {
+  all: initial;
+  font-family: 'NaR';
   background-color: transparent;
   border:none;
   width: 100%;
@@ -141,12 +143,6 @@ input[type='text']{
   padding-bottom: 5px; 
   padding-left: 10px;  
 }
-
-
-input {
-  all: unset; /* 기본 스타일 초기화 */
-}
-
 
 .date-picker input[type='date'] {
   margin-right: 10px;
