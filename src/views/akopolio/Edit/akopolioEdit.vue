@@ -2,6 +2,9 @@
   <div class="container">
     <!-- 헤더 -->
     <MainHeader />
+    <div class="back-button" @click="goBack">
+      <img src="@/assets/images/back.svg" alt="Back" class="arrow-left-icon" />
+    </div>
 
     <!-- 활동명과 활동일 -->
     <div class="activity-info">
@@ -353,5 +356,11 @@ input[type="file"] {
   width: 40px;       
   height: auto;         
 }
+
+.arrow-left-icon {
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
 
 </style>

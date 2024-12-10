@@ -175,6 +175,7 @@ input {
   font-weight: 300;
   justify-content: space-between;
   font-family: sans-serif;
+  max-width: 355px;
 }
 
 .tag-container div {
