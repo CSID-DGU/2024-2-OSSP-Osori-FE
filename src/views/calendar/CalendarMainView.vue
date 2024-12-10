@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import {
   DAY_LIST,
   currentDate,
@@ -27,6 +27,10 @@ onMounted(() => {
   currentDate.value = new Date()
   selectedDay.value = new Date().getDate()
   fetchAcademicEvents()
+})
+// 다른 페이지로 이동 시 바텀시트 닫기
+onUnmounted(() => {
+  isScheduleOpen.value = false
 })
 </script>
 
@@ -440,5 +444,44 @@ onMounted(() => {
   margin: 0 auto;
   z-index: 1000;
   box-sizing: border-box;
+}
+.close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.schedule-popup {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: calc(100vh - 150px);
+  width: 100%;
+  max-width: 395px;
+  margin: 0 auto;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.close-button {
+  position: absolute;
+  top: 0rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #666;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 </style>
