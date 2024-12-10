@@ -23,19 +23,25 @@
           <h2>분야 설정</h2>
           <span v-if="selectedTags.length">
             <span class="tag-badge" v-for="tag in selectedTags" :key="tag">
-              {{ tag }}
+              #{{ tag }}
             </span>
           </span>
+          <img 
+            :src="require('@/assets/images/downarr.svg')" 
+            alt="down arrow"
+            class="dropdown-arrow"
+          />
         </label>
 
         <div v-show="isDropdownOpen" class="tag-container">
-          <div 
-              v-for="tag in tags" 
-              :key="tag" 
-              @click="toggleTag(tag)" 
-              :class="{ active: selectedTags.includes(tag), 'tag-div': true }"
+          <div
+              v-for="tag in tags"
+              :key="tag"
+              @click="toggleTag(tag)"
+              :class="{ active: selectedTags.includes(tag) }"
+              class="tag-item"
             >
-              {{ tag }}
+              #{{ tag }}
             </div>
         </div>
       </div>
@@ -65,28 +71,26 @@
     </div>
 
     <div class="image-upload-container">
-      <h2>활동 이미지 업로드</h2>
-      <h3>최대 5장까지 가능해요!&nbsp;&nbsp;<span>{{ images.length }} / 5</span></h3>
-      <label for="file-upload" class="custom-file-upload">
-        <i class="fas fa-upload"></i> 파일 선택
-      </label>
-      <input type="file" id="file-upload" multiple @change="handleFileChange" accept="image/*" />
+      <div class="image-upload-title">
+        <h2>활동 관련 이미지</h2>
+        <h3>최대 5장까지 가능해요!&nbsp;&nbsp;<span>{{ images.length }} / 5</span></h3>
+      </div>
 
+      <input type="file" multiple @change="handleFileChange" accept="image/*" />
       <div class="image-preview-container" v-if="images.length">
         <div class="image-card" v-for="(image, index) in images" :key="index">
           <div class="image-preview-card">
-            <img 
-              v-if="image.previewUrl" 
-              :src="image.previewUrl" 
-              :alt="`Uploaded Image ${index + 1}`" 
-              class="image-preview"
-            />
+            <img :src="image.previewUrl" :alt="image.name" class="image-preview" />
             <div @click="removeImage(index)" class="delete-image-btn">X</div>
           </div>
         </div>
       </div>
     </div>
-
+      <label for="file-upload" class="custom-file-upload">
+        <img src="@/assets/images/imgup.svg" alt="Upload" class="upload-icon" />
+      </label>
+      <input type="file" id="file-upload" multiple @change="handleFileChange" accept="image/*" />
+    
     <div class="button-container">
       <div @click="() => saveData(activityId)" class="save-button">
         저장하기
@@ -100,12 +104,14 @@
 
 <style scoped>
 .container {
-  width: 395px;
-  max-width: 500px;
+  min-height: 110vh;
+  max-width: 395px;
+  width: 100%; 
   margin: 4rem auto;
-  padding: 20px;  
+  padding: 20px;
   background-color: #fae8da;
-  min-height: calc(100vh - 120px); /* 헤더와 푸터를 고려한 페이지 높이 조정 */
+  position: relative;
+  justify-content: space-between; 
   font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -113,33 +119,40 @@
   text-align: center;
 }
 
-.image-upload-container,
-.activity-info,
 .category-box,
 .experience-container,
 .pmi-container {
   margin-bottom: 20px;
 }
 
-.activity-name-container {
-  margin-bottom: 20px; 
-
-}
-
-
 input[type="text"],
-input[type="date"],
-textarea {
-  width: 100%;
+input[type="date"] {
+  width: 70%;
   padding: 10px;
-  margin-top: 5px;
   background-color: white;
-  border-radius: 5px;
+  border: transparent;
   resize: none;
   font-size: 13px;
 }
 
-.image-upload-container,
+textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: white;
+  border: transparent;
+  resize: none;
+  font-size: 13px;
+}
+
+input {
+  all: unset; /* 기본 스타일 초기화 */
+}
+
+
+textarea:focus {
+  outline: none; 
+}
+
 .star-box,
 .pmi-box {
   background-color: white;
@@ -147,37 +160,47 @@ textarea {
   border-radius: 10px;
 }
 
-.activity-info{
+.activity-name-container, 
+.activity-date-container {
   background-color: white;
   padding: 20px;
-  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 8px;
+  border-radius: 8px;
   display: flex;
-  flex-direction: column;
+  margin-bottom: 10px;
+  justify-content: space-between; 
+  align-items: center; 
 }
 
 .tag-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; 
   margin-top: 10px;
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 100;
 }
 
-.tag-div {
+.tag-item {
   display: inline-block;
-  margin: 3px;
-  padding: 5px 10px;
+  padding: 3px 8px;
   border-radius: 40px;
   background-color: white;
   transition: background-color 0.3s;
   border: 1px solid #eec092;
+  cursor: pointer;
+  margin: 2px;
+  font-size: 10px;
+  font-weight: lighter;
+  font-family: sans-serif;
 }
 
-.tag-div.active {
-  background-color: #f7c088;
+.tag-item.active {
+  background-color: #f6b87a;
 }
 
-.tag-div:hover {
-  background-color: #f7c088;
+.tag-item:hover {
+  background-color: #f6b87a; 
   cursor: pointer;
 }
 
@@ -198,9 +221,19 @@ textarea {
   margin-left: 10px;
   background-color: #f6b87a;
   color: black;
-  padding: 5px 10px;
+  padding: 4px 8px;
   border-radius: 20px;
-  font-size: 13px;
+  margin-top: 2px;
+  font-size: 10px;
+  font-weight: lighter;
+  font-family: sans-serif;
+}
+
+.dropdown-arrow {
+  width: 16px; 
+  height: auto;
+  margin-left: auto; 
+  margin-right: 13px;
 }
 
 .button-container {
@@ -210,7 +243,7 @@ textarea {
 
 .save-button {
   width: 160px;
-  margin-top: 20px;
+  margin-top: 50px;
   padding-left: 16px;  
   padding-right: 16px; 
   padding-top: 8px;    
@@ -230,76 +263,34 @@ textarea {
   cursor: pointer;
 }
 
-.experience-container h3,
-.pmi-container h3 {
-  font-size: 15px;
-  color: #ff7f00;
-  margin-bottom: 10px;
+h3 {
+  font-size: 15px; 
+  color: #FF7F00;
   margin-top: 10px;
-  white-space: nowrap;
-  padding: 0;
-}
-
-h3{
-  font-size: 15px;
-  color: #ff7f00;
-  margin: 0;
-  white-space: nowrap;
-  padding: 0;
   font-family: 'NanumSquareRound', sans-serif;
 }
 
 h2 {
-  font-size: 16px;
-  color: #ff7f00;
-  margin-bottom: 10px;
-  padding: 0;
+  margin: 0;
+  color: #FF7F00;
+  font-size: 17px;  
   font-family: 'NanumSquareRound', sans-serif;
 }
 
-.category-box h2{
-  margin: 0;
-}
-
-p {
-  margin:0;
-  font-size: 14px;
-  word-break: break-word;
-  padding: 0;
-}
-
-.experience-container p,
-.pmi-container p {
-  margin-bottom: 15px;
-}
-
-
 label {
   font-size: 15px;  
+  font-family: 'NanumSquareRound', sans-serif;
 }
-
-.delete-image-btn {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  color: black;
-  background: none; 
-  font-size: 15px; 
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-
-.delete-image-btn:hover {
-  color:#d9d9d9;  
-}
-
 
 .image-preview-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
   width: 100%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 8px;
 }
 
 .image-preview-card {
@@ -315,26 +306,52 @@ label {
   object-fit: contain; /* 이미지가 컨테이너 내에서 비율을 유지하면서 크기 조정 */
 }
 
+.delete-image-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: black;
+  border: none;
+  background: none; /* 배경색 제거 */
+  font-size: 16px; /* X 아이콘이 더 잘 보이도록 크기 조정 */
+  cursor: pointer;
+  transition: color 0.3s; /* 색상 전환 애니메이션 추가 */
+}
+
+
+.delete-image-btn:hover {
+  color: white; 
+}
+
+/* 기본 input[type="file"] 숨기기 */
 input[type="file"] {
   display: none;
 }
 
+.image-upload-title{
+  background-color: white;
+  padding-left: 20px;
+  padding-top: 12px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  margin-top: 40px;
+}
+
 .custom-file-upload {
-  background-color: #faf5f0; 
-  color: #f3ab62;
-  padding: 10px 128px; 
-  font-size: 13px;
-  border-radius: 5px; 
-  cursor: pointer; 
-  margin-top: 10px;
-  transition: background-color 0.3s ease; 
-  margin-bottom: 10px;
+  background-color: white;
+  padding: 60px;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;           
+  justify-content: center; 
+  align-items: center;  
+  cursor: pointer;
 }
 
-.custom-file-upload:hover {
-  background-color: #f5eadf; 
+.upload-icon {
+  width: 40px;       
+  height: auto;         
 }
-
 
 </style>
-
