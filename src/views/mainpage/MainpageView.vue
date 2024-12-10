@@ -318,7 +318,7 @@ onMounted(() => {
   color: #000000;
   font-family: 'NanumSquareRound', sans-serif;
   letter-spacing: 1px;
-  font-weight: bold;
+  font-weight: medium;
 }
 
 .ako-image-container .ako-image {
@@ -328,6 +328,6 @@ onMounted(() => {
 }
 
 .ako-status-icon {
-  margin-top: -10px;
+  margin-top: -20px;
 }
 </style>

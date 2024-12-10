@@ -250,17 +250,15 @@ const saveProfile = () => {
 }
 
 .logout-button {
-  padding: 8px 16px;
+  padding: 6px 12px;
   background-color: #ffc68d;
   color: #000000;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: medium;
   border-radius: 9999px;
   transition: background-color 0.3s;
-  box-shadow: inset 0 4px 4px 0 rgba(0, 0, 0, 0.1);
-  font-weight: 700;
-  height: 32px;
-  line-height: 20px;
+  height: 28px;
+  line-height: 16px;
 }
 
 .logout-button:hover {
@@ -281,14 +279,14 @@ const saveProfile = () => {
 .profile-title {
   margin-bottom: 16px;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: medium;
   font-family: 'NanumSquareRound', sans-serif;
 }
 
 .user-nickname {
   font-size: 28px; /* Increased from 24px */
   font-family: 'NanumSquareRound', sans-serif;
-  font-weight: bold; /* Added to make it stand out more */
+  font-weight: medium; /* Added to make it stand out more */
 }
 
 /* Updated goals section styles */
@@ -315,7 +313,7 @@ const saveProfile = () => {
   padding: 5px 15px;
   border-radius: 15px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: medium;
 }
 
 .goals-title {
@@ -350,7 +348,7 @@ const saveProfile = () => {
   justify-content: center;
   border-radius: 8px;
   font-size: 11px;
-  font-weight: bold;
+  font-weight: 100;
   margin-right: 12px;
 }
 
@@ -373,7 +371,7 @@ const saveProfile = () => {
 .section-title {
   margin-bottom: 8px;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: medium;
   font-family: 'NanumSquareRound', sans-serif;
 }
 
@@ -392,7 +390,7 @@ const saveProfile = () => {
 .form-label {
   display: block;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: medium;
   color: #4a4a4a;
   font-family: 'NanumSquareRound', sans-serif;
 }
@@ -430,7 +428,7 @@ const saveProfile = () => {
   background-color: #f6b87a;
   color: #000000;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: medium;
   border-radius: 9999px;
   transition: background-color 0.3s;
   height: 37.6px;
@@ -455,12 +453,68 @@ const saveProfile = () => {
   background-color: #f6b87a;
   color: #000000;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: medium;
   border-radius: 9999px;
   transition: background-color 0.3s;
 }
 
 .save-button:hover {
   background-color: #e5a769;
+}
+.goals-container {
+  background-color: white;
+  border-radius: 12px; /* 덜 둥글게 */
+  padding: 16px;
+  margin: 24px -12px; /* 가로로 넓히기 */
+  position: relative;
+}
+
+.goal-date {
+  width: 34px;
+  height: 34px;
+  margin-right: 12px; /* 좌우 간격 늘리기 */
+  font-size: 10px;
+  background-color: #ff7f00;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.goal-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.goals-title,
+.expand-button {
+  position: absolute;
+  top: -8px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.goals-title {
+  left: 20px; /* 왼쪽 여백 증가 */
+}
+
+.expand-button {
+  right: 20px; /* 오른쪽 여백 증가 */
+}
+
+.goal-content {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.goals-list {
+  margin-top: 10px;
 }
 </style>

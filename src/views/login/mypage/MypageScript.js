@@ -156,11 +156,11 @@ export async function updateProfile(profileData) {
       throw new Error('프로필 수정 실패')
     }
     const data = await response.json()
-    alert('프로필이 수정되었습니다.')
     Object.assign(user, profileData)
     return data
   } catch (error) {
     console.error('프로필 수정 오류:', error)
-    throw error
+  } finally {
+    alert('프로필이 수정되었습니다.')
   }
 }
