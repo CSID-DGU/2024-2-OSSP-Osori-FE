@@ -229,8 +229,8 @@ export default {
   background: #ff7f00;
   color: #fff;
   text-align: center;
-  font-family: 'NaB';
-  font-size: 11px;
+  font-family: 'NaR';
+  font-size: 14px;
   width: 74px;
   display: flex;
   align-items: center;
@@ -255,6 +255,7 @@ export default {
 
 .comment-list {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 5px;
   margin-bottom: 5px;
@@ -284,7 +285,7 @@ export default {
 
 .nick {
   font-family: 'NaB';
-  font-size: 15px;
+  font-size: 14px;
   color: #FF7F00;
   font-style: normal;
   font-weight: 300;
@@ -337,7 +338,7 @@ export default {
   background-color: transparent;
   border-radius: 0;
   font-family: 'NaL';
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 4px;
 }
 
