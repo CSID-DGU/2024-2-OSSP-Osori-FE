@@ -25,7 +25,7 @@
             v-model="comments[goal.goalId].content"
             placeholder="댓글 입력"
           />
-          <div class="'btn2'" @click="submitComment(goal.goalId)">
+          <div class="btn2" @click="submitComment(goal.goalId)">
             <img src="../../../assets/images/add.svg" />
           </div>
         </div>
@@ -167,8 +167,8 @@ export default {
   background: #ff7f00;
   color: #fff;
   text-align: center;
-  font-family: 'NaB';
-  font-size: 11px;
+  font-family: 'NaR';
+  font-size: 14px;
   width: 54px;
   display: flex;
   align-items: center;
@@ -239,7 +239,7 @@ export default {
 
 .nick {
   font-family: 'NaB';
-  font-size: 15px;
+  font-size: 14px;
   color: #FF7F00;
   font-style: normal;
   font-weight: 300;
@@ -287,7 +287,7 @@ export default {
   background-color: transparent;
   border-radius: 0;
   font-family: 'NaL';
-  font-size: 16px;
+  font-size: 14px;
   margin-left: 4px;
 }
 
