@@ -144,6 +144,15 @@ textarea {
   font-size: 13px;
 }
 
+input {
+  all: unset; /* 기본 스타일 초기화 */
+}
+
+
+textarea:focus {
+  outline: none; 
+}
+
 .star-box,
 .pmi-box {
   background-color: white;
