@@ -2,7 +2,9 @@
   <div class="container">
     <!-- Header -->
     <MainHeader />
-
+    <div class="back-button" @click="goBack">
+      <img src="@/assets/images/back.svg" alt="Back" class="arrow-left-icon" />
+    </div>
     <!-- Activity Name and Date -->
     <div class="activity-info">
       <div class="activity-name-container">
@@ -389,6 +391,11 @@ input[type="file"] {
 .upload-icon {
   width: 40px;       
   height: auto;         
+}
+
+.arrow-left-icon {
+  cursor: pointer;
+  margin-bottom: 20px;
 }
 
 </style>
