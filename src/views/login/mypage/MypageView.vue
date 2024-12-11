@@ -527,11 +527,13 @@ const saveProfile = () => {
 }
 
 .goals-title {
-  left: 20px; /* 왼쪽 여백 증가 */
+  font-size: 14px;
+  /* 왼쪽 여백 증가 */
 }
 
 .expand-button {
-  right: 20px; /* 오른쪽 여백 증가 */
+  font-size: 14px;
+  /* 오른쪽 여백 증가 */
 }
 
 .goal-content {
