@@ -277,41 +277,41 @@ onMounted(() => {
 }
 
 .task-container {
-  margin-top: -70px;
-  margin-bottom: 3rem;
+  margin-top: -50px;
+  margin-bottom: 2.5rem;
   display: flex;
-
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.625rem;
 }
 
 .task-container .task-row {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.625rem;
   width: 100%;
   justify-content: center;
-  max-width: 290px;
+  max-width: 300px;
 }
 
 .task-container .task-row .task {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 0 0 45%;
-  height: 36px;
-  padding: 0 0.75rem;
+  flex: 0 0 47%;
+  height: 41px;
+  padding: 0 0.875rem;
   background-color: white;
-  border-radius: 17px;
-  max-width: 130px;
+  border-radius: 20px;
+  max-width: 140px;
 }
 
 .task-container .task-row .task span {
-  font-size: 0.875rem;
+  font-size: 0.96rem;
   font-family: 'NaR', sans-serif;
   color: var(--task-color, #b3b3b3);
   margin: 0;
-  padding: 0;
+  padding: 0.125rem 0;
+  letter-spacing: 0.01em;
 }
 
 .task-container .task-row .task img {
@@ -342,7 +342,7 @@ onMounted(() => {
 }
 
 .ako-image-container .ako-status-text {
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: #000000;
   font-family: 'UhBeeSe_hyun', sans-serif;
   letter-spacing: 0.5px;
@@ -351,7 +351,7 @@ onMounted(() => {
 
 .ako-image-container .ako-image {
   width: 256px;
-  height: 200px;
+  height: 247px;
   margin: 0 auto;
 }
 
