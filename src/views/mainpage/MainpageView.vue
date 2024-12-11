@@ -345,7 +345,7 @@ onMounted(() => {
   font-size: 1rem;
   color: #000000;
   font-family: 'UhBeeSe_hyun', sans-serif;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   font-weight: medium;
 }
 
