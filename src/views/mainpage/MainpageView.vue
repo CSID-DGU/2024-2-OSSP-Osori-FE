@@ -40,7 +40,7 @@
         <!-- 할 일 표시 -->
         <div
           class="task-container"
-          style="font-family: 'NaR'; letter-spacing: 0.4px"
+          style="font-family: 'NaR'; letter-spacing: 0.5px"
         >
           <div class="task-row">
             <div
@@ -223,7 +223,7 @@ onMounted(() => {
 .page-container {
   min-height: 100vh;
   background-color: #fff9f2;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR', sans-serif;
   display: flex;
   justify-content: center;
   overflow-x: hidden;
@@ -243,7 +243,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   padding: 6rem 1.5rem 6rem;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR', sans-serif;
 }
 
 .main-content .title {
@@ -303,12 +303,12 @@ onMounted(() => {
   padding: 0 0.75rem;
   background-color: white;
   border-radius: 17px;
-  max-width: 120px;
+  max-width: 140px;
 }
 
 .task-container .task-row .task span {
   font-size: 0.875rem;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR', sans-serif;
   color: var(--task-color, #b3b3b3);
   margin: 0;
   padding: 0;
@@ -344,7 +344,7 @@ onMounted(() => {
 .ako-image-container .ako-status-text {
   font-size: 1rem;
   color: #000000;
-  font-family: 'NanumSquareRound', sans-serif;
+  font-family: 'NaR', sans-serif;
   letter-spacing: 1px;
   font-weight: medium;
 }
