@@ -40,7 +40,7 @@
         <!-- 할 일 표시 -->
         <div
           class="task-container"
-          style="font-family: 'NaR'; letter-spacing: 0.5px"
+          style="font-family: 'NaR'; letter-spacing: 0.2px"
         >
           <div class="task-row">
             <div
@@ -303,7 +303,7 @@ onMounted(() => {
   padding: 0 0.75rem;
   background-color: white;
   border-radius: 17px;
-  max-width: 140px;
+  max-width: 130px;
 }
 
 .task-container .task-row .task span {
@@ -344,7 +344,7 @@ onMounted(() => {
 .ako-image-container .ako-status-text {
   font-size: 1rem;
   color: #000000;
-  font-family: 'NaR', sans-serif;
+  font-family: 'UhBeeSe_hyun', sans-serif;
   letter-spacing: 1px;
   font-weight: medium;
 }
@@ -356,6 +356,6 @@ onMounted(() => {
 }
 
 .ako-status-icon {
-  margin-top: -20px;
+  margin-top: -10px;
 }
 </style>
