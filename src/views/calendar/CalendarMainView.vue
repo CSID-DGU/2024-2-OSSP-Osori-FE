@@ -463,9 +463,9 @@ onUnmounted(() => {
   right: 0;
   background-color: #ffffff;
   border-radius: 1.5rem 1.5rem 0 0;
-  padding: 1.5rem;
+  padding: 2rem 1.5rem 1.5rem; /* padding-top 값을 2rem으로 설정 */
   overflow-y: auto;
-  max-height: calc(100vh - 150px);
+  max-height: calc(100vh - 120px);
   width: 100%;
   max-width: 395px;
   margin: 0 auto;
