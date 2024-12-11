@@ -352,7 +352,7 @@ onUnmounted(() => {
   background-color: #ff7f00;
   color: white;
   padding: 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: 0.65rem;
   font-weight: bold;
   font-size: 0.875rem;
   width: 2rem;
@@ -360,7 +360,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1.25rem; /* Updated margin-right value */
+  margin-right: 1.25rem;
   flex-shrink: 0;
 }
 
@@ -371,6 +371,7 @@ onUnmounted(() => {
 .event-title {
   font-weight: bold;
   margin-bottom: 0.25rem;
+  font-size: 0.9rem;
 }
 
 .event-date {
