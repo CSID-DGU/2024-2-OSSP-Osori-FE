@@ -45,7 +45,7 @@
               </button>
             </div>
             <p v-if="!isEmailValid && email !== ''" class="error-message">
-              반드시 @dgu.ac.kr 이메일을 사용해야 합니다.
+              반드시 동국대 이메일을 사용해야 합니다.
             </p>
           </div>
 
