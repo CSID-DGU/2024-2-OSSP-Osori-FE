@@ -277,18 +277,20 @@ onMounted(() => {
 }
 
 .task-container {
-  margin-top: -80px;
+  margin-top: -70px;
   margin-bottom: 3rem;
   display: flex;
+
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .task-container .task-row {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.5rem;
   width: 100%;
+  justify-content: center;
   max-width: 290px;
 }
 
@@ -296,22 +298,26 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 1;
-  height: 40px;
-  padding: 0 1rem;
+  flex: 0 0 45%;
+  height: 36px;
+  padding: 0 0.75rem;
   background-color: white;
   border-radius: 17px;
+  max-width: 120px;
 }
 
 .task-container .task-row .task span {
   font-size: 0.875rem;
   font-family: 'NanumSquareRound', sans-serif;
   color: var(--task-color, #b3b3b3);
+  margin: 0;
+  padding: 0;
 }
 
 .task-container .task-row .task img {
   width: 20px;
   height: 20px;
+  justify-content: center;
   filter: var(--task-filter, grayscale(100%));
 }
 
@@ -336,7 +342,7 @@ onMounted(() => {
 }
 
 .ako-image-container .ako-status-text {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #000000;
   font-family: 'NanumSquareRound', sans-serif;
   letter-spacing: 1px;
@@ -345,7 +351,7 @@ onMounted(() => {
 
 .ako-image-container .ako-image {
   width: 256px;
-  height: 256px;
+  height: 200px;
   margin: 0 auto;
 }
 
