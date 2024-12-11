@@ -255,10 +255,10 @@ const saveProfile = () => {
 }
 
 .logout-button {
-  padding: 6px 12px;
+  padding: 4px 10px;
   background-color: #ffc68d;
   color: #000000;
-  font-size: 12px;
+  font-size: 11px;
   border-radius: 9999px;
   transition: background-color 0.3s;
   height: 28px;
@@ -355,6 +355,11 @@ const saveProfile = () => {
   font-weight: 100;
   margin-right: 12px;
 } */
+
+.goal-date{
+  min-width: 35px;
+  min-height: 35px;
+}
 
 .goal-content {
   flex-grow: 1;

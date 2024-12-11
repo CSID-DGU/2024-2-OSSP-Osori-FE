@@ -33,11 +33,6 @@
             #{{ tag }}
           </span>
         </div>
-        <img 
-            :src="require('@/assets/images/downarr.svg')" 
-            alt="down arrow"
-            class="dropdown-arrow"
-          />
       </div>
   
 
@@ -165,10 +160,6 @@
   margin-bottom: 20px;
 }
 
-.category-box{
-  margin-top: 40px;
-}
-
 .activity-date,
 .category-box,
 .activity-box {
@@ -281,10 +272,6 @@ p {
   width: 15px; 
   height: auto;
   vertical-align: middle; 
-}
-
-.arrow-left-icon {
-  cursor: pointer;
 }
 
 </style>
