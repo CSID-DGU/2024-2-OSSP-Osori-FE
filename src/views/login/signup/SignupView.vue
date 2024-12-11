@@ -3,11 +3,7 @@
     <!-- 모바일 영역 -->
     <div class="mobile-container" style="font-family: NaB, sans-serif">
       <!-- 상단바 -->
-      <header class="header">
-        <div class="header-content">
-          <img src="@/assets/images/Akoming.svg" alt="로고" class="logo" />
-        </div>
-      </header>
+      <MainHeader />
       <button @click="$router.push('/auth/login')" class="back-button">
         <img
           src="@/assets/Icons/akoming/arrow-left.png"

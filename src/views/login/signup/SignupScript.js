@@ -2,6 +2,9 @@ import MainHeader from '@/components/layout/Header.vue'
 
 // SignupScript.js
 export default {
+  components: {
+    MainHeader
+  },
   data() {
     return {
       email: '',
