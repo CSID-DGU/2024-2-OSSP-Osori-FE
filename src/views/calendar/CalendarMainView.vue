@@ -360,8 +360,10 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1.25rem;
+  margin-right: 1.25rem; /* 기존 오른쪽 여백 */
+  margin-left: 1rem; /* 왼쪽 여백 추가로 오른쪽으로 이동 */
   flex-shrink: 0;
+  position: relative; /* 위치 조정 가능 */
 }
 
 .event-info {
@@ -464,7 +466,7 @@ onUnmounted(() => {
   right: 0;
   background-color: #ffffff;
   border-radius: 1.5rem 1.5rem 0 0;
-  padding: 2rem 1.5rem 1.5rem; /* padding-top 값을 2rem으로 설정 */
+  padding: 2.5rem 1.5rem 1.5rem; /* padding-top 값을 2.5rem으로 조정하여 상단 여백 추가 */
   overflow-y: auto;
   max-height: calc(100vh - 120px);
   width: 100%;
@@ -476,8 +478,8 @@ onUnmounted(() => {
 
 .close-button {
   position: absolute;
-  top: 0rem;
-  right: 1rem;
+  top: 0.5rem; /* 기존보다 위로 이동 */
+  right: 1.5rem; /* 오른쪽 위치 유지 */
   background: none;
   border: none;
   font-size: 1.75rem;
