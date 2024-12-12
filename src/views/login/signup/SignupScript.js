@@ -21,7 +21,8 @@ export default {
   },
   methods: {
     validateEmail() {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@dgu\.ac\.kr$/
+      const emailRegex =
+        /^[a-zA-Z0-9._%+-]+@(dgu\.ac\.kr|dongguk\.edu|dgu\.edu)$/
       this.isEmailValid = emailRegex.test(this.email)
       this.updateSubmitStatus()
     },
