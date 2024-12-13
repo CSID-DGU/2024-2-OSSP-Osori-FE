@@ -92,8 +92,15 @@
   &nbsp;&nbsp;&nbsp;![Blank diagram](https://github.com/user-attachments/assets/65e85db8-54e2-441d-a143-758e20f9b09b)
 
     #### 2️⃣ 시퀀스 다이어그램
-  
- &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;![image01](https://github.com/user-attachments/assets/7f0c37e1-d403-4241-bbc7-904487b112df)
+ &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+| 로그인 및 회원가입 | 메인페이지 | 마이페이지 및 캘린더 |
+|--------|--------|--------|
+| ![image06](https://github.com/user-attachments/assets/ca98c6ff-39a8-4d6b-bde0-a39498f5a25e) | ![image03](https://github.com/user-attachments/assets/89c1dfe9-0359-41f5-8613-4d234f83d272) | ![image02](https://github.com/user-attachments/assets/ea00447c-a89a-4288-a3c7-58b9e1149447) |
+
+| 아코폴리오 | 아코피드 |
+|--------|--------|
+| ![image04](https://github.com/user-attachments/assets/6cec5511-e628-4404-b5fa-34d486139494) | ![image05](https://github.com/user-attachments/assets/772ed957-d515-4746-9d37-55ccb44a85eb) |
+
 
 - ### 🗄 ERD
   ![osori](https://github.com/user-attachments/assets/d90a2ae9-aac0-4ba0-92bf-fd08abee8d4b)
