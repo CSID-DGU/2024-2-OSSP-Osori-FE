@@ -87,7 +87,6 @@
  
 
 - ### 🧩 다이어그램
-   아키텍처 다이어그램, 서비스 흐름, 데이터 흐름 등을 그림으로 표현합니다.
     #### 1️⃣ 아키텍처 다이어그램
   &nbsp;&nbsp;&nbsp;![Blank diagram](https://github.com/user-attachments/assets/65e85db8-54e2-441d-a143-758e20f9b09b)
 
@@ -106,8 +105,10 @@
   ![osori](https://github.com/user-attachments/assets/d90a2ae9-aac0-4ba0-92bf-fd08abee8d4b)
 
 
-- ### 📑 API 명세서 일부
- &nbsp;&nbsp;&nbsp;&nbsp;![1](https://github.com/user-attachments/assets/21191f05-1f77-4c98-878c-f3b5ddaa6f99)
+- ### 📑 API 명세서
+ &nbsp;&nbsp;&nbsp;&nbsp;![ghfghf](https://github.com/user-attachments/assets/5db39ffa-9577-4233-a158-d5b1d84bc297)
+
+
 
 
 <br>
@@ -124,19 +125,20 @@
 ![기대효과](https://github.com/user-attachments/assets/dd9ea712-bff6-49e6-8082-1051c6cc64ee)
 
 
-> 서비스의 기대효과 및 사용자가 얻을 수 있는 가치를 설명합니다.
+
 
 <br>
 
 ## 🛠 기술 스택
 
-| **분야**      | **기술 스택**                                                                                                                                                                                                                                                                                                                             |
-|---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Frontend**  | <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"> <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"> |
-| **Backend**   | <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/Redis-FF4438?style=flat-square&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black"> |
-| **Database**  | <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white">                                                                                                                                                                                                                                        |
-| **DevOps**    | <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white"> <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white">                                                                                                                       |
+| **분야**      | **기술 스택**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Frontend**  | <img src="https://img.shields.io/badge/Vue.js-4FC08D?style=flat-square&logo=Vue.js&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white"> <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"> |
+| **Backend**   | <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=java&logoColor=white"> <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=spring&logoColor=white"> <img src="https://img.shields.io/badge/Redis-FF4438?style=flat-square&logo=redis&logoColor=white"> <img src="https://img.shields.io/badge/Swagger-85EA2D?style=flat-square&logo=swagger&logoColor=black">                                                  |
+| **Database**  | <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white"> <img src="https://img.shields.io/badge/DBeaver-3776AB?style=flat-square&logo=dbeaver&logoColor=white">                                                                                                                                                                                                                                                                     |
+| **DevOps**    | <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white"> <img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white">                                                                                                                                                                                                                                                            |
 | **Tools**     | <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white"> <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=github&logoColor=white"> <img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white"> |
+
 
 
 <br>
