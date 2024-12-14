@@ -157,8 +157,10 @@
 
 | 로딩화면 및 로그인 | 회원가입 및 이메일 인증 | 메인페이지 |  마이페이지 |
 |-------|-------|-------|-------|
-| ![_2024_12_14_20_55_58_372-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/787f10dd-3299-4690-967a-07d422c0d757) | ![_2024_12_14_20_58_59_621-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/5802e8ac-6ece-4818-bfc1-22bac4e040d3) | ![_2024_12_14_20_59_56_194-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/de69ce4c-9df0-45d7-9086-56b8cf61c2e7) | ![_2024_12_14_21_00_10_210-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/0d7eb7a5-464d-490e-98a8-f2075d1c43ce) |
+| ![_2024_12_14_20_55_58_372-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/787f10dd-3299-4690-967a-07d422c0d757) |![_2024_12_14_20_58_59_621-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/06145b47-4801-4c33-84d6-cacea18344db) | ![_2024_12_14_20_59_56_194-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/d8ee8d8f-9222-4f8d-8608-172d634a4932) | ![_2024_12_14_21_00_10_210-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/180e3619-f197-4ced-9bae-63d90a8a885a) |
 
+
+ 
 #### 1. 회원가입 및 로그인
 - 회원가입 및 로그인: 이메일을 통해 회원가입 및 로그인을 한다. 비밀번호는 암호화를 하여 데이터베이스에 저장한다.
 - 동국대학교 학생 인증: 회원 가입 시, `동국대학교 이메일`을 통해서만 가입이 가능하며, 해당 이메일로 인증 번호를 전송하고 확인하는 절차를 거친다.
@@ -171,7 +173,11 @@
 
 | 캘린더 | 아코피드 메인 | 아코자국 작성 | 아코자국 수정 |
 |-------|-------|-------|-------|
-| ![_2024_12_14_21_01_00_635--ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/7f54d6c4-474c-4147-a4fb-d026f6c6d0f9) | ![_2024_12_14_21_02_26_520-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/f885e6f4-e5e1-4a53-bcb1-3f561bc7c7ba) | ![_2024_12_14_21_04_28_660-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/93a883a2-d570-4f88-b1f2-11dd15d5932e) | ![_2024_12_14_21_05_29_398-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3cfa2e25-3685-4901-878d-3d5df884cb32) | 
+| ![_2024_12_14_21_01_00_635--ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/760bdf70-1065-442e-8660-e9d6bc49dba9) | ![_2024_12_14_21_02_26_520-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/0ee974b0-28a6-4cd8-87a6-d88ec63c2cf7) | ![_2024_12_14_21_04_28_660-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/2e31172c-4705-495e-b83a-18075b74038d) | ![_2024_12_14_21_05_29_398-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/ef54fced-73f4-4887-87e9-8c947de84bf2) | 
+
+
+
+
 #### 3. 캘린더
 - 학사 일정: 학사 일정을 동국대학교 홈페이지에 접속하지 않고, 아코밍 내에서 연/월을 기준으로 쉽게 확인할 수 있다. 
 
@@ -184,7 +190,13 @@
 
 | 아코폴리오 메인 | 아코폴리오 작성 | 아코폴리오 수정 | 퀘스트 완료 후 스탬프 획득 |
 |-------|-------|-------|-------|
-| ![_2024_12_14_21_06_11_586-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/1de7f30d-11a8-4d7b-8b4b-93e8acde8aca) | ![_2024_12_14_21_09_31_240-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/509969a5-0a0c-47e3-abb2-af2cc716ae0d) | ![_2024_12_14_21_07_31_299-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/851d7b9c-c568-4b54-933c-e6ceb00b19c9) | ![_2024_12_14_21_10_18_810-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/02432bf4-0210-46f5-ad18-647dc127b30a) | 
+| ![_2024_12_14_21_06_11_586-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/904aa979-4b38-4f7c-96fb-f83c384c10af) | ![_2024_12_14_21_09_31_240-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/12f3db5a-3c06-4d1c-95eb-7a1e9a27d374) | ![_2024_12_14_21_07_31_299-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/3e14f421-5287-478d-93d1-7d92b1a5c84e) | ![_2024_12_14_21_10_18_810-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/1a2eb1a3-770f-412a-9f8a-349abb6e7de2)
+
+
+
+
+
+
 
 #### 5. 아코폴리오
 - ’`아코폴리오`’는 매일 꾸준히 작성하는 아코의 포트폴리오이다. 
