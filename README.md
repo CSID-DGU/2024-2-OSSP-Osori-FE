@@ -153,9 +153,10 @@
 
 ## 🚀 서비스 구현 결과
 
-| 로딩화면 | 로그인 | 회원가입 |  마이페이지 |  마이페이지 |
-|-------|-------|-------|-------|-------|
-| <img src="https://github.com/user-attachments/assets/3fb85268-a0bf-4ade-8e1f-7f097a0122a3" width="200"/> | <img src="https://github.com/user-attachments/assets/6aa4dce2-4c90-4ee0-b0db-b8a24d9a220f" width="200"/> | <img src="https://github.com/user-attachments/assets/fec641e0-4212-4f06-877f-f2b941e799f6" width="200"/> | <img src="https://github.com/user-attachments/assets/9de21aba-2649-4908-9f07-075f50e3d1e6" width="200"/> | <img src="https://github.com/user-attachments/assets/9de21aba-2649-4908-9f07-075f50e3d1e6" width="200"/> |
+| 로딩화면 및 로그인 | 회원가입 및 이메일 인증 | 메인페이지 |  마이페이지 |
+|-------|-------|-------|-------|
+| 로딩화면 및 로그인 | 회원가입 및 이메일 인증 | 메인페이지 |  마이페이지 |
+| ![_2024_12_14_20_55_58_372-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/787f10dd-3299-4690-967a-07d422c0d757) | ![_2024_12_14_20_58_59_621-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/5802e8ac-6ece-4818-bfc1-22bac4e040d3) | ![_2024_12_14_20_59_56_194-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/de69ce4c-9df0-45d7-9086-56b8cf61c2e7) | ![_2024_12_14_21_00_10_210-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/0d7eb7a5-464d-490e-98a8-f2075d1c43ce) |
 
 #### 1. 회원가입 및 로그인
 - 회원가입 및 로그인: 이메일을 통해 회원가입 및 로그인을 한다. 비밀번호는 암호화를 하여 데이터베이스에 저장한다.
@@ -164,9 +165,17 @@
 
 
 
-| 메인페이지 | 캘린더 | 아코폴리오 | 아코피드 |
+| 캘린더 | 아코피드 메인 | 아코자국 작성 | 아코자국 수정 |
 |-------|-------|-------|-------|
-| <img src="https://github.com/user-attachments/assets/583b26c9-8526-487c-8675-9d61f1aa15c5" width="200"/> | <img src="https://github.com/user-attachments/assets/223f9d9c-1cae-4aba-a4f0-185807528b72" width="200"/> | <img src="https://github.com/user-attachments/assets/path-to-image1" width="200"/> | <img src="https://github.com/user-attachments/assets/path-to-image2" width="200"/> | <img src="https://github.com/user-attachments/assets/path-to-image3" width="200"/> |
+| 캘린더 | 아코피드 메인 | 아코자국 작성 | 아코자국 수정 |
+| ![_2024_12_14_21_01_00_635--ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/7f54d6c4-474c-4147-a4fb-d026f6c6d0f9) | ![_2024_12_14_21_02_26_520-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/f885e6f4-e5e1-4a53-bcb1-3f561bc7c7ba) | ![_2024_12_14_21_04_28_660-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/93a883a2-d570-4f88-b1f2-11dd15d5932e) | ![_2024_12_14_21_05_29_398-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/3cfa2e25-3685-4901-878d-3d5df884cb32) | 
+
+<br>
+
+| 아코폴리오 메인 | 아코폴리오 작성 | 퀘스트 완료 후 스탬프 획득 |  |
+|-------|-------|-------|-------|
+| 캘린더 | 아코피드 메인 | 아코자국 작성 | 아코자국 수정 |
+| ![_2024_12_14_21_06_11_586-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/1de7f30d-11a8-4d7b-8b4b-93e8acde8aca) | ![_2024_12_14_21_09_31_240-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/509969a5-0a0c-47e3-abb2-af2cc716ae0d) | ![_2024_12_14_21_07_31_299-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/851d7b9c-c568-4b54-933c-e6ceb00b19c9) | ![_2024_12_14_21_10_18_810-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/02432bf4-0210-46f5-ad18-647dc127b30a) | 
 
 #### 2. 메인페이지 (퀘스트, 스탬프)
 - 퀘스트는 사용자의 기능 이용을 유도하기 위한 장치이다. 하루의 퀘스트를 모두 완료하면 하나의 스탬프를 얻을 수 있다. 
