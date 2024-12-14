@@ -238,7 +238,7 @@
 
 
 
-[![Website](https://img.shields.io/badge/Akoming-Osori-orange?style=for-the-badge&logo=googlegemini)](www.osori.store)
+[![Website](https://img.shields.io/badge/Akoming-Osori-orange?style=for-the-badge&logo=googlegemini)]([www.osori.store](https://www.osori.store/#/auth/login))
 
 
 <br>
