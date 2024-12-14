@@ -188,7 +188,7 @@
   - 최대 50글자로 작성 가능하며 오늘의 날짜가 상단에 뜬다.
 <br>
 
-| 아코폴리오 메인 | 아코폴리오 작성 | 아코폴리오 수정 | 퀘스트 완료 후 스탬프 획득 |
+| 아코폴리오 메인 | 아코폴리오 작성 | 아코폴리오 수정 | 퀘스트 완료 후<br>스탬프 획득 |
 |-------|-------|-------|-------|
 | ![_2024_12_14_21_06_11_586-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/904aa979-4b38-4f7c-96fb-f83c384c10af) | ![_2024_12_14_21_09_31_240-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/12f3db5a-3c06-4d1c-95eb-7a1e9a27d374) | ![_2024_12_14_21_07_31_299-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/3e14f421-5287-478d-93d1-7d92b1a5c84e) | ![_2024_12_14_21_10_18_810-ezgif com-video-to-gif-converter (1)](https://github.com/user-attachments/assets/1a2eb1a3-770f-412a-9f8a-349abb6e7de2)
 
